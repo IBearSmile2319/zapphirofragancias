@@ -1,0 +1,33 @@
+{
+  "name": "zapphirofragancias",
+  "version": "1.0.0",
+  "description": "Mutilevel",
+  "main": "index.js",
+  "workspaces": {
+    "packages": [
+      "web",
+      "api"
+    ]
+  },
+  "scripts": {
+    "api-dev": "cd ./api && npm run dev",
+    "api-start": "cd ./api && npm run start",
+    "web-dev": "cd ./web && npm run dev",
+    "web-build": "cd ./web && npm run build",
+    "full-dev": "concurrently \"npm run api-dev\" \"npm run web-dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IBearSmile2319/zapphirofragancias.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IBearSmile2319/zapphirofragancias/issues"
+  },
+  "homepage": "https://github.com/IBearSmile2319/zapphirofragancias#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
