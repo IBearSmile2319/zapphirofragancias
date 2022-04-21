@@ -1,8 +1,8 @@
 const { Schema, model } = require("mongoose");
 
-const productSchema = new Schema(
+const imageSchema = new Schema(
   {
-    URL: {
+    url: {
       type: String,
       required: true,
     },
@@ -17,4 +17,4 @@ const productSchema = new Schema(
   }
 );
 
-module.exports = model("Image", productSchema);
+module.exports = model("Image", imageSchema);
