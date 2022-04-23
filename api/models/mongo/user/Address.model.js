@@ -1,13 +1,25 @@
 const { Schema, model } = require('mongoose');
 
 const addressSchema = new Schema({
+    name: {
+        type: String,
+    },
+    phone: {
+        type: String,
+    },
+    alternatePhone: {
+        type: String,
+    },
+    zipCode: {
+        type: String,
+
+    },
     street: {
         type: String,
         required: true,
     },
     number: {
         type: String,
-        required: true,
     },
     neighborhood: {
         type: String,
@@ -25,43 +37,29 @@ const addressSchema = new Schema({
         type: String,
         required: true,
     },
-    zipCode: {
-        type: String,
-        required: true,
-    },
     reference: {
         type: String,
     },
     latitude: {
         type: String,
-        required: true,
+
     },
     longitude: {
-        type: String,
-        required: true,
-    },
-    phone: {
         type: String,
     },
     type: {
         type: String,
-        required: true,
-    },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
     },
     status: {
         type: Boolean,
         default: true,
     },
+});
+const userAddressSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    address: [addressSchema],
 }, {
     timestamps: true
 });
-
-module.exports = model('Address', addressSchema);
+model('Address', addressSchema);
+module.exports = model('userAddress', userAddressSchema);

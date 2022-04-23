@@ -33,6 +33,7 @@ const userSchema = new Schema({
     },
     phone: {
         type: String,
+        required: true,
     },
     points: {
         type: Number,
@@ -40,14 +41,13 @@ const userSchema = new Schema({
     },
     status: {
         type: Boolean,
-        default: true
+        default: false
     },
     online: {
         type: Boolean,
         default: false
     },
-    range: { type: Schema.Types.ObjectId, ref: 'Range'},
-    address: { type: Schema.Types.ObjectId, ref: 'Address' },
+    range: { type: Schema.Types.ObjectId, ref: 'Range' },
     promotion: { type: Schema.Types.ObjectId, ref: 'User' },
     afiliates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 }, {
