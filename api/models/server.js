@@ -1,5 +1,7 @@
 // Servidor de Express
 const express = require('express')
+// body-parser
+const bodyParser = require('body-parser')
 
 // Servidor de sockets
 const http = require('http')
@@ -34,15 +36,18 @@ class Server {
 
     }
     middlewares() {
+        // body-parser
+        this.app.use(bodyParser.json())
+        this.app.use(bodyParser.urlencoded({ extended: false }))
         // Habilitar cors
         this.app.use(cors({
             origin: [
                 'http://localhost:3000',
             ],
-            credentials: true
         }))
         // Api EndPoints
-        // this.app.use('/api', require('../routes/leaderboard.routes'))
+        this.app.use('/api', require('../routes/user.routes'))
+
         // Desplegar el directiorio publico
         if (process.env.NODE_ENV === 'production') {
             this.app.use(express.static(path.join(__dirname, '../../web/dist')))
