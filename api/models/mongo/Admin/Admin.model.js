@@ -37,4 +37,4 @@ userSchema.methods.toJSON = function () {
     return object
 }
 
-module.exports = model('admin', adminSchema);
+module.exports = model('Admin', adminSchema);
