@@ -12,6 +12,14 @@ const rangeSchema = new Schema({
     icon: {
         type: String,
         required: true
+    },
+    position: {
+        type: Number,
+        unique: true
+    },
+    price: {
+        type: Number,
+        default: 150
     }
 }, {
     timestamps: true
