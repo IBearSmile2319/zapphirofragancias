@@ -14,12 +14,12 @@ const orderSchema = new Schema({
         }
     ],
     total: { type: Number, default: 0 },
-    payment: { type: Schema.Types.ObjectId, ref: 'Payment' },
+    payment: { type: Schema.Types.ObjectId, ref: 'userPayment.payment' },
     orderStatus: [
         {
             status: {
                 type: String,
-                default: "Pendiente configuración",
+                default: "Pendiente confirmación",
                 // enum: ["pendiente","confirmado para envio","enviado", "entregado", "cancelado", "reembolso"] 
             },
             date: { type: Date, default: Date.now },
