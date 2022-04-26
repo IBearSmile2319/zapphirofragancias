@@ -47,6 +47,7 @@ class Server {
         }))
         // Api EndPoints
         this.app.use('/api', require('../routes/user.routes'))
+        this.app.use('/api/admin', require('../routes/admin.routes'))
 
         // Desplegar el directiorio publico
         if (process.env.NODE_ENV === 'production') {
