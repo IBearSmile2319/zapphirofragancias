@@ -31,10 +31,11 @@ const adminSchema = new Schema({
     timestamps: true
 });
 
-userSchema.methods.toJSON = function () {
+//revisar estos datos  encripto 
+adminSchema.methods.toJSON = function () {
     const { __v, _id, password, ...object } = this.toObject()
     object.uid = _id
     return object
 }
 
-module.exports = model('admin', adminSchema);
+module.exports = model('Admin', adminSchema);
