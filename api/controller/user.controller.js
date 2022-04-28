@@ -1,3 +1,4 @@
+const p_pre_registrer = require("../utils/html/p_pre_registrer");
 const { generateJWT } = require("../helper/jwt");
 const SendMail = require("../helper/sendMailerHelper");
 const User = require("../models/mongo/user/User.model");
@@ -18,11 +19,7 @@ exports.SendDataUser = async (req, res) => {
             firstName, lastName, email, nDocument, phone, promotion
         }, process.env.jWT_SECRET_PREREGISTER);
         // send Mail
-        const info = await SendMail(
-            `<h1>Bienvenido a la plataforma de la empresa</h1>
-            <p>Para activar tu cuenta haz click en el siguiente enlace:</p>
-            <a href="http://localhost:3000/api/user/activate/${token}">Activar cuenta</a>`,
-            'Activar cuenta',
+        const info = await SendMail(p_pre_registrer(`http://localhost:3000/api/user/activate/${token}`), "Activar cuenta",
             email
         );
         if (info) {
@@ -38,6 +35,7 @@ exports.SendDataUser = async (req, res) => {
         }
 
     } catch (error) {
+        console.log("error mostrar", error);
         return res.status(500).json({
             success: false,
             error: 'Error al enviar el correo'

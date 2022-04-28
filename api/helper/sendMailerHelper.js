@@ -3,18 +3,18 @@ const nodemailer = require('nodemailer');
 const SendMail = async (html, subject, to) => {
     // smtp outlock
     const transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com',
-        port: 587,
-        secure: false,
+        host: 'mail.montesformen.com',
+        port: 465,
+        secure: true,
         auth: {
-            user: 'maicolgamer232319@hotmail.com',
-            pass: 'miyala12345T'
+            user: 'test@montesformen.com',
+            pass: 'ZF_test_123'
         }
     });
     // mail options
 
     const mailOptions = {
-        from: 'maicolgamer232319@hotmail.com',
+        from: 'test@montesformen.com',
         to,
         subject,
         html
