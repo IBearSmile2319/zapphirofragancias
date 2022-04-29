@@ -1,7 +1,11 @@
 // Servidor de Express
 const express = require('express')
+
 // body-parser
 const bodyParser = require('body-parser')
+
+// morgan
+const morgan = require('morgan')
 
 // Servidor de sockets
 const http = require('http')
@@ -21,6 +25,9 @@ const Sockets = require('./sockets')
 // connection to database
 const { dbConnection } = require('../db/mongo')
 
+// All routes
+const routes = require('../routes')
+
 
 class Server {
     constructor() {
@@ -29,8 +36,10 @@ class Server {
 
         // connection to database
         dbConnection()
+        
         // HTTP server
         this.server = http.createServer(this.app)
+        
         // Config sockets
         this.io = socketIo(this.server, {/*opciones*/ })
 
@@ -39,6 +48,11 @@ class Server {
         // body-parser
         this.app.use(bodyParser.json())
         this.app.use(bodyParser.urlencoded({ extended: false }))
+        // morgan
+        this.app.use(morgan('dev'))
+        // public
+        this.app.use('/public', express.static(path.join(__dirname, '/api/public/uploads')))
+        
         // Habilitar cors
         this.app.use(cors({
             origin: [
@@ -46,8 +60,7 @@ class Server {
             ],
         }))
         // Api EndPoints
-        this.app.use('/api', require('../routes/user.routes'))
-        this.app.use('/api/admin', require('../routes/admin.routes'))
+        routes(this.app)
 
         // Desplegar el directiorio publico
         if (process.env.NODE_ENV === 'production') {
