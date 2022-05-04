@@ -19,7 +19,8 @@ const categorySchema = new Schema(
     parentId:{
       type:String,
       unique:true,
-    }
+    },
+    createdBy:{type:Schema.Types.ObjectId,ref:"User"},
   },
   {
     timestamps: true,
