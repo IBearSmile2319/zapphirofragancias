@@ -1,7 +1,7 @@
-// order model
-const Order = require("../models/mongo/cart/Order.model");
 // user model
 const User = require("../models/mongo/user/User.model");
+// order model
+const Order = require("../models/mongo/cart/Order.model");
 // product model
 const Product = require("../models/mongo/product/Product.model");
 
