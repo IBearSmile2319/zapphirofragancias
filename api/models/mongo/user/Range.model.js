@@ -20,7 +20,12 @@ const rangeSchema = new Schema({
     price: {
         type: Number,
         default: 150
-    }
+    },
+    status: {
+        type: Boolean,
+        default: true
+    },
+    createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
 }, {
     timestamps: true
 });

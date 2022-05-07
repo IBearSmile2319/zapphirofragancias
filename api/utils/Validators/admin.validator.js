@@ -15,6 +15,13 @@ const validateRegister = [
 //     check('role', 'El password es obligatorio').not().isEmpty(),
 // ];
 
+const validateLogin = [
+    check('email', 'El email es obligatorio').not().isEmpty(),
+    check('password', 'El password es obligatorio').not().isEmpty(),
+];
+
+
 module.exports = {
     validateRegister,
+    validateLogin,
 };

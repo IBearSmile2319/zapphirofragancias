@@ -11,8 +11,8 @@ const roleSchema = new Schema({
     },
     icon: {
         type: String,
-        required: true
-    }
+    },
+    createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
 }, {
     timestamps: true
 });

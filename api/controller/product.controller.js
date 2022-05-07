@@ -18,7 +18,7 @@ exports.addProduct = async (req, res) => {
     if (req.files.length > 0) {
         images = req.files.map(async (file) => {
             const image = new Image({
-                url: `/public/${file.filename}`,
+                url: `/public/product/${file.filename}`,
                 name: file.filename,
             });
             await image.save((err, img) => {
