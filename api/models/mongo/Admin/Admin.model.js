@@ -27,6 +27,7 @@ const adminSchema = new Schema({
         type: String,
     },
     role: { type: Schema.Types.ObjectId, ref: 'Role' },
+    createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
 }, {
     timestamps: true
 });

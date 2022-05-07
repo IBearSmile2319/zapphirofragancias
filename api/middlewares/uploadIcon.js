@@ -4,14 +4,11 @@ const shortid = require('shortid')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(path.dirname(__dirname), 'public/uploads/product'))
+        cb(null, path.join(path.dirname(__dirname), 'public/uploads/icon'))
     },
     filename: (req, file, cb) => {
         cb(null, `${shortid.generate()}-${file.originalname}`)
     }
 })
 
-exports.upload = multer({ storage })
-
-
-
+exports.uploadIcon = multer({ storage })

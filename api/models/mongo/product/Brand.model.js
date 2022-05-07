@@ -14,7 +14,7 @@ const brandSchema = new Schema(
         description: {
             type: String,
         },
-        createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+        createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
         status: { type: Boolean, default: true },
     },
     {
