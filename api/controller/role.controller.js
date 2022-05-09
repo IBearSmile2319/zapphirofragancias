@@ -13,6 +13,7 @@ exports.roleRegister = async (req, res, next) => {
     const newRole = new Role({
         name,
         description,
+        createdBy: req.uid
     })
     if (req.file) {
         newRole.icon = `/public/icon/${req.file.filename}`

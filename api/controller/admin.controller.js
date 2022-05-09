@@ -57,11 +57,11 @@ exports.adminLogin = async (req, res, next) => {
                 }
                 if (admin) {
                     if (bcrypt.compareSync(password, admin.password)) {
-                        const data = {
-                            uuid: admin.uid,
+                
+                        const token = await generateJWT({
+                            uid: admin._id,
                             role: admin.role.name
-                        }
-                        const token = await generateJWT(data, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
+                        }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
                         return res.status(200).json({
                             success: true,
                             message: "Usuario logueado correctamente",
