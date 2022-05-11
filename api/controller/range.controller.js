@@ -6,7 +6,6 @@ exports.addRange = async (req, res) => {
         description,
         position,
         price,
-        createdBy
     } = req.body;
 
     const range = await Range.findOne({ name });
@@ -21,7 +20,7 @@ exports.addRange = async (req, res) => {
         description,
         position,
         price,
-        createdBy
+        createdBy: req.uid
     })
     if (req.file) {
         newRange.icon = `/public/icon/${req.file.filename}`

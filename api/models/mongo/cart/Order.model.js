@@ -2,22 +2,20 @@ const { model, Schema } = require('mongoose');
 
 const orderSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    address: { type: Schema.Types.ObjectId, ref: 'UserAddress.address' },
+    address: { type: Schema.Types.ObjectId, ref: 'Address' },
     items: [
         {
+            range: { type: Schema.Types.ObjectId, ref: 'Range' },
             product: { type: Schema.Types.ObjectId, ref: 'Product' },
             quantity: { type: Number, default: 1 },
             price: { type: Number, default: 0 },
-        },
-        {
-            product: { type: Schema.Types.ObjectId, ref: 'Range' },
         }
     ],
     total: { type: Number, default: 0 },
-    payment: { type: Schema.Types.ObjectId, ref: 'userPayment.payment' },
+    payment: { type: Schema.Types.ObjectId, ref: 'Payment' },
     orderStatus: [
         {
-            status: {
+            type: {
                 type: String,
                 default: "Pendiente confirmación",
                 // enum: ["pendiente","confirmado para envio","enviado", "entregado", "cancelado", "reembolso"] 
@@ -27,7 +25,9 @@ const orderSchema = new Schema({
         }
     ],
     status: { type: Boolean, default: false },
-    assistant : { type: Schema.Types.ObjectId, ref: 'User' },
+    approved: { type: Boolean, default: false },
+    assistant: { type: Schema.Types.ObjectId, ref: 'User' },
+    // assistant cuando se aprueba el pedido
 }, {
     timestamps: true
 });

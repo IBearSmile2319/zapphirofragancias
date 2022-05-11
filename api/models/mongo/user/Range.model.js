@@ -13,13 +13,12 @@ const rangeSchema = new Schema({
         type: String,
         required: true
     },
-    position: {
-        type: Number,
-        unique: true
-    },
     price: {
         type: Number,
         default: 150
+    },
+    position: {
+        type: Number,
     },
     status: {
         type: Boolean,

@@ -42,10 +42,17 @@ const userSchema = new Schema({
     status: {
         type: Boolean,
         default: false
+        // cambia a true cuando el usuario es verificado
+    },
+    active: {
+        type: Boolean,
+        default: false
+        // cambia a true cuando el usuario es verificado
     },
     online: {
         type: Boolean,
         default: false
+        // cambia a true cuando el usuario esta conectado
     },
     range: { type: Schema.Types.ObjectId, ref: 'Range' },
     promotion: { type: Schema.Types.ObjectId, ref: 'User' },

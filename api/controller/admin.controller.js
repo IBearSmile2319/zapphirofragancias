@@ -36,7 +36,7 @@ exports.adminRegister = async (req, res, next) => {
             return res.status(201).json({
                 success: true,
                 message: "Usuario creado correctamente",
-                data: admin
+                admin
             })
         }
     })
@@ -50,25 +50,23 @@ exports.adminLogin = async (req, res, next) => {
             .populate("role")
             .exec(async (err, admin) => {
                 if (err) {
-                    return res.status(400).json({
+                    return res.status(200).json({
                         success: false,
-                        error: err
+                        error: "Error al iniciar sesión",
                     })
                 }
                 if (admin) {
                     if (bcrypt.compareSync(password, admin.password)) {
-                        const data = {
-                            uuid: admin.uid,
+
+                        const token = await generateJWT({
+                            uid: admin._id,
                             role: admin.role.name
-                        }
-                        const token = await generateJWT(data, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
+                        }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
                         return res.status(200).json({
                             success: true,
                             message: "Usuario logueado correctamente",
-                            data: {
-                                token,
-                                admin
-                            }
+                            token,
+                            admin
                         })
                     } else {
                         return res.status(400).json({
@@ -77,7 +75,7 @@ exports.adminLogin = async (req, res, next) => {
                         })
                     }
                 } else {
-                    return res.status(400).json({
+                    return res.status(200).json({
                         success: false,
                         error: "El usuario o contraseña son incorrectos"
                     })
@@ -87,8 +85,7 @@ exports.adminLogin = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "Error al autenticar el usuario",
-            error: err
+            error: "Error al autenticar el usuario",
         })
     }
 }
@@ -96,40 +93,39 @@ exports.adminLogin = async (req, res, next) => {
 // renew token
 exports.adminRenewToken = async (req, res, next) => {
     try {
-        const { uuid } = req.body;
         // Generar nuevo token
-        const token = await generateJWT(uuid, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
+        const token = await generateJWT({
+            uid: req.uid,
+            role: req.role
+        }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
 
         // Obtener el usuario for uuid
-        await Admin.findOne({ uuid })
+        await Admin.findOne({ _id: req.uid })
+            .populate("role")
             .exec((err, admin) => {
                 if (err) {
                     return res.status(500).json({
                         success: false,
-                        message: "Error al renovar el token",
-                        error: err
+                        error: "Error al renovar el token",
                     })
                 }
                 if (!admin) {
-                    return res.status(400).json({
+                    return res.status(200).json({
                         success: false,
-                        message: "El usuario no existe"
+                        error: "El usuario no existe"
                     })
                 }
                 return res.status(200).json({
                     success: true,
                     message: "Token renovado correctamente",
-                    data: {
-                        token,
-                        admin
-                    }
+                    token,
+                    admin
                 })
             })
     } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "Error al renovar el token",
-            error: err
+            error: "Error al renovar el token",
         })
     }
 }

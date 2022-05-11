@@ -7,7 +7,7 @@ exports.addBrand = async (req, res) => {
         name,
         slug,
         description,
-        createdBy: req.user._id,
+        createdBy: req.uid,
         status: true,
     });
     await brand.save();

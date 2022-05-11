@@ -52,7 +52,8 @@ class Server {
         this.app.use(morgan('dev'))
         // public
         this.app.use('/public', express.static(path.join(__dirname, '../public/uploads')))
-        this.app.use('/public/icon', express.static(path.join(__dirname, '../public/uploads/icon')))
+        // this.app.use('/public/icon', express.static(path.join(__dirname, '../public/uploads/icon')))
+        // this.app.use('/public/payment', express.static(path.join(__dirname, '../public/uploads/payment')))
         
         
         // Habilitar cors

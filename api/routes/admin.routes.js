@@ -10,6 +10,7 @@ const { validateAdminJWT, adminMiddleware } = require('../middlewares/validate-j
 const { adminRegister, adminLogin, adminRenewToken } = require('../controller/admin.controller');
 router.post('/register', valid.admin.validateRegister, validate, adminRegister)
 router.post('/login', valid.admin.validateLogin, validate, adminLogin)
+router.get('/renewToken', validateAdminJWT, adminRenewToken)
 
 // role
 const { roleRegister, roleList, removeRole } = require('../controller/role.controller')
@@ -17,20 +18,27 @@ router.post('/role', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'
 router.get('/role', validateAdminJWT, adminMiddleware, roleList)
 router.delete('/role/:id', validateAdminJWT, adminMiddleware, removeRole)
 
+// Range 
+const { addRange, listRange, removeRange, updateRange } = require('../controller/range.controller')
+router.post('/range', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), addRange)
+router.get('/range', validateAdminJWT, adminMiddleware, listRange)
+router.put('/range/:id', validateAdminJWT, adminMiddleware, updateRange)
+router.delete('/range/:id', validateAdminJWT, adminMiddleware, removeRange)
+
 // category
 const { addCategory, getCategories, removeCategory, updateCategory } = require('../controller/category.controller');
-router.post('/category', addCategory)
-router.get('/category', getCategories)
-router.delete('/category/:id', removeCategory)
-router.put('/category/:id', updateCategory)
+router.post('/category', validateAdminJWT, adminMiddleware, addCategory)
+router.get('/category', validateAdminJWT, adminMiddleware, getCategories)
+router.delete('/category/:id', validateAdminJWT, adminMiddleware, removeCategory)
+router.put('/category/:id', validateAdminJWT, adminMiddleware, updateCategory)
 
 // product
 const { addProduct, getProducts, removeProduct, updateProduct, getProduct } = require('../controller/product.controller');
-router.post('/product', addProduct)
-router.get('/product', getProducts)
-router.get('/product/:slug', getProduct)
-router.delete('/product/:id', removeProduct)
-router.put('/product/:id', updateProduct)
+router.post('/product', validateAdminJWT, adminMiddleware, addProduct)
+router.get('/product', validateAdminJWT, adminMiddleware, getProducts)
+router.get('/product/:slug', validateAdminJWT, adminMiddleware, getProduct)
+router.delete('/product/:id', validateAdminJWT, adminMiddleware, removeProduct)
+router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
 // Image
 
@@ -39,9 +47,9 @@ router.put('/product/:id', updateProduct)
 // brand
 const { addBrand, getBrands, removeBrand, updateBrand } = require('../controller/brand.controller');
 
-router.post('/brand', addBrand)
-router.get('/brands', getBrands)
-router.delete('/brand/:id', removeBrand)
-router.put('/brand/:id', updateBrand)
+router.post('/brand', validateAdminJWT, adminMiddleware, addBrand)
+router.get('/brands', validateAdminJWT, adminMiddleware, getBrands)
+router.delete('/brand/:id', validateAdminJWT, adminMiddleware, removeBrand)
+router.put('/brand/:id', validateAdminJWT, adminMiddleware, updateBrand)
 
 module.exports = router;
