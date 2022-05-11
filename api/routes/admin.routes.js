@@ -10,6 +10,7 @@ const { validateAdminJWT, adminMiddleware } = require('../middlewares/validate-j
 const { adminRegister, adminLogin, adminRenewToken } = require('../controller/admin.controller');
 router.post('/register', valid.admin.validateRegister, validate, adminRegister)
 router.post('/login', valid.admin.validateLogin, validate, adminLogin)
+router.get('/renewToken', validateAdminJWT, adminRenewToken)
 
 // role
 const { roleRegister, roleList, removeRole } = require('../controller/role.controller')
@@ -18,7 +19,7 @@ router.get('/role', validateAdminJWT, adminMiddleware, roleList)
 router.delete('/role/:id', validateAdminJWT, adminMiddleware, removeRole)
 
 // Range 
-const { addRange, listRange, removeRange,updateRange } = require('../controller/range.controller')
+const { addRange, listRange, removeRange, updateRange } = require('../controller/range.controller')
 router.post('/range', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), addRange)
 router.get('/range', validateAdminJWT, adminMiddleware, listRange)
 router.put('/range/:id', validateAdminJWT, adminMiddleware, updateRange)

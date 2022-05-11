@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Dashboard from '../pages/Admin/Dashboard'
 import Landing from '../pages/Landing'
@@ -12,34 +12,32 @@ import UserPublicRouter from './UserPublicRouter'
 import AdminPrivateRouter from './AdminPrivateRouter'
 import AdminPublicRouter from './AdminPublicRouter'
 import AdminLogin from '../pages/AdminLogin';
+import { useSelector } from 'react-redux';
+import AuthContext from '../auth/AuthContext';
 
 const AppRouter = () => {
-    const auth = {
-        user: {
-            logged: false
-        },
-        admin: {
-            logged: false
-        }
-    }
+    const { verifyToken } = useContext(AuthContext);
+    const auth = useSelector(state => state.auth);
+    useEffect(() => {
+        verifyToken();
+    }, [verifyToken])
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<UserPublicRouter user={auth.user.logged} />}>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/sign-in" element={<Login />} />
+                    <Route path="/sign-up" element={<Register />} />
                 </Route>
                 <Route element={<UserPrivateRouter user={auth.user.logged} />}>
                     <Route path="/home" element={<Home />} />
                 </Route>
                 <Route element={<AdminPublicRouter admin={auth.admin.logged} />}>
-                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin/sign-in" element={<AdminLogin />} />
                 </Route>
                 <Route element={<AdminPrivateRouter admin={auth.admin.logged} />}>
-                    <Route path="/admin" element={<Navigate to="/admin/dashboard"/>} />
+                    <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
-
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
