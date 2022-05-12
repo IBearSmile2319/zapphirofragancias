@@ -1,0 +1,160 @@
+.SignIn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  /*degradade  #9164cc    #863399  45%  right botoom*/
+  background: linear-gradient(to bottom right, #9164cc, #863399);
+}
+
+.SignIn-container .signIn-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 20rem;
+}
+
+.SignIn-container .signIn-center .signIn-center-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-title {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: var(--font-title);
+  display: flex;
+  justify-content: center;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-title h2 {
+  color: #fff;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+  padding: 2.3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #9164cc;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group a{
+  font-size: 0.8rem;
+  color: #9164cc;
+}
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group a:hover{
+  color: #863399;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group input {
+  width: 100%;
+  border: 2px solid #9164cc;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: #9164cc;
+  outline: none;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form .signIn-form-group input:focus {
+  border: 2px solid #9164cc;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form button {
+  width: 100%;
+  border: 2px solid #9164cc;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #9164cc;
+  outline: none;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  transition: all 0.3s;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form button:hover {
+  cursor: pointer;
+  background: #9164cc;
+  color: #fff;
+}
+
+/* new user  */
+.SignIn-container .signIn-center .signIn-center-form .signIn-form__new-user{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+  border: 2px solid #fff;
+  padding: 1rem 0.5rem;
+
+}
+.SignIn-container .signIn-center .signIn-center-form .signIn-form__new-user>span{
+  font-size: 0.9rem;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form__new-user a{
+  font-size: 0.8rem;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.SignIn-container .signIn-center .signIn-center-form .signIn-form__new-user a:hover span{
+  outline: none;
+  text-decoration: underline;
+}
+
+
+@media (max-width: 668px) {
+  .SignIn-container .signIn-center{
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+  .SignIn-container .signIn-center .signIn-center-form .signIn-form{
+    padding: 1rem;
+  }
+}
