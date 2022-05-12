@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
 
-exports.generateJWT = (porps,secret) => {
+exports.generateJWT = (porps,secret,expire) => {
     return new Promise((resolve, reject) => {
         jwt.sign(
             porps,
             secret,
-            { expiresIn: '1h' },
+            { expiresIn: expire },
             (err, token) => {
                 if (err) {
                     reject("Error al generar el Token")

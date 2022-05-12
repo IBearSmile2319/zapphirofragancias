@@ -36,7 +36,7 @@ const productSchema = new Schema(
     ofactoryFamily: {
       type: String,
     },
-    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
     status: { type: Boolean, default: true },
     dimension: {
       long: { type: Number, default: 0 },
