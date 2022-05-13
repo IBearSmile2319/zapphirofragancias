@@ -18,12 +18,12 @@ const validateRegister = [
     check('promotion', 'El promotor es obligatorio').not().isEmpty(),
 ]
 
-const loginValidate = [
-    body('username', 'Please include a valid email').isEmail(),
-    body('password', 'Password is required').not().isEmpty(),
+const validateLogin = [
+    check('email', 'El email es obligatorio').not().isEmpty(),
+    check('password', 'El password es obligatorio').not().isEmpty(),
 ];
 
 module.exports = {
     validatePreRegister,
-    loginValidate
+    validateLogin
 }
