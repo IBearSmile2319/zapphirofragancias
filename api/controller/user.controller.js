@@ -10,6 +10,9 @@ const SendMail = require("../helper/sendMailerHelper");
 // model User
 const User = require("../models/mongo/user/User.model");
 
+// bcrypt
+const bcrypt = require("bcryptjs");
+
 // send email to user
 exports.SendDataUser = async (req, res) => {
     try {
@@ -50,4 +53,102 @@ exports.SendDataUser = async (req, res) => {
 
     }
 }
+
+
+exports.userSignIn = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const userAndEmail = email.includes("@");
+        await User.findOne(userAndEmail ? { email } : { username: email })
+            .populate("range")
+            .populate("promotion")
+            .populate("afiliates")
+            .exec(async (err, user) => {
+                if (err) {
+                    return res.status(400).json({
+                        success: false,
+                        error: "Error al iniciar sesión",
+                    })
+                }
+                if (!user) {
+                    return res.status(400).json({
+                        success: false,
+                        error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
+                    })
+                }
+                if (user) {
+                    if (bcrypt.compareSync(password, user.password)) {
+                        const token = await generateJWT({
+                            uid: user._id,
+                        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+                        return res.status(200).json({
+                            success: true,
+                            message: "Sesión iniciada correctamente",
+                            token,
+                            user
+                        })
+                    } else {
+
+
+                    }
+                } else {
+                    return res.status(200).json({
+                        success: false,
+                        error: "El usuario o contraseña son incorrectos"
+                    })
+                }
+            }
+            )
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: "Error al autenticar el usuario",
+        })
+    }
+}
+
+// renew token user
+
+exports.userRenewToken = async (req, res, next) => {
+    try {
+        // Generated new token
+        const token = await generateJWT({
+            uid: req.uid,
+        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+
+        // Return info user
+        await User.findOne({ _id: req.uid })
+            .populate("range")
+            .populate("promotion")
+            .populate("afiliates")
+            .exec(async (err, user) => {
+                if (err) {
+                    return res.status(200).json({
+                        success: false,
+                        error: "Error al renovar el token",
+                    })
+                }
+                if (!user) {
+                    return res.status(200).json({
+                        success: false,
+                        error: "El usuario no existe",
+                    })
+                }
+                return res.status(200).json({
+                    success: true,
+                    message: "Token renovado correctamente",
+                    token,
+                    user
+                })
+            })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: "Error al renovar el token",
+        })
+    }
+}
+
+
+
 

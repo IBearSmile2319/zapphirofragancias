@@ -55,6 +55,12 @@ exports.adminLogin = async (req, res, next) => {
                         error: "Error al iniciar sesión",
                     })
                 }
+                if(!admin){
+                    return res.status(400).json({
+                        success: false,
+                        error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
+                    })
+                }
                 if (admin) {
                     if (bcrypt.compareSync(password, admin.password)) {
 
@@ -67,11 +73,6 @@ exports.adminLogin = async (req, res, next) => {
                             message: "Usuario logueado correctamente",
                             token,
                             admin
-                        })
-                    } else {
-                        return res.status(400).json({
-                            success: false,
-                            error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
                         })
                     }
                 } else {

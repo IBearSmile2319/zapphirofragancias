@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/img/logo_black.png";
+import { useDispatch } from "react-redux";
 import "./Login.css";
+import { SignIn } from "../../action/auth.action";
 const Login = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(SignIn({
+      email,
+      password
+    }))
+  }
+
   return (
     <>
       <div className="SignIn-container">
@@ -11,7 +25,9 @@ const Login = () => {
             <div className="signIn-title">
               <h2>INGRESAR A ZF SOCIOS</h2>
             </div>
-            <div className="signIn-form">
+            <form className="signIn-form"
+              onSubmit={handleSubmit}
+            >
               <div className="signIn-form-group">
                 <label htmlFor="email">
                   <span>Nombre de usuario o correo electronico:</span>
@@ -21,6 +37,8 @@ const Login = () => {
                     type="text"
                     name="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -36,13 +54,15 @@ const Login = () => {
                     type="password"
                     name="password"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
               <button>
                 <span>INGRESAR</span>
               </button>
-            </div>
+            </form>
             <div className="signIn-form__new-user">
               <span>¿No tienes una cuenta?</span>
               <a href="#">
