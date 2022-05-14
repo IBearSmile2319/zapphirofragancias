@@ -1,7 +1,11 @@
 import axios from 'axios';
 export const axiosInstance = axios.create({
     baseURL: '/api',
-    headers: { 
+});
+
+export const axiosUserInstance = axios.create({
+    baseURL: '/api/user',
+    headers: {
         'x-access-token': `Bearer ${localStorage.getItem('token')}`
     }
 });
