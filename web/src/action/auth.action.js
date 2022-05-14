@@ -19,6 +19,11 @@ export const SignInAdmin = (data) => {
 export const AdminrenewToken = () => {
     return (dispatch) => {
         const token = localStorage.getItem('admin-token')
+        // undefined or null
+        // if (token === undefined || token === null) {
+        //     dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: 'Token is not valid' })
+        //     localStorage.removeItem('admin-token')
+        // }
         if (token) {
             axiosAdminInstance.get('/renewToken')
                 .then(res => {
@@ -28,10 +33,12 @@ export const AdminrenewToken = () => {
                 )
                 .catch(err => {
                     dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: err.response.data.error })
+                    localStorage.removeItem('admin-token')
                 }
                 )
         } else {
             dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: 'No token' })
+            localStorage.removeItem('admin-token')
         }
     }
 
