@@ -17,7 +17,11 @@ const AdminLogin = () => {
       <h1>Admin Login</h1>
       <form action="">
         <input type="text" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" onChange={(e) => setPassword(e.target.value)} />
+        <input 
+        type="password" 
+        onChange={(e) => setPassword(e.target.value)} 
+        autoComplete="off"
+        />
         <button onClick={handleLogin}>Login</button>
       </form>
     </div>

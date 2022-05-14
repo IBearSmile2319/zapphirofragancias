@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+/api/public/uploads/icon
+/api/public/uploads/payment
+/api/public/uploads/product

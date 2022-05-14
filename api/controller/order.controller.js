@@ -6,9 +6,8 @@ const Order = require("../models/mongo/cart/Order.model");
 const Product = require("../models/mongo/product/Product.model");
 // bcrypt
 const bcrypt = require("bcryptjs");
-
+const SendMail = require("../helper/sendMailerHelper");
 const { generateJWT } = require("../helper/jwt");
-const { SendMail } = require("../helper/sendMailerHelper");
 const Address = require("../models/mongo/user/Address.model");
 
 const PaymentModel = require("../models/mongo/cart/Payment.model");
@@ -193,6 +192,33 @@ exports.firstOrder = async (req, res) => {
                         }
                         if (order) {
                             console.log(password, user.username);
+                            const info = await SendMail(
+                                `
+                                <h1>Bienvenido a la plataforma de pedidos de la marca ZF Socios</h1>
+                                <p>
+                                    Su usuario es: ${user.username}
+                                </p>
+                                <p>
+                                    Su contraseña es: ${password}
+                                </p>
+                                <p>
+                                    Para ingresar a la plataforma de pedidos de la marca ZF Socios
+                                    ingrese a la siguiente dirección:
+                                </p>
+                                <p>
+                                    <a href="http://localhost:3000/sign-in">http://localhost:3000/sign-in</a>
+                                </p>
+
+                                `, 
+                                "Activar cuenta",
+                                email
+                            );
+                            if (!info) {
+                                return res.status(400).json({
+                                    success: false,
+                                    message: "Error al enviar el correo",
+                                });
+                            }
                             return res.status(200).json({
                                 success: true,
                                 message: "Pedido guardado",

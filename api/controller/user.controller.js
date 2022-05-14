@@ -107,8 +107,69 @@ exports.userSignIn = async (req, res) => {
     }
 }
 
-// renew token user
+// forgot password
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                error: "El usuario no existe"
+            })
+        }
+        const token = await generateJWT({
+            uid: user._id,
+        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+        const info = await SendMail(p_pre_registrer(`http://localhost:3000/api/user/reset/${token}`), "Recuperar contraseña",
+            email
+        );
+        if (info) {
+            return res.status(200).json({
+                success: true,
+                message: "Se ha enviado un correo para recuperar la contraseña"
+            })
+        } else {
+            return res.status(400).json({
+                success: false,
+                error: "No se pudo enviar el correo"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Error al enviar el correo"
+        })
+    }
+}
 
+// reset password
+exports.resetPassword = async (req, res) => {
+    try {
+        const { password, token } = req.body;
+        const { uid } = await jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(uid);
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                error: "El usuario no existe"
+            })
+        }
+        user.password = password;
+        await user.save();
+        return res.status(200).json({
+            success: true,
+            message: "Contraseña actualizada correctamente"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Error al actualizar la contraseña"
+        })
+    }
+}
+
+// renew token user
 exports.userRenewToken = async (req, res, next) => {
     try {
         // Generated new token

@@ -38,6 +38,7 @@ const AppRouter = () => {
                 <Route element={<AdminPrivateRouter admin={auth.admin.logged} />}>
                     <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
+                    <Route path="/admin/order" element={<Dashboard />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

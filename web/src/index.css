@@ -1,13 +1,79 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*,*::after,*::before{box-sizing: border-box;}
+html{
+    height: 100%;
+}
+/* ====================
+    * VARIABLES *
+==================== */
+:root{
+    --font-body: 'Jost', sans-serif;
+    --font-title:  'League Spartan', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+/* =========================
+    * GENERAL VARIABLES *
+========================== */
+body{
+    /* transition: all .7s ease; */
+    --bg-primary:#fff;
+    --bg-secondary:var(--white-color);
+    --dropdown:var(--grey-100);
+    --border-color: #eff3f5;
+    
+    --text-color-primary:var(--grey-600);
+    --text-color-secondary:var(--grey-700);
+    --fill-color:#000000;
 }
+body.dark-theme{
+    transition: all .7s ease;
+    --bg-primary: var(--dt-darker);
+    --bg-secondary:var(--dt-background);
+    --dropdown:var(--dt-darkest);
+    --border-color: var(--dt-background);
+    --text-color-primary:var(--grey-400);
+    --text-color-secondary:var(--grey-500);
+    --fill-color:var(--white-color);
+}
+
+
+
+/* ========================
+    * GENERAL STYLES *
+========================= */
+
+/* button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {border: none;} */
+
+/* :focus{outline: none;}
+::selection{color: var(--white-color) !important;background-color: var(--primary)!important;}
+::-webkit-scrollbar{width: 8px;height: 8px;background: var(--bg-secondary);}
+::-webkit-scrollbar-thumb{background-color: transparent;border-radius: 4px;}
+::-webkit-scrollbar-thumb:hover{background: var(--primary);} */
+
+#root{
+  height:100%;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background: var(--bg-primary);
+    font-family: var(--font-body);
+    color: var(--text-color-primary) !important;
+}
+
+/* ===================
+    * FUENTES *
+==================== */
+
+
+/* ===================
+    * UTILS *
+==================== */
+

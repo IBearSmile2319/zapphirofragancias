@@ -55,7 +55,10 @@ const Login = () => {
                     name="password"
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)
+                    
+                    }
+                    autoComplete="off"
                   />
                 </div>
               </div>
