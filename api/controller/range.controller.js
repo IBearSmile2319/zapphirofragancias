@@ -5,7 +5,6 @@ exports.addRange = async (req, res) => {
         name,
         description,
         position,
-        price,
     } = req.body;
 
     const range = await Range.findOne({ name });
@@ -19,7 +18,6 @@ exports.addRange = async (req, res) => {
         name,
         description,
         position,
-        price,
         createdBy: req.uid
     })
     if (req.file) {
