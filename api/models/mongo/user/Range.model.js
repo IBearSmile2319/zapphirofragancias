@@ -13,10 +13,6 @@ const rangeSchema = new Schema({
         type: String,
         required: true
     },
-    price: {
-        type: Number,
-        default: 150
-    },
     position: {
         type: Number,
     },
