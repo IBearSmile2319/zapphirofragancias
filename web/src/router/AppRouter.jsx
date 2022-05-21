@@ -24,7 +24,21 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<UserPublicRouter user={auth.user.logged} />}>
+                {/* public and private routes */}
+                <Route path="/" element={<Landing />} />
+                <Route path="sign-in" element={<Login />} />
+                <Route path="sign-up" element={<Register />} />
+                <Route element={<UserPrivateRouter user={auth.user.logged} />}>
+                    <Route path="home" element={<Home />} />
+                </Route>
+                <Route path="/admin/sign-in" element={<AdminLogin />} />
+                <Route path="admin" element={<AdminPrivateRouter admin={auth.admin.logged} />}>
+                    <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="order" element={<Dashboard />} />
+                </Route>
+            </Routes>
+            {/* <Route element={<UserPublicRouter user={auth.user.logged} />}>
                     <Route path="/" element={<Landing />} />
                     <Route path="/sign-in" element={<Login />} />
                     <Route path="/sign-up" element={<Register />} />
@@ -41,7 +55,7 @@ const AppRouter = () => {
                     <Route path="/admin/order" element={<Dashboard />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+            </Routes> */}
         </BrowserRouter>
     )
 }
