@@ -14,7 +14,9 @@ import AdminPublicRouter from './AdminPublicRouter'
 import AdminLogin from '../pages/AdminLogin';
 import { useSelector } from 'react-redux';
 import AuthContext from '../auth/AuthContext';
-
+import Products from '../pages/Admin/Products';
+import Orders from '../pages/Admin/Orders';
+import { LinksAdmin } from './Links';
 const AppRouter = () => {
     const { verifyToken } = useContext(AuthContext);
     const auth = useSelector(state => state.auth);
@@ -33,9 +35,32 @@ const AppRouter = () => {
                 </Route>
                 <Route path="/admin/sign-in" element={<AdminLogin />} />
                 <Route path="admin" element={<AdminPrivateRouter admin={auth.admin.logged} />}>
-                    <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
-                    <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="order" element={<Dashboard />} />
+                    <Route index element={<Navigate to="/admin/dashboard" />} />
+                    {
+                        LinksAdmin.map((item, index) => {
+                            if (item.submenu) {
+                                return (
+                                    <Route path={item.path} element={<item.element />}>
+                                        <Route index element={<item.subElement />} />
+                                        {
+                                            item.submenu.map((subItem, subIndex) => {
+                                                return (
+                                                    <Route path={subItem.path} element={<subItem.element />}  key={subIndex} />
+                                                )
+                                            })
+                                        }
+                                    </Route>
+                                )
+                            } else {
+                                return (
+                                    <Route key={index} path={item.path} element={<item.element />} />
+                                )
+                            }
+                        })
+                    }
+                    {/* <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="order" element={<Orders />} />
+                    <Route path="product" element={<Products />} /> */}
                 </Route>
             </Routes>
             {/* <Route element={<UserPublicRouter user={auth.user.logged} />}>
