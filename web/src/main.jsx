@@ -9,7 +9,7 @@ import 'antd/dist/antd.variable.min.css';
 
 ConfigProvider.config({
   theme: {
-    primaryColor: '#189021',
+    primaryColor: '#9164cc',
     errorColor: '#ff4d4f',
     warningColor: '#faad14',
     successColor: '#52c41a',
@@ -20,7 +20,7 @@ window.store = store
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Provider store={store}>
-      <App />
+    <App />
   </Provider>
   // </React.StrictMode>
 )
