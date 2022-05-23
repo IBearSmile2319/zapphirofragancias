@@ -40,7 +40,7 @@ exports.firstOrder = async (req, res) => {
         paymentNote,
         paymentMount,
         // order
-        range,
+        combo,
     } = req.body;
 
     // TODO: check if user exists
