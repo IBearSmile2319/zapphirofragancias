@@ -1,0 +1,19 @@
+.admin-header-content{
+    transition: background 0.25s,border-bottom-color 0.25s,height 0.25s;
+    width: calc(100% - 4.25rem);
+    left: 4.25rem;
+    top: 0;
+    z-index: 100;
+    position: fixed;
+    height: 4rem;
+    background: #fff;
+    border-bottom: 1px solid #ecf0f3;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 0;
+}
+
+
+    

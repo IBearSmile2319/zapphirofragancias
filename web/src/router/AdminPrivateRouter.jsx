@@ -1,8 +1,21 @@
 import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import Container from '../components/Admin/Container';
 
-const AdminPrivateRoute = ({admin}) => {
-    return admin ? <Outlet /> : <Navigate to="/admin/sign-in" />
+const AdminPrivateRoute = ({ admin }) => {
+    const location = useLocation();
+    return admin ?
+        <Container>
+            <Outlet />
+        </Container>
+
+        : <Navigate to="/admin/sign-in" state={
+            {
+                from: location
+            }
+        }
+            replace
+        />
 }
 
 export default AdminPrivateRoute

@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import { axiosAdminInstance, axiosUserInstance } from '../helpers/axios'
 import { AdminSignIn, UserSignIn } from './constants'
 export const SignInAdmin = (data) => {
@@ -11,6 +12,7 @@ export const SignInAdmin = (data) => {
             })
             .catch(err => {
                 dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: err.response.data.error })
+                message.error(err.response.data.error)
             })
     }
 }

@@ -1,0 +1,90 @@
+.admin-signin__container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.admin-signin__container .admin-dignin__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+}
+.admin-signin__container .admin-dignin__content .admin-signin-logo{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.admin-signin__container .admin-dignin__content .admin-signin-logo img{
+    width: 100px;
+    height: 100px;
+}
+.admin-signin__container .admin-dignin__content .admin-signin-logo .admin-signin-logo__title{
+    font-size:1.2rem;
+    font-weight: 500;
+}
+
+.admin-signin__container .admin-dignin__content form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group label{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group .admin-form__input{
+    display: flex;
+    height: 40px;
+    position: relative;
+
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group input{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group .admin-form__input .icon{
+    position: absolute;
+    right: 10px;
+    height: 100%;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-signin__container .admin-dignin__content form .admin-form__group input:focus{
+    outline: none;
+}
+.admin-signin__container .admin-dignin__content form button{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.admin-signin__container .admin-dignin__content form button:hover{
+    background-color: #ccc;
+    cursor: pointer;
+}
