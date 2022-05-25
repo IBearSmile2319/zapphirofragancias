@@ -50,7 +50,7 @@ exports.adminLogin = async (req, res, next) => {
             .populate("role")
             .exec(async (err, admin) => {
                 if (err) {
-                    return res.status(200).json({
+                    return res.status(400).json({
                         success: false,
                         error: "Error al iniciar sesión",
                     })
