@@ -60,10 +60,103 @@
     height: 2.5rem;
 }
 
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right{
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0;
+    margin-left: auto;
+    
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label{
+    position: relative;
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify{
+
+}
+
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify .item-notify{
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    color: #687782;
+    transition: background 0.25s,border-color 0.25s;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify .item-notify:hover{
+    background: #dfdfe8;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify .item-notify svg{
+    color: #687782;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.search{
+    display: none;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label .item-search{
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    color: #687782;
+    transition: background 0.25s,border-color 0.25s;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label .item-search:hover{
+    background: #dfdfe8;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar{
+    position: relative;
+    background: #ecf0f3;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background 0.25s;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    padding-right: 0.5rem;
+    color: #687782;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar:hover{
+    background: #dfdfe8;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar .avatar{
+    position: relative;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.25rem;
+}
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar .avatar img{
+    transition: opacity 0.3s ease 0s;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+}
+
 @media (max-width: 768px) {
     .admin-header_container{
         left: 0;
         width: 100%;
+        height: 3.5rem;
     }
     .admin-header_container .admin-header_grid{
         width:calc(100% - 2rem);
@@ -74,5 +167,17 @@
     }
     .admin-header_container .admin-header_grid .admin-header_content>div{
         display: flex;
+    }
+    .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.search{
+        display: block;
+    }
+    .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar{
+        padding-right: 0;
+    }
+    .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar .avatar{
+        margin-right: 0;
+    }
+    .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right .admin-header__user-avatar>svg{
+        display: none;
     }
 }
