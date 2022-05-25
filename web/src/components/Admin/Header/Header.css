@@ -96,6 +96,9 @@
 .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify .item-notify:hover{
     background: #dfdfe8;
 }
+.admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.notify .item-notify svg{
+    color: #687782;
+}
 .admin-header_container .admin-header_grid .admin-header_content .admin-header_content-right label.search{
     display: none;
 }
