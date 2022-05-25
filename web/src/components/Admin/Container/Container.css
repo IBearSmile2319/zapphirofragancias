@@ -8,3 +8,10 @@
     display: flex;
     flex-direction: column;
 }
+
+@media (max-width: 768px){
+    .admin-body{
+        flex-direction: row;
+        padding-left: 0;
+    }
+}

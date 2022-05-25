@@ -9,26 +9,30 @@ import ListProducts from "../pages/Admin/Products/ListProducts"
 
 export const LinksAdmin = [
     {
-        name: 'dashboard',
+        name: 'Dashboard',
         path: 'dashboard',
         icon: DashboardOutlined,
         element: Dashboard
     },
     {
-        name: 'orders',
+        name: 'Orders',
         path: 'orders',
         icon: OrderedListOutlined,
         element: Orders
     },
     {
-        name: 'products',
+        name: 'Products',
         path: 'products',
         icon: ShoppingOutlined,
         element: Products,
         subElement: ListProducts,
         submenu: [
             {
-                name: 'products',
+                name: "Inicio",
+                path: "",
+            },
+            {
+                name: 'Añadir producto',
                 path: 'add',
                 element: AddProduct
             }
