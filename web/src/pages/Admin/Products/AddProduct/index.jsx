@@ -1,10 +1,11 @@
 import React from 'react'
-
+import BreadCrumb from '../../../../components/BreadCrumb'
+import './AddProduct.css'
 const AddProduct = () => {
   return (
-    <div>
-      edit
-    </div>
+    <main className="admin-products__add">
+      <BreadCrumb />
+    </main>
   )
 }
 

@@ -45,6 +45,12 @@ export const AdminrenewToken = () => {
     }
 
 }
+export const AdminLogout = () => {
+    return (dispatch) => {
+        localStorage.removeItem('admin-token')
+        dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: 'Logout successfully' })
+    }
+}
 
 
 // user signin
@@ -82,3 +88,15 @@ export const UserrenewToken = () => {
         }
     }
 }
+
+
+
+
+// export const UserLogout = () => {
+    
+//     return (dispatch) => {
+//         localStorage.removeItem('token')
+//         dispatch({ type: UserSignIn.ADMIN_SIGNIN_FAILURE, payload: 'Logout successfully' })
+        
+//     }
+// }

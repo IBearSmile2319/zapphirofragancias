@@ -1,12 +1,14 @@
 import { MenuOutlined } from '@ant-design/icons'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinksAdmin } from '../../../router/Links'
 import Logo from '../../../assets/img/Logo.png'
 import './Sidebar.css'
-const Sidebar = ({ menuOpen, setMenuOpen,setMenuClose}) => {
+import CustomLinkActive from '../../CustomLinkActive'
+const Sidebar = ({ menuOpen, setMenuOpen, setMenuClose }) => {
+  
   return (
-    <div className={`admin-sidebar__container ${!menuOpen ? 'hide' : 'show'}`} 
+    <div className={`admin-sidebar__container ${!menuOpen ? 'hide' : 'show'}`}
       onMouseLeave={setMenuClose}
     >
       <header
@@ -29,10 +31,13 @@ const Sidebar = ({ menuOpen, setMenuOpen,setMenuClose}) => {
               return (
                 <div className="sidebar-option" key={index}>
                   <li>
-                    <Link to={item.path} 
-                    onClick={setMenuClose}
+                    <CustomLinkActive
+                      to={item.path}
+                      onClick={setMenuClose}
                     >
-                      <item.icon className="icon" />
+                      <div>
+                        <item.icon className="icon" />
+                      </div>
                       <span className="title"
                         style={{
                           opacity: !menuOpen ? '0' : '1',
@@ -40,7 +45,7 @@ const Sidebar = ({ menuOpen, setMenuOpen,setMenuClose}) => {
                       >
                         {item.name}
                       </span>
-                    </Link>
+                    </CustomLinkActive>
                   </li>
                 </div>
               )

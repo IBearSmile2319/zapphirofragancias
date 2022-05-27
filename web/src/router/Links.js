@@ -6,6 +6,9 @@ import Orders from "../pages/Admin/Orders"
 import Products from "../pages/Admin/Products"
 import AddProduct from "../pages/Admin/Products/AddProduct"
 import ListProducts from "../pages/Admin/Products/ListProducts"
+import IconProducts from '../assets/img/icons/IconProducts'
+import iconProductsAdd from "../assets/img/icons/IconProductsAdd"
+import IconOrders from "../assets/img/icons/IconOrders"
 
 export const LinksAdmin = [
     {
@@ -17,7 +20,7 @@ export const LinksAdmin = [
     {
         name: 'Orders',
         path: 'orders',
-        icon: OrderedListOutlined,
+        icon: IconOrders,
         element: Orders
     },
     {
@@ -28,12 +31,14 @@ export const LinksAdmin = [
         subElement: ListProducts,
         submenu: [
             {
-                name: "Inicio",
+                name: "Productos",
                 path: "",
+                icon: IconProducts,
             },
             {
                 name: 'Añadir producto',
                 path: 'add',
+                icon: iconProductsAdd,
                 element: AddProduct
             }
         ]

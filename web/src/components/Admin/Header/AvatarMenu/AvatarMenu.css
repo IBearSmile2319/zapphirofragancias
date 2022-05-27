@@ -1,0 +1,184 @@
+.avatar-user-menu{
+    position: relative;
+}
+.avatar-user-menu .user-menu__avatar{
+    position: relative;
+    background: #ecf0f3;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background 0.25s;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    padding-right: 0.5rem;
+    color: #687782;
+}
+.avatar-user-menu .user-menu__avatar:hover{
+    background: #dfdfe8;
+}
+.avatar-user-menu .user-menu__avatar .avatar{
+    position: relative;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.25rem;
+}
+.avatar-user-menu .user-menu__avatar .avatar img{
+    transition: opacity 0.3s ease 0s;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+}
+
+@media (max-width: 768px){
+    .avatar-user-menu .user-menu__avatar{
+        padding-right: 0;
+    }
+    .avatar-user-menu .user-menu__avatar .avatar{
+        margin-right: 0;
+    }
+    .avatar-user-menu .user-menu__avatar>svg{
+        display: none;
+    }
+}
+
+.avatar-user-menu .dropdown-menu-user{
+    width: 15.625rem;
+    top: 2.25rem;
+    right: 0;
+    position: absolute;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    background: #fff;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    padding: 1rem;
+    opacity: 0;
+    display: none;
+    transition: opacity 0.25s;
+}
+.avatar-user-menu .dropdown-menu-user.active{
+    opacity: 1;
+    display: block;
+}
+
+.avatar-user-menu .dropdown-menu-user header{
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+.avatar-user-menu .dropdown-menu-user header .user-avatar{
+    width:1.75rem;
+    height:1.75rem;
+    position: relative;
+    flex: none;
+    margin-right: 0.5rem;
+}
+.avatar-user-menu .dropdown-menu-user header .user-avatar .img-content{
+    position: relative;
+    border-radius: 50%;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+.avatar-user-menu .dropdown-menu-user header .user-avatar .img-content img{
+    transition: opacity 0.3s ease 0s;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    object-fit: cover;
+}
+.avatar-user-menu .dropdown-menu-user header .user-name{
+    word-break: break-all;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    height: calc(1 * 1.8);
+    overflow: hidden;
+    line-height: 1.45;
+    color: #273b49;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.avatar-user-menu .dropdown-menu-user header .user-nickname{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    height: calc(1 * 1.8);
+    overflow-y: hidden;
+    color: #8e9ba4;
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: 0.8125rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.avatar-user-menu .dropdown-menu-user nav{
+
+}
+.avatar-user-menu .dropdown-menu-user nav ul{
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    row-gap: 0.25rem;
+    padding-left: 0;
+    margin-bottom: 0;
+    display:grid;
+    grid-template-columns: 100%;
+    column-gap: 0.25rem;
+    margin-top: 0;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li{
+    list-style: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.8;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li a{
+    text-decoration: none;
+    color: #687782;
+    transition: background 0.25s;
+    border-radius: 0.25rem;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li a:hover{
+    background: #dfdfe8;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li a svg{
+    margin-right: 0.25rem;
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: 0.8125;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li a span{
+    margin-right: 0.5rem;
+}
+.avatar-user-menu .dropdown-menu-user nav ul li a.close-session{
+    color: #e93553;
+    font-weight: 600;
+}
