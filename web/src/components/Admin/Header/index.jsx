@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../../../assets/img/Logo.png'
 import { Badge } from 'antd'
 import './Header.css'
+import AvatarMenu from './AvatarMenu'
 const Header = ({
   setMenuOpen
 }) => {
@@ -35,14 +36,7 @@ const Header = ({
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24px" height="24px" fill="currentColor"><path fillRule="evenodd" clipRule="evenodd" d="M12.5 20C16.6421 20 20 16.6421 20 12.5C20 8.35786 16.6421 5 12.5 5C8.35786 5 5 8.35786 5 12.5C5 16.6421 8.35786 20 12.5 20ZM12.5 23C18.299 23 23 18.299 23 12.5C23 6.70101 18.299 2 12.5 2C6.70101 2 2 6.70101 2 12.5C2 18.299 6.70101 23 12.5 23Z"></path><path d="M18.2982 18.2983C18.884 17.7125 19.8337 17.7125 20.4195 18.2983L29.548 27.4267C30.1338 28.0125 30.1338 28.9623 29.548 29.548C28.9622 30.1338 28.0125 30.1338 27.4267 29.548L18.2982 20.4196C17.7124 19.8338 17.7124 18.884 18.2982 18.2983Z"></path></svg>
               </div>
             </label>
-            <div className="admin_header-user-menu">
-              <div className="admin-header__user-avatar">
-                <div className="avatar">
-                  <img src="https://lh3.googleusercontent.com/a-/AOh14GioFIcJLSosX3x_P8B4j2winMQURuVw2lu0lphK=s96-c" alt="avatar" />
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="0.75rem" height="0.75rem" fill="currentColor"><path d="M2.60849 9.91421C3.38954 9.13317 4.65587 9.13317 5.43692 9.91421L17.4095 21.8868C18.1905 22.6678 18.1905 23.9342 17.4095 24.7152C16.6284 25.4963 15.3621 25.4963 14.5811 24.7152L2.60849 12.7426C1.82744 11.9616 1.82744 10.6953 2.60849 9.91421Z"></path><path d="M29.4142 9.91421C28.6332 9.13317 27.3668 9.13317 26.5858 9.91421L14.5962 21.9038C13.8151 22.6849 13.8151 23.9512 14.5962 24.7322C15.3772 25.5133 16.6436 25.5133 17.4246 24.7322L29.4142 12.7426C30.1953 11.9616 30.1953 10.6953 29.4142 9.91421Z"></path></svg>
-              </div>
-            </div>
+            <AvatarMenu/>
           </div>
         </div>
       </div>
