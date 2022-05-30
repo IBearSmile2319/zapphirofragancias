@@ -74,6 +74,11 @@ exports.adminLogin = async (req, res, next) => {
                             token,
                             admin
                         })
+                    }else{
+                        return res.status(400).json({
+                            success: false,
+                            error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
+                        })
                     }
                 } else {
                     return res.status(200).json({

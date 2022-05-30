@@ -1,14 +1,18 @@
 // links de mis path
+import IconProducts from '../assets/img/icons/IconProducts'
+import iconProductsAdd from "../assets/img/icons/IconProductsAdd"
+import IconOrders from "../assets/img/icons/IconOrders"
 
-import { DashboardOutlined, OrderedListOutlined, ShoppingOutlined } from "@ant-design/icons"
+import { BranchesOutlined, DashboardOutlined, OrderedListOutlined, ShoppingOutlined } from "@ant-design/icons"
 import Dashboard from "../pages/Admin/Dashboard"
 import Orders from "../pages/Admin/Orders"
 import Products from "../pages/Admin/Products"
 import AddProduct from "../pages/Admin/Products/AddProduct"
 import ListProducts from "../pages/Admin/Products/ListProducts"
-import IconProducts from '../assets/img/icons/IconProducts'
-import iconProductsAdd from "../assets/img/icons/IconProductsAdd"
-import IconOrders from "../assets/img/icons/IconOrders"
+import Categories from "../pages/Admin/Gestion/Categories"
+import Branges from "../pages/Admin/Gestion/Branges"
+import Gestion from "../pages/Admin/Gestion"
+
 
 export const LinksAdmin = [
     {
@@ -43,6 +47,26 @@ export const LinksAdmin = [
             }
         ]
     },
+    {
+        name: 'Gestionar',
+        path: 'gestion',
+        icon: BranchesOutlined,
+        element: Gestion,
+        subElement: Categories,
+        submenu: [
+            {
+                name: "categorias",
+                path: "",
+                icon: BranchesOutlined,
+            },
+            {
+                name: 'Añadir categoria',
+                path: 'branges',
+                icon: OrderedListOutlined,
+                element: Branges
+            }
+        ]
+    }
     // {
     //     name: 'users',
     //     path: '/admin/users',
