@@ -1,12 +1,10 @@
-import { HomeOutlined } from '@ant-design/icons'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import NavProduct from './NavProduct'
-import './Products.css'
+import MainNav from '../../../components/MainNav'
 const Products = () => {
   return (
     <>
-      <NavProduct />
+      <MainNav path="products"/>
       <Outlet />
     </>
   )

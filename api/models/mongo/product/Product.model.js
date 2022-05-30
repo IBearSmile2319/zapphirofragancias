@@ -37,6 +37,7 @@ const productSchema = new Schema(
       type: String,
     },
     createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
+    updatedBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
     status: { type: Boolean, default: true },
     dimension: {
       long: { type: Number, default: 0 },
