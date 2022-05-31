@@ -36,15 +36,17 @@ class Server {
 
         // connection to database
         dbConnection()
-        
+
         // HTTP server
         this.server = http.createServer(this.app)
-        
+
         // Config sockets
         this.io = socketIo(this.server, {/*opciones*/ })
 
     }
     middlewares() {
+        // proxy
+        this.app.set('trust proxy', true)
         // body-parser
         this.app.use(bodyParser.json())
         this.app.use(bodyParser.urlencoded({ extended: false }))
@@ -54,8 +56,8 @@ class Server {
         this.app.use('/public', express.static(path.join(__dirname, '../public/uploads')))
         // this.app.use('/public/icon', express.static(path.join(__dirname, '../public/uploads/icon')))
         // this.app.use('/public/payment', express.static(path.join(__dirname, '../public/uploads/payment')))
-        
-        
+
+
         // Habilitar cors
         this.app.use(cors({
             origin: [
