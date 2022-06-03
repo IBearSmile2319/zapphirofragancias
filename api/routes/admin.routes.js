@@ -40,12 +40,17 @@ router.get('/product/:slug', validateAdminJWT, adminMiddleware, getProduct)
 router.delete('/product/:id', validateAdminJWT, adminMiddleware, removeProduct)
 router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
+// Combo
+const { addCombo, listCombo } = require('../controller/combo.controller');
+router.post('/combo', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), addCombo)
+router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
 // Image
 
 
 
 // brand
 const { addBrand, getBrands, removeBrand, updateBrand } = require('../controller/brand.controller');
+
 
 router.post('/brand', validateAdminJWT, adminMiddleware, addBrand)
 router.get('/brands', validateAdminJWT, adminMiddleware, getBrands)

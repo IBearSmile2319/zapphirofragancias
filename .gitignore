@@ -105,3 +105,4 @@ dist
 /api/public/uploads/icon
 /api/public/uploads/payment
 /api/public/uploads/product
+package-lock.json

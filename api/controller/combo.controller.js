@@ -52,6 +52,7 @@ exports.addCombo=async(req,res)=>{
 exports.listCombo=async(req,res)=>{
     try{
         await Combo.find({})
+            .populate('createdBy', "username")
             .exec((err,combos)=>{
                 if(err)
                 {
