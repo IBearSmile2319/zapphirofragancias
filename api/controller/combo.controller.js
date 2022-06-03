@@ -1,207 +1,191 @@
-const Combo=require('../models/mongo/product/Combo.model');
+const Combo = require('../models/mongo/product/Combo.model');
 
-exports.addCombo=async(req,res)=>{
+exports.addCombo = async (req, res) => {
     const {
         name,
         description,
         position,
         price,
         products,
-    }=req.body;
+    } = req.body;
 
-    const combo=await Combo.findOne({name});
-    if(combo)
-    {
+    const combo = await Combo.findOne({ name });
+    if (combo) {
         return res.status(400).json({
-            success:false,
-            message:"El combo ya existe ¡Verificar!"
+            success: false,
+            message: "El combo ya existe ¡Verificar!"
         })
     }
-    const newCombo=new Combo({
+    const newCombo = new Combo({
         name,
         description,
         position,
         price,
         products,
-        createdBy:req.uid
+        createdBy: req.uid
     })
-    if(req.file)
-    {
-        newCombo.icon=`/public/icon/${req.file.filename}`
+    if (req.file) {
+        newCombo.icon = `/public/icon/${req.file.filename}`
     }
-    await newCombo.save((err,combo)=>{
-        if(err)
-        {
+    await newCombo.save((err, combo) => {
+        if (err) {
             return res.status(400).json({
-                success:false,
-                message:"Error al crear el combo",
-                error:err
+                success: false,
+                message: "Error al crear el combo",
+                error: err
             })
         }
-        if(combo)
-        {
+        if (combo) {
             return res.status(201).json({
-                success:true,
-                message:"Combo creado correctamente",
-                data:combo
+                success: true,
+                message: "Combo creado correctamente",
+                data: combo
             })
         }
     })
 }
 
-exports.listCombo=async(req,res)=>{
-    try{
+exports.listCombo = async (req, res) => {
+    try {
         await Combo.find({})
             .populate('createdBy', "username")
-            .exec((err,combos)=>{
-                if(err)
-                {
+            .exec((err, combos) => {
+                if (err) {
                     return res.status(400).json({
-                        success:false,
-                        message:"Error al listar los combos",
-                        error:err
+                        success: false,
+                        message: "Error al listar los combos",
+                        error: err
                     })
                 }
-                if(combos)
-                {
+                if (combos) {
                     return res.status(200).json({
-                        success:true,
-                        message:"Lista de combos",
-                        data:combos
+                        success: true,
+                        message: "Lista de combos",
+                        data: combos
                     })
                 }
             })
     }
-    catch(err)
-    {
+    catch (err) {
         return res.status(400).json({
-            success:false,
-            message:"Error al listar los combos",
-            error:err
+            success: false,
+            message: "Error al listar los combos",
+            error: err
         })
     }
 }
 
-exports.updateCombo=async(req,res)=>{
+exports.updateCombo = async (req, res) => {
     const {
         name,
         description,
         position,
         price,
         products,
-    }=req.body;
+    } = req.body;
 
-    const combo=await Combo.findOne({name});
-    if(!combo)
-    {
+    const combo = await Combo.findOne({ name });
+    if (!combo) {
         return res.status(400).json({
-            success:false,
-            message:"El combo no existe ¡Verificar!"
+            success: false,
+            message: "El combo no existe ¡Verificar!"
         })
     }
-    const newCombo=new Combo({
+    const newCombo = new Combo({
         name,
         description,
         position,
         price,
         products,
-        createdBy:req.uid
+        createdBy: req.uid
     })
-    if(req.file)
-    {
-        newCombo.icon=`/public/icon/${req.file.filename}`
+    if (req.file) {
+        newCombo.icon = `/public/icon/${req.file.filename}`
     }
-    await newCombo.save((err,combo)=>{
-        if(err)
-        {
+    await newCombo.save((err, combo) => {
+        if (err) {
             return res.status(400).json({
-                success:false,
-                message:"Error al actualizar el combo",
-                error:err
+                success: false,
+                message: "Error al actualizar el combo",
+                error: err
             })
         }
-        if(combo)
-        {
+        if (combo) {
             return res.status(201).json({
-                success:true,
-                message:"Combo actualizado correctamente",
-                data:combo
+                success: true,
+                message: "Combo actualizado correctamente",
+                data: combo
             })
         }
     })
 }
 
-exports.deleteCombo=async(req,res)=>{
+exports.deleteCombo = async (req, res) => {
     const {
         name,
-    }=req.body;
+    } = req.body;
 
-    const combo=await Combo.findOne({name});
-    if(!combo)
-    {
+    const combo = await Combo.findOne({ name });
+    if (!combo) {
         return res.status(400).json({
-            success:false,
-            message:"El combo no existe ¡Verificar!"
+            success: false,
+            message: "El combo no existe ¡Verificar!"
         })
     }
-    await Combo.deleteOne({name})
-        .exec((err,combo)=>{
-            if(err)
-            {
+    await Combo.deleteOne({ name })
+        .exec((err, combo) => {
+            if (err) {
                 return res.status(400).json({
-                    success:false,
-                    message:"Error al eliminar el combo",
-                    error:err
+                    success: false,
+                    message: "Error al eliminar el combo",
+                    error: err
                 })
             }
-            if(combo)
-            {
+            if (combo) {
                 return res.status(201).json({
-                    success:true,
-                    message:"Combo eliminado correctamente",
-                    data:combo
+                    success: true,
+                    message: "Combo eliminado correctamente",
+                    data: combo
                 })
             }
         })
 }
 
-exports.getCombo=async(req,res)=>{
+exports.getCombo = async (req, res) => {
     const {
         name,
-    }=req.body;
+    } = req.body;
 
-    const combo=await Combo.findOne({name});
-    if(!combo)
-    {
+    const combo = await Combo.findOne({ name });
+    if (!combo) {
         return res.status(400).json({
-            success:false,
-            message:"El combo no existe ¡Verificar!"
+            success: false,
+            message: "El combo no existe ¡Verificar!"
         })
     }
     return res.status(200).json({
-        success:true,
-        message:"Combo",
-        data:combo
+        success: true,
+        message: "Combo",
+        data: combo
     })
 }
 
-exports.getComboById=async(req,res)=>{
+exports.getComboById = async (req, res) => {
     const {
         id,
-    }=req.body;
+    } = req.body;
 
-    const combo=await Combo.findById(id);
-    if(!combo)
-    {
+    const combo = await Combo.findById(id);
+    if (!combo) {
         return res.status(400).json({
-            success:false,
-            message:"El combo no existe ¡Verificar!"
+            success: false,
+            message: "El combo no existe ¡Verificar!"
         })
     }
     return res.status(200).json({
-        success:true,
-        message:"Combo",
-        data:combo
+        success: true,
+        message: "Combo",
+        data: combo
     })
 }
 

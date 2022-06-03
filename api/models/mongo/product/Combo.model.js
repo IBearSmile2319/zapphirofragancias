@@ -13,7 +13,7 @@ const comboSchema = new Schema(
         },
         icon: {
             type: String,
-            required: true,
+            required: true
         },
         position: {
             type: Number,
