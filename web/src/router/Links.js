@@ -3,15 +3,27 @@ import IconProducts from '../assets/img/icons/IconProducts'
 import iconProductsAdd from "../assets/img/icons/IconProductsAdd"
 import IconOrders from "../assets/img/icons/IconOrders"
 
-import { BranchesOutlined, DashboardOutlined, OrderedListOutlined, ShoppingOutlined } from "@ant-design/icons"
+import { 
+    BranchesOutlined, 
+    DashboardOutlined, 
+    ShoppingOutlined, 
+    TagsOutlined,
+    PictureOutlined
+
+} from "@ant-design/icons"
 import Dashboard from "../pages/Admin/Dashboard"
 import Orders from "../pages/Admin/Orders"
+// products
 import Products from "../pages/Admin/Products"
 import AddProduct from "../pages/Admin/Products/AddProduct"
 import ListProducts from "../pages/Admin/Products/ListProducts"
-import Categories from "../pages/Admin/Gestion/Categories"
-import Branges from "../pages/Admin/Gestion/Branges"
+// gestion
 import Gestion from "../pages/Admin/Gestion"
+import Categories from "../pages/Admin/Gestion/Categories"
+import Brands from "../pages/Admin/Gestion/Brands"
+import Pictures from '../pages/Admin/Gestion/Pictures'
+import IconPanda from '../assets/img/icons/IconPanda'
+import ProductsCombo from '../pages/Admin/Products/ProductsCombo'
 
 
 export const LinksAdmin = [
@@ -44,6 +56,12 @@ export const LinksAdmin = [
                 path: 'add',
                 icon: iconProductsAdd,
                 element: AddProduct
+            },
+            {
+                name: 'Combos',
+                path: 'combos',
+                icon: IconPanda,
+                element: ProductsCombo
             }
         ]
     },
@@ -55,15 +73,21 @@ export const LinksAdmin = [
         subElement: Categories,
         submenu: [
             {
-                name: "categorias",
+                name: "Categorias",
                 path: "",
                 icon: BranchesOutlined,
             },
             {
-                name: 'Añadir categoria',
-                path: 'branges',
-                icon: OrderedListOutlined,
-                element: Branges
+                name: 'Marcas',
+                path: 'brands',
+                icon: TagsOutlined,
+                element: Brands
+            },
+            {
+                name: 'Imagenes',
+                path: 'Pictures',
+                icon: PictureOutlined,
+                element: Pictures
             }
         ]
     }
