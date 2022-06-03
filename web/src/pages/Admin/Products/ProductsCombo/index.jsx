@@ -9,19 +9,18 @@ import { AllComboAdmin } from '../../../../action/combo.action'
 import { Spin } from 'antd'
 const ProductsCombo = () => {
   const dispatch = useDispatch()
-  const { loading, listCombos } = useSelector(state => state.combo)
+  const { loading, listCombos, changeNumber } = useSelector(state => state.combo)
 
   useEffect(() => {
     dispatch(AllComboAdmin())
-  }, [dispatch])
+  }, [changeNumber])
   return (
     <Spin spinning={loading}>
-
       <main className='admin-combo__list'>
         <BreadCrumb />
         <NavCombo />
         <TableCombos
-          data={listCombos}
+          data={listCombos && listCombos.length > 0 ? listCombos : []}
           className='table-combos'
         />
       </main>
