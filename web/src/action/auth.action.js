@@ -6,9 +6,8 @@ export const SignInAdmin = (data) => {
         dispatch({ type: AdminSignIn.ADMIN_SIGNIN_REQUEST })
         axiosAdminInstance.post('/login', data)
             .then(res => {
-                console.log(res.data)
                 localStorage.setItem('admin-token', res.data.token)
-                dispatch({ type: AdminSignIn.ADMIN_SIGNIN_SUCCESS, payload: res.data.admin })
+                dispatch({ type: AdminSignIn.ADMIN_SIGNIN_SUCCESS, payload: {...res.data.admin,token:res.data.token} })
             })
             .catch(err => {
                 dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: err.response.data.error })
@@ -46,7 +45,7 @@ export const AdminrenewToken = () => {
 
 }
 export const AdminLogout = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         localStorage.removeItem('admin-token')
         dispatch({ type: AdminSignIn.ADMIN_SIGNIN_FAILURE, payload: 'Logout successfully' })
     }
