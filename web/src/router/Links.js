@@ -24,6 +24,7 @@ import Brands from "../pages/Admin/Gestion/Brands"
 import Pictures from '../pages/Admin/Gestion/Pictures'
 import IconPanda from '../assets/img/icons/IconPanda'
 import ProductsCombo from '../pages/Admin/Products/ProductsCombo'
+import IconZFCombo from '../assets/img/icons/IconZFCOMBO'
 
 
 export const LinksAdmin = [
@@ -60,7 +61,7 @@ export const LinksAdmin = [
             {
                 name: 'Combos',
                 path: 'combos',
-                icon: IconPanda,
+                icon: IconZFCombo,
                 element: ProductsCombo
             }
         ]

@@ -1,6 +1,6 @@
 const Admin = require("../models/mongo/Admin/Admin.model");
 const bcrypt = require("bcryptjs");
-const { generateJWT } = require("../helper/jwt");
+const { generateJWTAdmin } = require("../helper/jwt");
 const { AdminCreateSession } = require("../service/session.service");
 
 exports.adminRegister = async (req, res, next) => {
@@ -69,11 +69,11 @@ exports.adminLogin = async (req, res, next) => {
                             req.get("user-agent") || "",
                             req.header('x-forwarded-for') || req.connection.remoteAddress
                         );
-                        const token = await generateJWT({
+                        const token = await generateJWTAdmin({
                             uid: admin._id,
                             role: admin.role.name,
                             session: session._id
-                        }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
+                        });
                         return res.status(200).json({
                             success: true,
                             message: "Usuario logueado correctamente",
@@ -106,10 +106,10 @@ exports.adminLogin = async (req, res, next) => {
 exports.adminRenewToken = async (req, res, next) => {
     try {
         // Generar nuevo token
-        const token = await generateJWT({
+        const token = await generateJWTAdmin({
             uid: req.uid,
             role: req.role
-        }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
+        });
 
         // Obtener el usuario for uuid
         await Admin.findOne({ _id: req.uid })

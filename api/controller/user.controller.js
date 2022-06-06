@@ -2,7 +2,7 @@
 const p_pre_registrer = require("../utils/html/p_pre_registrer");
 
 // jwt generate | decode | verify
-const { generateJWT } = require("../helper/jwt");
+const { generateJWTUserUser } = require("../helper/jwt");
 
 // sendMail
 const SendMail = require("../helper/sendMailerHelper");
@@ -26,7 +26,7 @@ exports.SendDataUser = async (req, res) => {
             })
         }
         // generar el token
-        const token = await generateJWT({
+        const token = await generateJWTUser({
             firstName, lastName, email, nDocument, phone, promotion
         }, process.env.jWT_SECRET_PREREGISTER);
         // send Mail
@@ -78,9 +78,9 @@ exports.userSignIn = async (req, res) => {
                 }
                 if (user) {
                     if (bcrypt.compareSync(password, user.password)) {
-                        const token = await generateJWT({
+                        const token = await generateJWTUserUser({
                             uid: user._id,
-                        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+                        });
                         return res.status(200).json({
                             success: true,
                             message: "Sesión iniciada correctamente",
@@ -118,9 +118,9 @@ exports.forgotPassword = async (req, res) => {
                 error: "El usuario no existe"
             })
         }
-        const token = await generateJWT({
+        const token = await generateJWTUser({
             uid: user._id,
-        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+        });
         const info = await SendMail(p_pre_registrer(`http://localhost:3000/api/user/reset/${token}`), "Recuperar contraseña",
             email
         );
@@ -173,9 +173,9 @@ exports.resetPassword = async (req, res) => {
 exports.userRenewToken = async (req, res, next) => {
     try {
         // Generated new token
-        const token = await generateJWT({
+        const token = await generateJWTUser({
             uid: req.uid,
-        }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
+        });
 
         // Return info user
         await User.findOne({ _id: req.uid })
