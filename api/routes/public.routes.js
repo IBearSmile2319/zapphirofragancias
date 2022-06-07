@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const router = require('./admin.routes');
+const router = Router();
 
 router.post("/upload",(req,res)=>{
     res.status(200).json({
@@ -9,6 +9,10 @@ router.post("/upload",(req,res)=>{
         thumbUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
     });
 })
+
+
+const { getCombos } = require('../controller/combo.controller');
+router.get('/combo', getCombos); 
 
 
 module.exports = router;

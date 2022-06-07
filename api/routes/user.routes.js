@@ -15,6 +15,8 @@ const { getProduct, getProductsByCategory, getProducts } = require('../controlle
 router.get('/product/:slug', getProduct);
 router.get('/products/:category', getProductsByCategory);
 router.get('/products', getProducts);
+
+
 // order
 const { addOrder, getOrdersByUser, getOrdersForVerify, firstOrder, getCustomerOrders } = require('../controller/order.controller');
 router.post('/order', addOrder);
@@ -24,6 +26,7 @@ router.get('/orders/:user', getOrdersByUser);
 router.get('/orders/verify/:user', getOrdersForVerify);
 // category
 const { getCategories } = require('../controller/category.controller');
+
 
 router.get('/category', getCategories);
 

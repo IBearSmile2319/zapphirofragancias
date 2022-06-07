@@ -22,6 +22,18 @@ const TableCombos = (props) => {
             )
         },
         {
+            title: 'Imagen',
+            dataIndex: 'image',
+            key: 'image',
+            render: (_, {imagen}) => (
+                <Image
+                    src={`http://localhost:8080${imagen}`}
+                    alt='imagen'
+                    style={{width: '50px', height: '50px'}}
+                />
+            )
+        },
+        {
             title: 'Creador',
             dataIndex: 'createdBy',
             key: 'createdBy',

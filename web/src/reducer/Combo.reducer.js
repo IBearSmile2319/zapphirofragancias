@@ -2,6 +2,7 @@ import { ComboProducts } from "../action/constants"
 
 
 const initialState = {
+    combos: [],
     listCombos: [],
     changeNumber: 0,
     loading: false,
@@ -37,6 +38,26 @@ export default (state = initialState, action) => {
                 error: action.payload,
                 changeNumber: 0,
             }
+
+        // user interactive combo
+        case ComboProducts.COMBO_LANDING_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case ComboProducts.COMBO_LANDING_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                combos: action.payload,
+            }
+        case ComboProducts.COMBO_LANDING_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            }
+
         default:
             return state
 
