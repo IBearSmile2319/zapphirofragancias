@@ -42,7 +42,10 @@ router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
 // Combo
 const { addCombo, listCombo } = require('../controller/combo.controller');
-router.post('/combo', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), addCombo)
+router.post('/combo', validateAdminJWT, adminMiddleware, upload.fields([
+    {name:'icon',maxCount: 1},
+    {name:'imagen',maxCount: 1}
+]), addCombo)
 router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
 // Image
 
