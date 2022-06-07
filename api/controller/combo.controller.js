@@ -24,9 +24,13 @@ exports.addCombo = async (req, res) => {
         products,
         createdBy: req.uid
     })
-    if (req.file) {
-        newCombo.icon = `/public/icon/${req.file.filename}`
+    if (req.files['icon']) {
+        newCombo.icon = `/public/images/${req.files['icon'][0].filename}`
     }
+    if (req.files['imagen']) {
+        newCombo.imagen = `/public/images/${req.files['imagen'][0].filename}`
+    }
+
     await newCombo.save((err, combo) => {
         if (err) {
             return res.status(400).json({
