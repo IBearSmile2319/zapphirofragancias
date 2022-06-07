@@ -1,0 +1,31 @@
+#combo-product-icon > .cls-1 {
+  fill: #f2b6b6;
+}
+#combo-product-icon > .cls-2 {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 0.25px;
+  stroke-dasharray: 1 1;
+}
+#combo-product-icon > .cls-3,
+#combo-product-icon > .cls-8 {
+  fill: #9164cc;
+}
+#combo-product-icon > .cls-4 {
+  fill: #95c11f;
+}
+#combo-product-icon > .cls-5 {
+  fill: #454546;
+}
+#combo-product-icon > .cls-6,
+#combo-product-icon > .cls-9 {
+  fill: #863399;
+}
+#combo-product-icon > .cls-7 {
+  fill: #fff;
+}
+#combo-product-icon > .cls-8,
+#combo-product-icon > .cls-9 {
+  opacity: 0.1;
+}

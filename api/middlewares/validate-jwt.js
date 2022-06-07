@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { verifyJWTAdmin } = require('../helper/jwt');
 
 exports.validateJWT = (req, res, next) => {
     try {
@@ -23,7 +24,7 @@ exports.validateJWT = (req, res, next) => {
     }
 };
 
-exports.validateAdminJWT = (req, res, next) => {
+exports.validateAdminJWT =async (req, res, next) => {
     try {
         let token = req.header('x-access-token') || req.header('authorization');
         token = token.replace('Bearer ', '');
@@ -33,7 +34,7 @@ exports.validateAdminJWT = (req, res, next) => {
                 msg: 'No token provided'
             })
         }
-        const { uid, role } = jwt.verify(token, process.env.JWT_SECRET_ADMIN);
+        const { uid, role } =await verifyJWTAdmin(token);
         req.uid = uid;
         req.role = role;
         next()

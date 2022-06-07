@@ -23,6 +23,10 @@ const adminSchema = new Schema({
         type: String,
         required: true
     },
+    online: { 
+        type: Boolean,
+        default: false
+    },
     avatar: {
         type: String,
     },

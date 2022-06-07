@@ -17,6 +17,10 @@ import AuthContext from '../auth/AuthContext';
 import Products from '../pages/Admin/Products';
 import Orders from '../pages/Admin/Orders';
 import { LinksAdmin } from './Links';
+import Combo from '../pages/Combo';
+import ListCombo from '../pages/Combo/ListCombo';
+import CartCombo from '../pages/Combo/CartCombo';
+import PaymentCombo from '../pages/Combo/PaymentCombo';
 const AppRouter = () => {
     const { verifyToken } = useContext(AuthContext);
     const auth = useSelector(state => state.auth);
@@ -30,6 +34,11 @@ const AppRouter = () => {
                 <Route path="/" element={<Landing />} />
                 <Route path="sign-in" element={<Login />} />
                 <Route path="sign-up" element={<Register />} />
+                <Route path="combo" element={<Combo/>} >
+                    <Route index element={<ListCombo/>} />
+                    <Route path="cart" element={<CartCombo/>} />
+                    <Route path="payment" element={<PaymentCombo/>} />
+                </Route>
                 <Route element={<UserPrivateRouter user={auth.user.logged} />}>
                     <Route path="home" element={<Home />} />
                 </Route>

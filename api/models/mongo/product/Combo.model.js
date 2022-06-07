@@ -22,6 +22,9 @@ const comboSchema = new Schema(
             type: Boolean,
             default: true
         },
+        imagen:{
+            type: String,
+        },
         createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
         products: [
             { 

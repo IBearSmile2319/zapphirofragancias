@@ -8,11 +8,13 @@ const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
   const dispatch = useDispatch()
   const [form] = Form.useForm();
   const [image, setImage] = useState('')
+  const [icon, setIcon] = useState('')
   const onFinish = (values) => {
     const formData = new FormData();
     formData.append('name', values.name)
     formData.append('price', values.price)
-    formData.append('icon', image)
+    formData.append('icon', icon)
+    formData.append('imagen', image)
     formData.append('description', values.description)
     dispatch(AddComboAdmin(formData))
     handleOk()
@@ -84,6 +86,30 @@ const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
         <Form.Item
           label="Imagen del combo"
           name="icon"
+        >
+          <Space
+            direction="vertical"
+            onChange={e => setIcon(e.target.files[0])}
+          >
+
+            <Upload
+              listType="picture"
+              maxCount={1}
+              accept="image/png, image/jpeg"
+              action="http://localhost:8080/api/upload"
+            >
+              <Button icon={
+                <UploadOutlined />
+              }>
+                Subir Imagen
+              </Button>
+            </Upload>
+          </Space>
+        </Form.Item>
+         {/* icon */}
+         <Form.Item
+          label="Imagen del combo"
+          name="image"
         >
           <Space
             direction="vertical"

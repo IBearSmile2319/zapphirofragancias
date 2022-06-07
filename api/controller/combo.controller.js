@@ -24,9 +24,13 @@ exports.addCombo = async (req, res) => {
         products,
         createdBy: req.uid
     })
-    if (req.file) {
-        newCombo.icon = `/public/icon/${req.file.filename}`
+    if (req.files['icon']) {
+        newCombo.icon = `/public/images/${req.files['icon'][0].filename}`
     }
+    if (req.files['imagen']) {
+        newCombo.imagen = `/public/images/${req.files['imagen'][0].filename}`
+    }
+
     await newCombo.save((err, combo) => {
         if (err) {
             return res.status(400).json({
@@ -151,13 +155,13 @@ exports.deleteCombo = async (req, res) => {
         })
 }
 
-exports.getCombo = async (req, res) => {
-    const {
-        name,
-    } = req.body;
 
-    const combo = await Combo.findOne({ name });
-    if (!combo) {
+// User / public
+
+exports.getCombos = async (req, res) => {
+    // combo status true
+    const combos = await Combo.find({ status: true });
+    if (!combos) {
         return res.status(400).json({
             success: false,
             message: "El combo no existe ¡Verificar!"
@@ -165,8 +169,8 @@ exports.getCombo = async (req, res) => {
     }
     return res.status(200).json({
         success: true,
-        message: "Combo",
-        data: combo
+        message: "Lista de combos",
+        data: combos
     })
 }
 

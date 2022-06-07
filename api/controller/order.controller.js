@@ -7,7 +7,6 @@ const Product = require("../models/mongo/product/Product.model");
 // bcrypt
 const bcrypt = require("bcryptjs");
 const SendMail = require("../helper/sendMailerHelper");
-const { generateJWT } = require("../helper/jwt");
 const Address = require("../models/mongo/user/Address.model");
 
 const PaymentModel = require("../models/mongo/cart/Payment.model");
