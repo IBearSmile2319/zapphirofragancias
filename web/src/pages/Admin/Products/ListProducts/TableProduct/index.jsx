@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table} from 'antd'
+import { Table } from 'antd'
 const TableProduct = (props) => {
     const columns = [
         {
@@ -14,7 +14,7 @@ const TableProduct = (props) => {
             width: 100,
             dataIndex: 'age',
             key: 'age',
-            fixed: 'left',
+            // fixed: 'left',
         },
         {
             title: 'Column 1',
@@ -66,13 +66,13 @@ const TableProduct = (props) => {
     ];
     const data = [
         {
-            key: '1',
+            id: '1',
             name: 'John Brown',
             age: 32,
             address: 'New York Park',
         },
         {
-            key: '2',
+            id: '2',
             name: 'Jim Green',
             age: 40,
             address: 'London Park',
@@ -80,13 +80,13 @@ const TableProduct = (props) => {
     ];
 
     return <Table
-            {...props}
-            columns={columns}
-            dataSource={data}
-            scroll={{
-                x: 1300,
-            }}
-        />
+        {...props}
+        columns={columns}
+        dataSource={data}
+        scroll={{
+            x: 1300,
+        }}
+    />
 }
 
 export default TableProduct

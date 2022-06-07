@@ -1,6 +1,7 @@
 const Admin = require("../models/mongo/Admin/Admin.model");
 const bcrypt = require("bcryptjs");
 const { generateJWT } = require("../helper/jwt");
+const { AdminCreateSession } = require("../service/session.service");
 
 exports.adminRegister = async (req, res, next) => {
 
@@ -55,7 +56,7 @@ exports.adminLogin = async (req, res, next) => {
                         error: "Error al iniciar sesión",
                     })
                 }
-                if(!admin){
+                if (!admin) {
                     return res.status(400).json({
                         success: false,
                         error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
@@ -63,16 +64,26 @@ exports.adminLogin = async (req, res, next) => {
                 }
                 if (admin) {
                     if (bcrypt.compareSync(password, admin.password)) {
-
+                        const session = await AdminCreateSession(
+                            admin._id,
+                            req.get("user-agent") || "",
+                            req.header('x-forwarded-for') || req.connection.remoteAddress
+                        );
                         const token = await generateJWT({
                             uid: admin._id,
-                            role: admin.role.name
+                            role: admin.role.name,
+                            session: session._id
                         }, process.env.JWT_SECRET_ADMIN, process.env.JWT_EXPIRES_ADMIN_IN);
                         return res.status(200).json({
                             success: true,
                             message: "Usuario logueado correctamente",
                             token,
                             admin
+                        })
+                    } else {
+                        return res.status(400).json({
+                            success: false,
+                            error: `El ${userAndEmail ? "correo" : "usuario"} o contraseña son incorrectos`
                         })
                     }
                 } else {
