@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 // user model
 const User = require("../models/mongo/user/User.model");
 // order model
@@ -10,7 +13,7 @@ const SendMail = require("../helper/sendMailerHelper");
 const Address = require("../models/mongo/user/Address.model");
 
 const PaymentModel = require("../models/mongo/cart/Payment.model");
-const RangeModel = require("../models/mongo/user/Range.model");
+const ComboModel = require("../models/mongo/product/Combo.model");
 
 exports.firstOrder = async (req, res) => {
     const {
@@ -42,12 +45,12 @@ exports.firstOrder = async (req, res) => {
         combo,
     } = req.body;
 
-    // TODO: check if user exists
-
     //TODO: generate password
     const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     //TODO: generate username
     const username = `${firstName.split("")[0]}${lastName.split("")[0]}${nDocument}`
+
     // TODO: verify if user exist email or username or ndocument
     const user = await User.findOne({
         $or: [{ email }, { username }, { nDocument }]
@@ -58,6 +61,7 @@ exports.firstOrder = async (req, res) => {
             message: "El usuario ya esta en proceso de validación",
         });
     }
+
     // TODO: save user and get id
     const newUser = new User({
         username,
@@ -72,9 +76,11 @@ exports.firstOrder = async (req, res) => {
         active: false,
         online: false,
     })
+
     // TODO: encrypt password
     const salt = await bcrypt.genSaltSync()
     newUser.password = await bcrypt.hash(password, salt);
+
     // TODO: save user
     newUser.save(async (err, user) => {
         if (err) {
@@ -85,33 +91,31 @@ exports.firstOrder = async (req, res) => {
         }
         if (user) {
             // TODO: save address and get id
-            const address = {
-                user: user._id,
-                fullName: fullName ? fullName : `${user.firstName} ${user.lastName}`,
-                phoneNumber: phoneNumber ? phoneNumber : user.phone,
-                alternativePhoneNumber,
-                zipCode,
-                street,
-                number,
-                neighborhood,
-                city,
-                state,
-                country,
-                reference,
-            }
-            const newAddress = new Address(address);
-            const newSaveAddress = await newAddress.save();
+            // const address = {
+            //     user: user._id,
+            //     fullName: fullName ? fullName : `${user.firstName} ${user.lastName}`,
+            //     phoneNumber: phoneNumber ? phoneNumber : user.phone,
+            //     alternativePhoneNumber,
+            //     zipCode,
+            //     street,
+            //     number,
+            //     neighborhood,
+            //     city,
+            //     state,
+            //     country,
+            //     reference,
+            // }
+            // const newAddress = new Address(address);
+            // const newSaveAddress = await newAddress.save();
             // error save address
-            if (!newSaveAddress) {
-                // TODO: delete user
-                await User.deleteOne({ _id: user._id });
-                return res.status(400).json({
-                    success: false,
-                    message: "Error al guardar la dirección",
-                });
-            }
-
-            console.log(newSaveAddress);
+            // if (!newSaveAddress) {
+            //     // TODO: delete user
+            //     await User.deleteOne({ _id: user._id });
+            //     return res.status(400).json({
+            //         success: false,
+            //         message: "Error al guardar la dirección",
+            //     });
+            // }
             // TODO: save payment and get id
             const newPayment = new PaymentModel({
                 user: user._id,
@@ -130,7 +134,12 @@ exports.firstOrder = async (req, res) => {
                     // TODO: delete user
                     await User.deleteOne({ _id: user._id });
                     // TODO: delete address
-                    await Address.deleteOne({ _id: newSaveAddress._id });
+                    // await Address.deleteOne({ _id: newSaveAddress._id });
+                    // TODO: delete image in public folder
+                    if (req.file) {
+                        fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
+                    }
+
                     return res.status(400).json({
                         success: false,
                         message: "Error al guardar el pago",
@@ -139,18 +148,18 @@ exports.firstOrder = async (req, res) => {
                 }
                 if (payment) {
                     // get range id
-                    const rank = await RangeModel.findOne({ _id: range });
+                    const newCombo = await ComboModel.findOne({ _id: combo }).exec();
                     const newOrder = new Order({
                         user: user._id,
-                        address: newSaveAddress._id,
+                        // address: newSaveAddress._id,
                         items: [
                             {
-                                range: rank._id,
+                                combo: newCombo._id,
                                 quantity: 1,
-                                price: rank.price,
+                                price: newCombo.price,
                             }
                         ],
-                        total: rank.price,
+                        total: newCombo.price,
                         payment: payment._id,
                         orderStatus: [
                             {
@@ -179,10 +188,13 @@ exports.firstOrder = async (req, res) => {
                             // TODO: delete user
                             await User.deleteOne({ _id: user._id });
                             // TODO: delete address
-                            await Address.deleteOne({ _id: newSaveAddress._id });
+                            // await Address.deleteOne({ _id: newSaveAddress._id });
                             // TODO: delete payment
                             await PaymentModel.deleteOne({ _id: payment._id });
-                            // TODO: delete order
+                            // TODO: delete image in public folder
+                            if (req.file) {
+                                fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
+                            }
                             return res.status(400).json({
                                 success: false,
                                 message: "Error al guardar el pedido",
@@ -190,7 +202,6 @@ exports.firstOrder = async (req, res) => {
                             })
                         }
                         if (order) {
-                            console.log(password, user.username);
                             const info = await SendMail(
                                 `
                                 <h1>Bienvenido a la plataforma de pedidos de la marca ZF Socios</h1>
@@ -207,12 +218,23 @@ exports.firstOrder = async (req, res) => {
                                 <p>
                                     <a href="http://localhost:3000/sign-in">http://localhost:3000/sign-in</a>
                                 </p>
-
-                                `, 
+                                `,
                                 "Activar cuenta",
                                 email
                             );
                             if (!info) {
+                                // TODO: delete user
+                                await User.deleteOne({ _id: user._id });
+                                // TODO: delete address
+                                // await Address.deleteOne({ _id: newSaveAddress._id });
+                                // TODO: delete payment
+                                await PaymentModel.deleteOne({ _id: payment._id });
+                                // TODO: delete order
+                                await Order.deleteOne({ _id: order._id });
+                                // TODO: delete image in public folder
+                                if (req.file) {
+                                    fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
+                                }
                                 return res.status(400).json({
                                     success: false,
                                     message: "Error al enviar el correo",
@@ -220,7 +242,7 @@ exports.firstOrder = async (req, res) => {
                             }
                             return res.status(200).json({
                                 success: true,
-                                message: "Pedido guardado",
+                                message: "Pedido guardado y correo enviado",
                                 order
                             })
                         }
@@ -230,7 +252,6 @@ exports.firstOrder = async (req, res) => {
             })
         }
     })
-    // TODO: save order
 }
 
 exports.addOrder = async (req, res) => {

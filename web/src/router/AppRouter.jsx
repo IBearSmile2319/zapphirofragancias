@@ -21,6 +21,8 @@ import Combo from '../pages/Combo';
 import ListCombo from '../pages/Combo/ListCombo';
 import CartCombo from '../pages/Combo/CartCombo';
 import PaymentCombo from '../pages/Combo/PaymentCombo';
+import FormPayment from '../pages/Combo/PaymentCombo/FormPayment';
+import InfoCheckout from '../pages/Combo/PaymentCombo/InfoCheckout';
 const AppRouter = () => {
     const { verifyToken } = useContext(AuthContext);
     const auth = useSelector(state => state.auth);
@@ -37,7 +39,10 @@ const AppRouter = () => {
                 <Route path="combo" element={<Combo/>} >
                     <Route index element={<ListCombo/>} />
                     <Route path="cart" element={<CartCombo/>} />
-                    <Route path="payment" element={<PaymentCombo/>} />
+                    <Route path="payment" element={<PaymentCombo/>} >
+                        <Route index element={<FormPayment/>} />
+                        <Route path="checkout" element={<InfoCheckout/>} />
+                    </Route>
                 </Route>
                 <Route element={<UserPrivateRouter user={auth.user.logged} />}>
                     <Route path="home" element={<Home />} />
