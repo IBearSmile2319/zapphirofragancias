@@ -34,7 +34,6 @@ const ListCombo = () => {
                     </div>
                     <div className="list">
                         {combos && combos.map(combo => {
-                            console.log("hola")
                             return <CadCombo
                                 key={combo.id}
                                 loading={loading}
