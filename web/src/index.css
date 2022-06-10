@@ -52,11 +52,11 @@ input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner,
 input[type="file"] > input[type="button"]::-moz-focus-inner {border: none;} */
 
-/* :focus{outline: none;}
-::selection{color: var(--white-color) !important;background-color: var(--primary)!important;}
+:focus{outline: none;}
+/* ::selection{color: #fff !important;background-color: var(--primary-color)!important;} */
 ::-webkit-scrollbar{width: 8px;height: 8px;background: var(--bg-secondary);}
-::-webkit-scrollbar-thumb{background-color: transparent;border-radius: 4px;}
-::-webkit-scrollbar-thumb:hover{background: var(--primary);} */
+::-webkit-scrollbar-thumb{ background-color: #eff3f5; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover{background: var(--primary-color);}
 
 #root{
   height:100%;

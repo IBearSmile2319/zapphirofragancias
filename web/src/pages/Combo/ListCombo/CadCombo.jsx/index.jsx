@@ -3,7 +3,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 const CadCombo = ({
     loading,
-    combo
+    combo,
+    key
 }) => {
     const navigate = useNavigate()
     const selectCombo = (id) => {
@@ -12,7 +13,7 @@ const CadCombo = ({
     }
     return (
         <>
-            <Spin spinning={loading}>
+            <Spin spinning={loading} key={key}>
                 {/* card */}
                 <div className="combo-card">
                     <div className="relative">
