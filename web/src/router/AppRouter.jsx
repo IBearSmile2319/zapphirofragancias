@@ -33,9 +33,9 @@ const AppRouter = () => {
         <BrowserRouter>
             <Routes>
                 {/* public and private routes */}
-                <Route path="/" element={<Landing />} />
-                <Route path="sign-in" element={<Login />} />
-                <Route path="sign-up" element={<Register />} />
+                {/* <Route path="/" element={<Landing />} /> */}
+                <Route path="/" element={<Navigate to="combo" />} />
+                {/* <Route path="sign-up" element={<Register />} /> */}
                 <Route path="combo" element={<Combo/>} >
                     <Route index element={<ListCombo/>} />
                     <Route path="cart" element={<CartCombo/>} />
@@ -44,6 +44,7 @@ const AppRouter = () => {
                         <Route path="checkout" element={<InfoCheckout/>} />
                     </Route>
                 </Route>
+                <Route path="sign-in" element={<Login />} />
                 <Route element={<UserPrivateRouter user={auth.user.logged} />}>
                     <Route path="home" element={<Home />} />
                 </Route>
