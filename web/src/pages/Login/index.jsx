@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import Logo from "../../assets/img/logo_black.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Login.css";
 import { SignIn } from "../../action/auth.action";
+import { Navigate, useLocation } from "react-router-dom";
+import { Spin } from "antd";
 const Login = () => {
+  let location = useLocation()
+  let from = location.state?.from?.pathname || '/home'
   const dispatch = useDispatch();
+  const {loading, user}= useSelector(state => state.auth)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,6 +23,14 @@ const Login = () => {
 
   return (
     <>
+    <Spin
+      spinning={loading}
+      tip="Cargando..."
+      size="large"
+    >
+      {
+        user.logged && <Navigate to={from} replace />
+      }
       <div className="SignIn-container">
         <div className="signIn-center">
           <span></span>
@@ -81,6 +94,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      </Spin>
     </>
   );
 };
