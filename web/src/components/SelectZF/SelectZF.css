@@ -1,0 +1,35 @@
+.selectZF {
+  display: flex;
+  flex-direction: column;
+}
+.selectZF .selectZF__label {
+  margin: 5px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.selectZF select{
+  border-radius: 0.5rem;
+    border: 1px solid #ecf0f3;
+  padding: 9px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin:0;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+
+.selectZF select:focus {
+  outline: none;
+  border: 1px solid var(--primary-color);
+}
+.selectZF select::-ms-expand {
+  display: none;
+}
+.selectZF select::-ms-value {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: none;
+}

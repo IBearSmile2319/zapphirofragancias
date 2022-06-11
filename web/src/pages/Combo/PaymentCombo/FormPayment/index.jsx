@@ -3,21 +3,15 @@ import React, { useEffect, useState } from 'react'
 import './FormPayment.css'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FormPaymentValidate } from '../FormPayment.validate'
+import { FormInfoPersonValidate} from '../FormPayment.validate'
 import InputZF from '../../../../components/InputZF'
 import { useNavigate } from 'react-router-dom'
 
 const FormPayment = () => {
     const navigate = useNavigate()
     const { register, handleSubmit,setValue, formState: { errors } } = useForm({
-        resolver: yupResolver(FormPaymentValidate),
+        resolver: yupResolver(FormInfoPersonValidate),
     })
-    const onSubmit = (data) => {
-        // save local storage
-        localStorage.setItem('formPayment', JSON.stringify(data))
-        // redirect to info checkout
-        navigate('/combo/payment/checkout')
-    }
     useEffect(() => {
         if (localStorage.getItem('formPayment')) {
             const data = JSON.parse(localStorage.getItem('formPayment'))
@@ -26,7 +20,17 @@ const FormPayment = () => {
                 setValue(key, data[key])
             })
         }
+        if (!localStorage.getItem('comboSelect')) {
+            navigate('/combo')
+        }
     }, [])
+    
+    const onSubmit = (data) => {
+        // save local storage
+        localStorage.setItem('formPayment', JSON.stringify(data))
+        // redirect to info checkout
+        navigate('/combo/payment/checkout')
+    }
     return (
         <>
             <header>
