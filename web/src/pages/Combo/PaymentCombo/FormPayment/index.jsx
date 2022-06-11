@@ -12,12 +12,6 @@ const FormPayment = () => {
     const { register, handleSubmit,setValue, formState: { errors } } = useForm({
         resolver: yupResolver(FormInfoPersonValidate),
     })
-    const onSubmit = (data) => {
-        // save local storage
-        localStorage.setItem('formPayment', JSON.stringify(data))
-        // redirect to info checkout
-        navigate('/combo/payment/checkout')
-    }
     useEffect(() => {
         if (localStorage.getItem('formPayment')) {
             const data = JSON.parse(localStorage.getItem('formPayment'))
@@ -30,6 +24,13 @@ const FormPayment = () => {
             navigate('/combo')
         }
     }, [])
+    
+    const onSubmit = (data) => {
+        // save local storage
+        localStorage.setItem('formPayment', JSON.stringify(data))
+        // redirect to info checkout
+        navigate('/combo/payment/checkout')
+    }
     return (
         <>
             <header>

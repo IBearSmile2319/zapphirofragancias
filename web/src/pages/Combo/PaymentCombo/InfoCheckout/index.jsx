@@ -7,7 +7,10 @@ import { FormPaymentValidate } from '../FormPayment.validate'
 import { Button, message, Space, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registerFirstOrder } from '../../../../action/order.action'
 const InfoCheckout = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const [image, setImage] = React.useState(null)
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -18,6 +21,27 @@ const InfoCheckout = () => {
       message.error('La imagen es requerida')
       return
     }
+    verifyLocalStorage()
+    const InfoUser=JSON.parse(window.localStorage.getItem('formPayment'))
+    const InfoCombo=window.localStorage.getItem('comboSelect')
+    const form = new FormData()
+    form.append('firstName', InfoUser.firstName)
+    form.append('lastName', InfoUser.lastName)
+    form.append('email', InfoUser.email)
+    form.append('phone', InfoUser.phone)
+    form.append('nDocument', InfoUser.nDocument)
+    form.append('promotion', InfoUser.promotion)
+    // payment
+    form.append('paymentMethod', data.paymentMethod)
+    form.append('paymentComission', data.paymentComission)
+    form.append('operationNumber', data.operationNumber)
+    form.append('paymentNote', data.paymentNote)
+    form.append('paymentMount', data.paymentMount)
+    form.append('img', image)
+    // combo
+    form.append('combo', InfoCombo)
+    console.log(form)
+    dispatch(registerFirstOrder(form))
     
   }
   const verifyLocalStorage = () => {

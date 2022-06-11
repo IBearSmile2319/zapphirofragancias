@@ -2,7 +2,7 @@
 const p_pre_registrer = require("../utils/html/p_pre_registrer");
 
 // jwt generate | decode | verify
-const { generateJWTUserUser } = require("../helper/jwt");
+const { generateJWTUser } = require("../helper/jwt");
 
 // sendMail
 const SendMail = require("../helper/sendMailerHelper");
@@ -78,7 +78,7 @@ exports.userSignIn = async (req, res) => {
                 }
                 if (user) {
                     if (bcrypt.compareSync(password, user.password)) {
-                        const token = await generateJWTUserUser({
+                        const token = await generateJWTUser({
                             uid: user._id,
                         });
                         return res.status(200).json({
