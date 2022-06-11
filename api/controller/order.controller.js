@@ -1,19 +1,20 @@
 const fs = require("fs");
 const path = require("path");
 
-// user model
-const User = require("../models/mongo/user/User.model");
-// order model
-const Order = require("../models/mongo/cart/Order.model");
-// product model
-const Product = require("../models/mongo/product/Product.model");
 // bcrypt
 const bcrypt = require("bcryptjs");
 const SendMail = require("../helper/sendMailerHelper");
-const Address = require("../models/mongo/user/Address.model");
 
+const { saveAddressService } = require("../service/address.service");
+const { saveUserService } = require("../service/user.service");
+const { savePaymentService } = require("../service/payment.service");
+const { saveOrderService } = require("../service/order.service");
+// models
 const PaymentModel = require("../models/mongo/cart/Payment.model");
 const ComboModel = require("../models/mongo/product/Combo.model");
+const AddressModel = require("../models/mongo/user/Address.model");
+const UserModel = require("../models/mongo/user/User.model");
+const OrderModel = require("../models/mongo/cart/Order.model");
 
 exports.firstOrder = async (req, res) => {
     const {
@@ -52,10 +53,15 @@ exports.firstOrder = async (req, res) => {
     const username = `${firstName.split("")[0]}${lastName.split("")[0]}${nDocument}`
 
     // TODO: verify if user exist email or username or ndocument
-    const user = await User.findOne({
-        $or: [{ email }, { username }, { nDocument }]
+
+    const isExistUser = await UserModel.findOne({
+        $or: [
+            { email },
+            { username },
+            { nDocument }
+        ]
     }).exec();
-    if (user) {
+    if (isExistUser) {
         return res.status(200).json({
             success: false,
             message: "El usuario ya esta en proceso de validación",
@@ -63,7 +69,7 @@ exports.firstOrder = async (req, res) => {
     }
 
     // TODO: save user and get id
-    const newUser = new User({
+    const newUser = new UserModel({
         username,
         firstName,
         lastName,
@@ -71,142 +77,160 @@ exports.firstOrder = async (req, res) => {
         password,
         nDocument,
         phone,
-        promotion,
-        status: false,
+        status: true,
         active: false,
         online: false,
     })
+    if (promotion && promotion !== "" && promotion !== "null" && promotion !== "undefined") {
+        newUser.promotion = promotion;
+    }
 
     // TODO: encrypt password
     const salt = await bcrypt.genSaltSync()
     newUser.password = await bcrypt.hash(password, salt);
 
     // TODO: save user
-    newUser.save(async (err, user) => {
-        if (err) {
-            return res.status(400).json({
-                success: false,
-                error: err
-            })
-        }
-        if (user) {
-            // TODO: save address and get id
-            // const address = {
-            //     user: user._id,
-            //     fullName: fullName ? fullName : `${user.firstName} ${user.lastName}`,
-            //     phoneNumber: phoneNumber ? phoneNumber : user.phone,
-            //     alternativePhoneNumber,
-            //     zipCode,
-            //     street,
-            //     number,
-            //     neighborhood,
-            //     city,
-            //     state,
-            //     country,
-            //     reference,
-            // }
-            // const newAddress = new Address(address);
-            // const newSaveAddress = await newAddress.save();
-            // error save address
-            // if (!newSaveAddress) {
-            //     // TODO: delete user
-            //     await User.deleteOne({ _id: user._id });
-            //     return res.status(400).json({
-            //         success: false,
-            //         message: "Error al guardar la dirección",
-            //     });
-            // }
-            // TODO: save payment and get id
-            const newPayment = new PaymentModel({
-                user: user._id,
-                paymentMethod,
-                paymentComission,
-                operationNumber,
-                paymentNote,
-                paymentMount,
-            })
-            // img
-            if (req.file) {
-                newPayment.img = `/public/payment/${req.file.filename}`
-            }
-            await newPayment.save(async (err, payment) => {
-                if (err) {
-                    // TODO: delete user
-                    await User.deleteOne({ _id: user._id });
-                    // TODO: delete address
-                    // await Address.deleteOne({ _id: newSaveAddress._id });
-                    // TODO: delete image in public folder
-                    if (req.file) {
-                        fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
-                    }
+    const userSaved = await saveUserService(newUser);
+    if (!userSaved) {
+        return res.status(400).json({
+            success: false,
+            message: "Error al guardar el usuario",
+        });
+    }
 
-                    return res.status(400).json({
-                        success: false,
-                        message: "Error al guardar el pago",
-                        error: err
-                    })
-                }
-                if (payment) {
-                    // get range id
-                    const newCombo = await ComboModel.findOne({ _id: combo }).exec();
-                    const newOrder = new Order({
-                        user: user._id,
-                        // address: newSaveAddress._id,
-                        items: [
-                            {
-                                combo: newCombo._id,
-                                quantity: 1,
-                                price: newCombo.price,
-                            }
-                        ],
-                        total: newCombo.price,
-                        payment: payment._id,
-                        orderStatus: [
-                            {
-                                type: "ordenado",
-                                date: new Date(),
-                                Completed: true,
-                            },
-                            {
-                                type: "confirmado",
-                                Completed: false,
-                            },
-                            {
-                                type: "enviado",
-                                Completed: false,
-                            },
-                            {
-                                type: "entregado",
-                                Completed: false,
-                            },
-                        ],
-                        status: false,
-                        approved: false,
-                    })
-                    await newOrder.save(async (err, order) => {
-                        if (err) {
-                            // TODO: delete user
-                            await User.deleteOne({ _id: user._id });
-                            // TODO: delete address
-                            // await Address.deleteOne({ _id: newSaveAddress._id });
-                            // TODO: delete payment
-                            await PaymentModel.deleteOne({ _id: payment._id });
-                            // TODO: delete image in public folder
-                            if (req.file) {
-                                fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
-                            }
-                            return res.status(400).json({
-                                success: false,
-                                message: "Error al guardar el pedido",
-                                error: err
-                            })
-                        }
-                        if (order) {
-                            const info = await SendMail(
-                                `
+    // TODO: save address and get id
+    // const address = {
+    //     user: user._id,
+    //     fullName: fullName ? fullName : `${user.firstName} ${user.lastName}`,
+    //     phoneNumber: phoneNumber ? phoneNumber : user.phone,
+    //     alternativePhoneNumber,
+    //     zipCode,
+    //     street,
+    //     number,
+    //     neighborhood,
+    //     city,
+    //     state,
+    //     country,
+    //     reference,
+    // }
+    // const newAddress = new AddressModel(address);
+    // const saveAddress = await saveAddressService(newAddress)
+    // error save address
+    // if (!saveAddress) {
+    //     // TODO: delete user
+    //     await User.deleteOne({ _id: user._id });
+    //     return res.status(400).json({
+    //         success: false,
+    //         message: "Error al guardar la dirección",
+    //     });
+    // }
+    // TODO: save payment and get id
+    const newPayment = new PaymentModel({
+        user: userSaved._id,
+        paymentMethod,
+        operationNumber,
+        paymentNote,
+        paymentMount,
+    })
+    // paymentComission,
+    if(paymentComission && paymentComission !== "" && paymentComission !== "null" && paymentComission !== "undefined"){
+        newPayment.paymentComission = paymentComission;
+    }
+    // img
+    if (req.file) {
+        newPayment.img = `/public/payment/${req.file.filename}`
+    }
+    const savePayment = await savePaymentService(newPayment);
+    if (!savePayment) {
+        // TODO: delete user
+        await UserModel.deleteOne({ _id: userSaved._id });
+        // TODO: delete address
+        // await Address.deleteOne({ _id: newSaveAddress._id });
+        // TODO: delete image in public folder
+        if (req.file) {
+            fs.unlinkSync(path.resolve(`../public/uploads/payment/${newPayment.img}`))
+        }
+        return res.status(400).json({
+            success: false,
+            message: "Error al guardar el pago",
+            error: savePayment
+        })
+    }
+
+    // TODO: save order and get id 
+    const findCombo = await ComboModel.findOne({ _id: combo }).exec();
+    if (!findCombo) {
+        // TODO: delete user
+        await UserModel.deleteOne({ _id: userSaved._id });
+        // TODO: delete address
+        // await Address.deleteOne({ _id: newSaveAddress._id });
+        // TODO: delete image in public folder
+        if (req.file) {
+            fs.unlinkSync(path.resolve(`../public/uploads/payment/${newPayment.img}`))
+        }
+        return res.status(400).json({
+            success: false,
+            message: "No existe el combo selecionado",
+            error: savePayment
+        })
+    }
+    const newOrder = new OrderModel({
+        user: userSaved._id,
+        // address: newSaveAddress._id,
+        items: [
+            {
+                combo: findCombo._id,
+                quantity: 1,
+                price: findCombo.price,
+            }
+        ],
+        total: findCombo.price,
+        payment: savePayment._id,
+        orderStatus: [
+            {
+                type: "ordenado",
+                date: new Date(),
+                Completed: true,
+            },
+            {
+                type: "confirmado",
+                Completed: false,
+            },
+            {
+                type: "enviado",
+                Completed: false,
+            },
+            {
+                type: "entregado",
+                Completed: false,
+            },
+        ],
+        status: false,
+        approved: false,
+    })
+    const saveOrder = await saveOrderService(newOrder);
+    if (!saveOrder) {
+        // TODO: delete user
+        await UserModel.deleteOne({ _id: userSaved._id });
+        // TODO: delete address
+        // await Address.deleteOne({ _id: newSaveAddress._id });
+        // TODO: delete payment
+        await PaymentModel.deleteOne({ _id: savePayment._id });
+        // TODO: delete image in public folder
+        if (req.file) {
+            fs.unlinkSync(path.resolve(`../public/uploads/payment/${newPayment.img}`))
+        }
+        return res.status(400).json({
+            success: false,
+            message: "Error al guardar el pedido",
+            error: err
+        })
+    }
+    const info = await SendMail(
+        `
                                 <h1>Bienvenido a la plataforma de pedidos de la marca ZF Socios</h1>
                                 <p>
-                                    Su usuario es: ${user.username}
+                                    Su usuario es: ${userSaved.username}
                                 </p>
                                 <p>
                                     Su contraseña es: ${password}
@@ -219,39 +243,33 @@ exports.firstOrder = async (req, res) => {
                                     <a href="http://localhost:3000/sign-in">http://localhost:3000/sign-in</a>
                                 </p>
                                 `,
-                                "Activar cuenta",
-                                email
-                            );
-                            if (!info) {
-                                // TODO: delete user
-                                await User.deleteOne({ _id: user._id });
-                                // TODO: delete address
-                                // await Address.deleteOne({ _id: newSaveAddress._id });
-                                // TODO: delete payment
-                                await PaymentModel.deleteOne({ _id: payment._id });
-                                // TODO: delete order
-                                await Order.deleteOne({ _id: order._id });
-                                // TODO: delete image in public folder
-                                if (req.file) {
-                                    fs.unlinkSync(path.resolve(__dirname, `../public/uploads/payment/${newPayment.img}`))
-                                }
-                                return res.status(400).json({
-                                    success: false,
-                                    message: "Error al enviar el correo",
-                                });
-                            }
-                            return res.status(200).json({
-                                success: true,
-                                message: "Pedido guardado y correo enviado",
-                                order
-                            })
-                        }
-                    })
-
-                }
-            })
+        "Activar cuenta",
+        email
+    );
+    if (!info) {
+        // TODO: delete user
+        await UserModel.deleteOne({ _id: saveUser._id });
+        // TODO: delete address
+        // await Address.deleteOne({ _id: newSaveAddress._id });
+        // TODO: delete payment
+        await PaymentModel.deleteOne({ _id: savePayment._id });
+        // TODO: delete order
+        await OrderModel.deleteOne({ _id: saveOrder._id });
+        // TODO: delete image in public folder
+        if (req.file) {
+            fs.unlinkSync(path.resolve(`../public/uploads/payment/${newPayment.img}`))
         }
-    })
+        return res.status(400).json({
+            success: false,
+            message: "Error al enviar el correo",
+        });
+    }
+    return res.status(200).json({
+        success: true,
+        message: "Pedido guardado y correo enviado",
+        saveOrder
+    });
+
 }
 
 exports.addOrder = async (req, res) => {
@@ -274,7 +292,7 @@ exports.getOrdersForVerify = async (req, res) => {
 }
 exports.getCustomerOrders = async (req, res) => {
     // TODO: get orders find all
-    await Order.find({})
+    await OrderModel.find({})
         .populate("user")
         .populate("payment")
         .populate("items.range")
