@@ -7,7 +7,7 @@ export const useSocket = (serverPath) => {
 
     const connectSocketAdmin = useCallback(() => {
         const token = window.localStorage.getItem('admin-token')
-        const socketTemp = io.connect(serverPath, {
+        const socketTemp = io(serverPath, {
             transports: ['websocket', 'polling', 'flashsocket'],
             autoConnect: true,
             forceNew: true,

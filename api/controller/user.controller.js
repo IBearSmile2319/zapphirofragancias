@@ -8,7 +8,8 @@ const { generateJWTUser } = require("../helper/jwt");
 const SendMail = require("../helper/sendMailerHelper");
 
 // model User
-const User = require("../models/mongo/user/User.model");
+const UserModel = require("../models/mongo/user/User.model");
+
 
 // bcrypt
 const bcrypt = require("bcryptjs");
@@ -18,7 +19,7 @@ exports.SendDataUser = async (req, res) => {
     try {
         const { firstName, lastName, email, nDocument, phone, promotion } = req.body;
         // verificar que el usuario no exista
-        const user = await User.findOne({ email });
+        const user = await UserModel.findOne({ email });
         if (user) {
             return res.status(400).json({
                 success: false,
@@ -59,7 +60,7 @@ exports.userSignIn = async (req, res) => {
     try {
         const { email, password } = req.body;
         const userAndEmail = email.includes("@");
-        await User.findOne(userAndEmail ? { email } : { username: email })
+        await UserModel.findOne(userAndEmail ? { email } : { username: email })
             .populate("range")
             .populate("promotion")
             .populate("afiliates")
@@ -111,7 +112,7 @@ exports.userSignIn = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
-        const user = await User.findOne({ email });
+        const user = await UserModel.findOne({ email });
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -148,7 +149,7 @@ exports.resetPassword = async (req, res) => {
     try {
         const { password, token } = req.body;
         const { uid } = await jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(uid);
+        const user = await UserModel.findById(uid);
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -178,7 +179,7 @@ exports.userRenewToken = async (req, res, next) => {
         });
 
         // Return info user
-        await User.findOne({ _id: req.uid })
+        await UserModel.findOne({ _id: req.uid })
             .populate("range")
             .populate("promotion")
             .populate("afiliates")
@@ -210,6 +211,35 @@ exports.userRenewToken = async (req, res, next) => {
     }
 }
 
-
-
-
+// public 
+exports.userCodeInvite = async (req, res) => {
+    try {
+        const { code_invite } = req.body;
+        await UserModel.findOne({ code_invite })
+            .select("firstName lastName _id")
+            .exec(async (err, user) => {
+                if (err) {
+                    return res.status(400).json({
+                        success: false,
+                        error: "Error al validar el código",
+                    })
+                }
+                if (!user) {
+                    return res.status(400).json({
+                        success: false,
+                        error: "El código no existe",
+                    })
+                }
+                return res.status(200).json({
+                    success: true,
+                    message: "Código validado correctamente",
+                    user
+                })
+            })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Error al validar el código",
+        })
+    }
+}

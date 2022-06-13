@@ -7,7 +7,6 @@ const ListCombo = () => {
     const { combos, loading } = useSelector(state => state.combo)
     return (
         <main className="combo-page">
-
             <section className="sdt-combo-banner">
                 <div className="banner-combo">
                     <div className="banner-christ">
