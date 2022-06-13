@@ -28,6 +28,11 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+    code_invite:{ 
+        type: String,
+        required: true,
+        unique: true
+    },
     avatar: {
         type: String,
     },

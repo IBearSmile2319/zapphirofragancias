@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './PaymentCombo.css'
 import { Link, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import FormCodeInvite from './FormCodeInvite'
 const PaymentCombo = () => {
   const [combo, setCombo] = useState([])
   const { combos, loading } = useSelector(state => state.combo)
@@ -43,7 +44,7 @@ const PaymentCombo = () => {
                     <div className="cart-item_col-2">
                         <div className="cross-center">
                           <div className="price">
-                            S/{combo.price}
+                            S/{combo.price} SOLES
                           </div>
                         </div>
                     </div>
@@ -51,7 +52,14 @@ const PaymentCombo = () => {
                 </article>
               </div>
               <footer>
-
+                <div className="promotor-show">
+                  <FormCodeInvite/>
+                </div>
+                <div className="total">
+                  <h3>
+                    Total: S/{combo.price} SOLES
+                  </h3>
+                </div>
               </footer>
             </section>
           </div>
