@@ -25,6 +25,7 @@ import Pictures from '../pages/Admin/Gestion/Pictures'
 import IconPanda from '../assets/img/icons/IconPanda'
 import ProductsCombo from '../pages/Admin/Products/ProductsCombo'
 import IconZFCombo from '../assets/img/icons/IconZFCOMBO'
+import ListOrders from '../pages/Admin/Orders/ListOrders'
 
 
 export const LinksAdmin = [
@@ -38,7 +39,21 @@ export const LinksAdmin = [
         name: 'Orders',
         path: 'orders',
         icon: IconOrders,
-        element: Orders
+        element: Orders,
+        subElement: ListOrders,
+        submenu: [
+            {
+                name: 'Orders',
+                path: '',
+                icon: IconOrders,
+            },
+            // {
+            //     name: 'Orders',
+            //     path: '',
+            //     icon: IconOrders,
+            //     element: ListOrders
+            // }
+        ]
     },
     {
         name: 'Products',

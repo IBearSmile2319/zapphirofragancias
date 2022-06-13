@@ -18,9 +18,9 @@ router.get('/products', getProducts);
 
 
 // order
-const { addOrder, getOrdersByUser, getOrdersForVerify, firstOrder, getCustomerOrders } = require('../controller/order.controller');
+const { addOrder, getOrdersByUser, getOrdersForVerify, firstOrder } = require('../controller/order.controller');
 router.post('/order', addOrder);
-router.get('/order', getCustomerOrders);
+// router.get('/order', getCustomerOrders);
 router.post('/order/first', uploadPayment.single("img"), firstOrder);
 router.get('/orders/:user', getOrdersByUser);
 router.get('/orders/verify/:user', getOrdersForVerify);

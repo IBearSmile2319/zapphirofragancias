@@ -10,6 +10,9 @@ router.post("/upload", (req, res) => {
         thumbUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
     });
 })
+// user code Invite
+const { userCodeInvite } = require('../controller/user.controller');
+router.post("/code-invite", userCodeInvite)
 
 // combo
 const { getCombos } = require('../controller/combo.controller');

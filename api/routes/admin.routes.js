@@ -47,6 +47,12 @@ router.post('/combo', validateAdminJWT, adminMiddleware, upload.fields([
     {name:'imagen',maxCount: 1}
 ]), addCombo)
 router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
+
+
+// order
+const { adminGetCustomerOrders } = require('../controller/order.controller');
+router.get('/order', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
+
 // Image
 
 

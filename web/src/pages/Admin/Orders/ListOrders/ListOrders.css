@@ -1,0 +1,31 @@
+.admin-order__list{
+    grid-template-columns: repeat(3,calc(33.33333% - 1rem*2/3));
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    row-gap: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 0;
+    display: grid;
+    column-gap: 1rem;
+}
+
+.admin-order__list .order-list__nav{
+    width: 100%;
+    grid-column-end: span 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.admin-order__list .order-list__nav button.btn-add{
+    margin-left: 1rem;
+    border-radius: 0.5rem;
+}
+
+.admin-order__list .table-order{
+    grid-column-end: span 3;
+}
