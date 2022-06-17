@@ -26,6 +26,7 @@ import IconPanda from '../assets/img/icons/IconPanda'
 import ProductsCombo from '../pages/Admin/Products/ProductsCombo'
 import IconZFCombo from '../assets/img/icons/IconZFCOMBO'
 import ListOrders from '../pages/Admin/Orders/ListOrders'
+import ViewOrder from '../pages/Admin/Orders/ListOrders/ViewOrder'
 
 
 export const LinksAdmin = [
@@ -45,14 +46,17 @@ export const LinksAdmin = [
             {
                 name: 'Orders',
                 path: '',
+                display: true,
                 icon: IconOrders,
+                element: ListOrders,
             },
-            // {
-            //     name: 'Orders',
-            //     path: '',
-            //     icon: IconOrders,
-            //     element: ListOrders
-            // }
+            {
+                name: 'View Order',
+                display: false,
+                path: ':id',
+                icon: IconOrders,
+                element: ViewOrder,
+            }
         ]
     },
     {
@@ -65,17 +69,20 @@ export const LinksAdmin = [
             {
                 name: "Productos",
                 path: "",
+                display: true,
                 icon: IconProducts,
             },
             {
                 name: 'Añadir producto',
                 path: 'add',
+                display: true,
                 icon: iconProductsAdd,
                 element: AddProduct
             },
             {
                 name: 'Combos',
                 path: 'combos',
+                display: true,
                 icon: IconZFCombo,
                 element: ProductsCombo
             }

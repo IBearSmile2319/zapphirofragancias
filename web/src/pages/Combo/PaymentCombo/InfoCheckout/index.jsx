@@ -7,12 +7,13 @@ import { FormPaymentValidate } from '../FormPayment.validate'
 import { Button, message, Space, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { registerFirstOrder } from '../../../../action/order.action'
 const InfoCheckout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const [image, setImage] = React.useState(null)
+  const { promotor } = useSelector(state => state.promotor)
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(FormPaymentValidate)
   })
@@ -22,15 +23,14 @@ const InfoCheckout = () => {
       return
     }
     verifyLocalStorage()
-    const InfoUser=JSON.parse(window.localStorage.getItem('formPayment'))
-    const InfoCombo=window.localStorage.getItem('comboSelect')
+    const InfoUser = JSON.parse(window.localStorage.getItem('formPayment'))
+    const InfoCombo = window.localStorage.getItem('comboSelect')
     const form = new FormData()
     form.append('firstName', InfoUser.firstName)
     form.append('lastName', InfoUser.lastName)
     form.append('email', InfoUser.email)
     form.append('phone', InfoUser.phone)
     form.append('nDocument', InfoUser.nDocument)
-    form.append('promotion', InfoUser.promotion)
     // payment
     form.append('paymentMethod', data.paymentMethod)
     form.append('paymentComission', data.paymentComission)
@@ -40,9 +40,10 @@ const InfoCheckout = () => {
     form.append('img', image)
     // combo
     form.append('combo', InfoCombo)
-    console.log(form)
+    form.append('promotion', promotor.uid ? promotor.uid : '')
+
     dispatch(registerFirstOrder(form))
-    
+
   }
   const verifyLocalStorage = () => {
     if (!localStorage.getItem('formPayment')) {

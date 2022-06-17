@@ -29,6 +29,31 @@ const AppRouter = () => {
     useEffect(() => {
         verifyToken();
     }, [verifyToken])
+    
+    const renderRoutes = (item, index) => {
+        if (item.submenu) {
+            if(item.path===""){
+            }else{
+                return (
+                    <Route key={index} path={item.path} element={<item.element />}>
+                        <Route index element={<item.subElement />} />
+                        {
+                            item.submenu.map((subItem, subIndex) => {
+                                if (subItem.path !== "") {
+                                    return <Route path={subItem.path} key={subIndex} element={<subItem.element />} />
+                                }
+                            })
+                        }
+                    </Route>
+                )
+            }
+        } else {
+            return (
+                <Route key={index} path={item.path} element={<item.element />} />
+            )
+        }
+    }
+
     return (
         <BrowserRouter>
             <Routes>
@@ -53,24 +78,7 @@ const AppRouter = () => {
                     <Route index element={<Navigate to="/admin/dashboard" />} />
                     {
                         LinksAdmin.map((item, index) => {
-                            if (item.submenu) {
-                                return (
-                                    <Route key={index} path={item.path} element={<item.element />}>
-                                        <Route index element={<item.subElement />} />
-                                        {
-                                            item.submenu.map((subItem, subIndex) => {
-                                                if (subItem.path !== "") {
-                                                    return <Route path={subItem.path} key={subIndex} element={<subItem.element />} />
-                                                }
-                                            })
-                                        }
-                                    </Route>
-                                )
-                            } else {
-                                return (
-                                    <Route key={index} path={item.path} element={<item.element />} />
-                                )
-                            }
+                            return renderRoutes(item, index)
                         })
                     }
                 </Route>

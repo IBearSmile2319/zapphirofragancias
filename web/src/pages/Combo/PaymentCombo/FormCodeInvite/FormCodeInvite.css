@@ -1,3 +1,16 @@
 .promotor-show .form-promotor{
-    
+    display: flex;
+    flex-direction: column;
+}
+.promotor-show .form-promotor .form-promotor__content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 667px){
+    .promotor-show .form-promotor .form-promotor__content{
+        font-size: 0.8rem;
+    }
 }
