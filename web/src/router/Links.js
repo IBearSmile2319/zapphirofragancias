@@ -98,17 +98,20 @@ export const LinksAdmin = [
             {
                 name: "Categorias",
                 path: "",
+                display: true,
                 icon: BranchesOutlined,
             },
             {
                 name: 'Marcas',
                 path: 'brands',
+                display: true,
                 icon: TagsOutlined,
                 element: Brands
             },
             {
                 name: 'Imagenes',
                 path: 'Pictures',
+                display: true,
                 icon: PictureOutlined,
                 element: Pictures
             }
