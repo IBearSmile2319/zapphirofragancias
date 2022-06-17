@@ -9,8 +9,9 @@ const MainNav = ({
     return (
         <nav className='main-nav__nav'>
             <div className="main-nav__navigation">
-                {LinksAdmin.find(link => link.path === path)?.submenu.map((submenu, index) => (
-                    <div className="main-nav__items" key={index}>
+                {LinksAdmin.find(link => link.path === path)?.submenu.map((submenu, index) => {
+                    if(submenu?.display===true){
+                        return <div className="main-nav__items" key={index}>
                         <div className="">
                             <CustomLinkActive
                                 to={`/admin/${path}/${submenu.path}`}
@@ -31,7 +32,9 @@ const MainNav = ({
                             </CustomLinkActive>
                         </div>
                     </div>
-                ))
+                    }
+                }
+                )
                 }
             </div>
         </nav>

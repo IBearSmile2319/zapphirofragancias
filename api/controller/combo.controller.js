@@ -53,6 +53,7 @@ exports.listCombo = async (req, res) => {
     try {
         await Combo.find({})
             .populate('createdBy', "username")
+            .sort({ createdAt: -1 })
             .exec((err, combos) => {
                 if (err) {
                     return res.status(400).json({

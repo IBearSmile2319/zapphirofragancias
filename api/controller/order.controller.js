@@ -320,6 +320,7 @@ exports.adminGetCustomerOrders = async (req, res) => {
         .populate("items.combo")
         .populate("items.product")
         .populate("address")
+        .sort({ createdAt: -1 })
         .exec((err, orders) => {
             if (err) {
                 return res.status(400).json({

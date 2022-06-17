@@ -214,7 +214,6 @@ article.cart-item .cart-item-grid .cart-item_col-2 .cross-center .price{
     border-bottom-left-radius: 0.25rem;
     flex-direction: row;
     display: flex;
-    flex-wrap: wrap;
     padding-left: 2rem;
     padding-right: 2rem;
     padding: 1rem;
@@ -241,4 +240,10 @@ article.cart-item .cart-item-grid .cart-item_col-2 .cross-center .price{
     color: #273b49;
     font-weight: 600;
     font-size: 1.3125rem;
+}
+
+@media (max-width: 667px){
+    .shopping-cart footer .total h3{
+        font-size: 1rem;
+    }
 }

@@ -2,7 +2,7 @@ import { Button, Input, Spin } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { PromotorCodeInvite, PromotorReset } from '../../../../action/promotor.action'
-
+import './FormCodeInvite.css'
 const FormCodeInvite = () => {
     const [code, setCode] = useState('')
     const dispatch = useDispatch()
