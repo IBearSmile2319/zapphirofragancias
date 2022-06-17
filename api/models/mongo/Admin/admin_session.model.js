@@ -11,6 +11,7 @@ const adminSessionSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        //Tipo de dispositivos 
         userAgent: { type: String},
         ip: {
             type: String,
