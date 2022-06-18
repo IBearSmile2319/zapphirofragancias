@@ -1,8 +1,8 @@
-import { Table } from 'antd'
+import { Button, Table } from 'antd'
 import React from 'react'
 
 const TableOrders = (props) => {
-    const { data, className } = props
+    const { data, className, showDrawer } = props
     const columns = [
         {
             title: 'user',
@@ -70,7 +70,11 @@ const TableOrders = (props) => {
             fixed: 'right',
             key: 'operation',
             width: 100,
-            render: () => <a>action</a>,
+            render: (item) => {
+                return <>
+                    <Button type="primary" onClick={()=>showDrawer(item)}>View</Button>
+                </>
+            },
         },
     ]
     return <Table
