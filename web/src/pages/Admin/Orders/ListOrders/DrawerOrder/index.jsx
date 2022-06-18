@@ -21,6 +21,19 @@ const DrawerOrder = ({
             {content}
         </div>
     }
+    const TitleItem = ({title}) => {
+        return <p
+            style={{
+                marginBottom: 24,
+                display: "block",
+                color: "rgba(0, 0, 0, 0.85)",
+                fontSize: "16px",
+                lineHeight: 1.5715,
+            }}
+        >
+            {title}
+        </p>
+    }
     return (
         <Drawer
             title={item?._id}
@@ -35,18 +48,7 @@ const DrawerOrder = ({
                 </Space>
             }
         >
-            <p
-                className='site-description-item-profile-p'
-                style={{
-                    marginBottom: 24,
-                    display: "block",
-                    color: "rgba(0, 0, 0, 0.85)",
-                    fontSize: "16px",
-                    lineHeight: 1.5715,
-                }}
-            >
-                Perfil del Usuario
-            </p>
+           <TitleItem title="Información de Usuario"/>
             <Row>
                 <Col span={24}>
                     <DescriptionItem title="Nombre completo" content={`${item?.user?.firstName} ${item?.user?.lastName}`} />
@@ -67,7 +69,45 @@ const DrawerOrder = ({
                 </Col>
             </Row>
             <Divider />
-
+            <TitleItem title="Información de pago"/>
+            <Row>
+                <Col span={12}>
+                    <DescriptionItem
+                        title="Metodo de pago"
+                        content={item?.payment?.paymentMethod}
+                    />
+                </Col>
+                <Col span={12}>
+                    <DescriptionItem
+                        title="Total"
+                        content={`S/${item?.total}`}
+                    />
+                </Col>
+            </Row>
+            <Divider />
+            <TitleItem title="Estado de orden"/>
+            <Row>
+                <Col span={24}>
+                    <DescriptionItem
+                        title="Estado de orden"
+                        content={item?.orderStatus?.filter(status => status.Completed === true)[0]?.type}
+                    />
+                </Col>
+            </Row>
+            <Divider />
+            <TitleItem title="Detalles de orden"/>
+            <List
+                itemLayout="horizontal"
+                dataSource={item?.items}
+                renderItem={item => (
+                    <List.Item>
+                        <List.Item.Meta
+                            title={item?.combo?.name}
+                            description={`S/${item?.combo?.price}`}
+                        />
+                    </List.Item>
+                )}
+            />
         </Drawer>
     )
 }
