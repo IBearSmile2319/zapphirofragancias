@@ -309,12 +309,13 @@ exports.firstOrder = async (req, res) => {
             error: err
         })
     }
-
 }
 // admin
 exports.adminGetCustomerOrders = async (req, res) => {
-    // TODO: get orders find all
-    await OrderModel.find({})
+    // params
+    const { valid=false } = req.params;
+    // TODO: get orders find all except aproved false
+    await OrderModel.find({ approved: valid })
         .populate("user")
         .populate("payment")
         .populate("items.combo")
@@ -336,6 +337,32 @@ exports.adminGetCustomerOrders = async (req, res) => {
                 })
             }
         })
+}
+
+exports.adminGetOrderById = async (req, res) => {
+    const { id } = req.params;
+    await OrderModel.findById({ _id: id })
+        .populate("user")
+        .populate("payment")
+        .populate("items.combo")
+        .populate("items.product")
+        .populate("address")
+        .exec((err, order) => {
+            if (err) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Error al obtener el pedido",
+                    error: err
+                })
+            }
+            if (order) {
+                return res.status(200).json({
+                    success: true,
+                    order
+                })
+            }
+        }
+        )
 }
 
 exports.addOrder = async (req, res) => {

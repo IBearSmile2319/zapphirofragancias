@@ -53,7 +53,7 @@ export const LinksAdmin = [
             {
                 name: 'View Order',
                 display: false,
-                path: ':id',
+                path: ':orderId',
                 icon: IconOrders,
                 element: ViewOrder,
             }

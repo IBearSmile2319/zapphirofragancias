@@ -10,6 +10,7 @@ const ListOrders = () => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
   const [selectOrder, setSelecteOrder] = useState([])
+  const [changeTable, setChangeTable] = useState(false)
   const { orders, loading } = useSelector(state => state.order)
   const showDrawer = (item) => {
     setVisible(true)
@@ -19,13 +20,16 @@ const ListOrders = () => {
     setVisible(false)
   }
   useEffect(() => {
-    dispatch(adminListOrder())
-  }, [])
+    dispatch(adminListOrder(changeTable))
+  }, [changeTable])
   
   return (
     <main className='admin-order__list'>
       <BreadCrumb />
-      <NavOrders />
+      <NavOrders 
+        changeTable={changeTable}
+        setChangeTable={setChangeTable}
+      />
       <TableOrders
         data={orders}
         className="table-order"

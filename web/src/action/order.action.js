@@ -3,10 +3,10 @@ import { message } from "antd"
 import { AdminOrder } from "./constants"
 
 // TODO: Admin List Order first order
-export const adminListOrder = () => {
+export const adminListOrder = (valid) => {
     return async (dispatch) => {
         dispatch({ type: AdminOrder.ADMIN_ORDER_REQUEST })
-        await axiosAdminInstance.get('/order')
+        await axiosAdminInstance.get(`/order/${valid}`)
             .then(res => {
                 res.data.orders.map(item => {
                     item.key = item._id
@@ -14,6 +14,20 @@ export const adminListOrder = () => {
                 dispatch({ type: AdminOrder.ADMIN_ORDER_SUCCESS, payload: res.data.orders })
             }).catch(err => {
                 dispatch({ type: AdminOrder.ADMIN_ORDER_FAILURE, payload: err.response.data.error })
+                message.error(err.response.data.error)
+            })
+    }
+}
+
+// TODO: Admin List Order by id
+export const adminListOrderById = (id) => {
+    return async (dispatch) => {
+        dispatch({ type: AdminOrder.ADMIN_ORDER_BY_ID_REQUEST })
+        await axiosAdminInstance.get(`/order/${id}`)
+            .then(res => {
+                dispatch({ type: AdminOrder.ADMIN_ORDER_BY_ID_SUCCESS, payload: res.data.order })
+            }).catch(err => {
+                dispatch({ type: AdminOrder.ADMIN_ORDER_BY_ID_FAILURE, payload: err.response.data.error })
                 message.error(err.response.data.error)
             })
     }
