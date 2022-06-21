@@ -26,7 +26,7 @@ const orderSchema = new Schema({
     ],
     status: { type: Boolean, default: false },
     approved: { type: Boolean, default: false },
-    assistant: { type: Schema.Types.ObjectId, ref: 'User' },
+    assistant: { type: Schema.Types.ObjectId, ref: 'Admin' },
     // assistant cuando se aprueba el pedido
 }, {
     timestamps: true

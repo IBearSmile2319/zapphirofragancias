@@ -21,6 +21,9 @@ export const PromotorType = {
 
 // admin order
 export const AdminOrder = {
+    // change number
+    ADMIN_ORDER_CHANGE_NUMBER: 'ADMIN_ORDER_CHANGE_NUMBER',
+    // admin order
     ADMIN_ORDER_REQUEST: 'ADMIN_ORDER_REQUEST',
     ADMIN_ORDER_SUCCESS: 'ADMIN_ORDER_SUCCESS',
     ADMIN_ORDER_FAILURE: 'ADMIN_ORDER_FAILURE',

@@ -15,6 +15,7 @@ const ComboModel = require("../models/mongo/product/Combo.model");
 const AddressModel = require("../models/mongo/user/Address.model");
 const UserModel = require("../models/mongo/user/User.model");
 const OrderModel = require("../models/mongo/cart/Order.model");
+const PointsModels = require("../models/mongo/user/Points.models");
 
 exports.firstOrder = async (req, res) => {
     const {
@@ -310,12 +311,103 @@ exports.firstOrder = async (req, res) => {
         })
     }
 }
+
+// admin AcceptOrder
+exports.AdminAcceptOrder = async (req, res) => {
+    try {
+        const { orderId, type } = req.body;
+        const findOrder = await OrderModel.findById(orderId);
+        if (!findOrder) {
+            return res.status(400).json({
+                success: false,
+                message: "No se encontró el pedido",
+            });
+        }
+        await OrderModel.updateOne(
+            { _id: orderId, "orderStatus.type": type },
+            {
+                $set: {
+                    "orderStatus.$": [
+                        { type: type, Completed: true, date: new Date() }
+                    ],
+                    approved: true,
+                    assistant: req.uid,
+                },
+            })
+            .exec(async (err, order) => {
+
+                if (err) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Error al actualizar el pedido",
+                        error: err
+                    })
+                }
+                if (order) {
+                    const findUser=await UserModel.findById(findOrder.user)
+                    await UserModel.updateOne(
+                        { _id: findUser._id },
+                        {active: true},
+                    ).exec((err, user) => {
+                        if (err) {
+                            return res.status(400).json({
+                                success: false,
+                                message: "Error al actualizar el usuario",
+                                error: err
+                            })
+                        }
+                        if (user) {
+                            // update user promotion points
+                            if (findUser.promotion) {
+                                UserModel.updateOne(
+                                    { _id: findUser.promotion },
+                                    { $inc: { points: 100 } }
+                                ).exec((err, promotion) => {
+                                    if (err) {
+                                        return res.status(400).json({
+                                            success: false,
+                                            message: "Error al actualizar el usuario",
+                                            error: err
+                                        })
+                                    }
+                                    if (promotion) {
+                                        PointsModels.create({
+                                            user: user.promotion,
+                                            points: 100,
+                                            type: "Combo",
+                                        })
+                                        return res.status(200).json({
+                                            success: true,
+                                            message: "Pedido aceptado",
+                                            order
+                                        })
+                                    }
+                                })
+                            }
+                            
+                            return res.status(200).json({
+                                success: true,
+                                message: "Pedido aceptado",
+                                order
+                            })
+                        }
+                    })
+                }
+            });
+    } catch (err) {
+        return res.status(400).json({
+            success: false,
+            message: "Error al confirmar el pedido",
+            error: err
+        })
+    }
+}
 // admin
 exports.adminGetCustomerOrders = async (req, res) => {
     // params
-    const { valid=false } = req.params;
+    const { valid } = req.params;
     // TODO: get orders find all except aproved false
-    await OrderModel.find({ approved: valid })
+    await OrderModel.find(valid == 0 ? {} : { approved: valid })
         .populate("user")
         .populate("payment")
         .populate("items.combo")
@@ -341,7 +433,7 @@ exports.adminGetCustomerOrders = async (req, res) => {
 
 exports.adminGetOrderById = async (req, res) => {
     const { id } = req.params;
-    await OrderModel.findById({ _id: id })
+    await OrderModel.findById(id)
         .populate("user")
         .populate("payment")
         .populate("items.combo")
