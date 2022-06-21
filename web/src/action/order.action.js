@@ -23,7 +23,7 @@ export const adminListOrder = (valid) => {
 export const adminListOrderById = (id) => {
     return async (dispatch) => {
         dispatch({ type: AdminOrder.ADMIN_ORDER_BY_ID_REQUEST })
-        await axiosAdminInstance.get(`/order/${id}`)
+        await axiosAdminInstance.get(`/order/view/${id}`)
             .then(res => {
                 dispatch({ type: AdminOrder.ADMIN_ORDER_BY_ID_SUCCESS, payload: res.data.order })
             }).catch(err => {

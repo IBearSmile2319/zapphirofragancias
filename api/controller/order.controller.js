@@ -313,9 +313,9 @@ exports.firstOrder = async (req, res) => {
 // admin
 exports.adminGetCustomerOrders = async (req, res) => {
     // params
-    const { valid=false } = req.params;
+    const { valid } = req.params;
     // TODO: get orders find all except aproved false
-    await OrderModel.find({ approved: valid })
+    await OrderModel.find(valid == 0 ? {} : { approved: valid })
         .populate("user")
         .populate("payment")
         .populate("items.combo")
@@ -341,7 +341,7 @@ exports.adminGetCustomerOrders = async (req, res) => {
 
 exports.adminGetOrderById = async (req, res) => {
     const { id } = req.params;
-    await OrderModel.findById({ _id: id })
+    await OrderModel.findById(id)
         .populate("user")
         .populate("payment")
         .populate("items.combo")

@@ -9,14 +9,23 @@ const NavOrders = ({
   return (
     <div className="order-list__nav">
       <Button
-        onClick={() =>setChangeTable(!changeTable)}
+        type="dashed"
+        className="btn-add"
+        onClick={() => setChangeTable(0)}
+      >
+        Todos
+      </Button>
+
+      <Button
+        onClick={() => setChangeTable(!changeTable)}
+        type={changeTable ? 'default' : 'primary'}
         className="btn-add" variant="outline-primary">
-          {
-            changeTable ?
-            "Pedidos sin validar"
+        {
+          changeTable ?
+            "Ver sin validar"
             :
-            "Pedidos validados"
-          }
+            "Ver validados"
+        }
       </Button>
       <Button
         // onClick={onReload}
