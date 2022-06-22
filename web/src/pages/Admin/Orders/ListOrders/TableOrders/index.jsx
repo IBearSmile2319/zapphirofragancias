@@ -58,10 +58,10 @@ const TableOrders = (props) => {
             dataIndex: 'orderStatus',
             key: 'orderStatus',
             render: (_, { orderStatus }) => {
-                // display the last order status containing true complete.
+                // display the last order status containing true complete. ultimo
                 const lastOrderStatus = orderStatus.filter(status => status.Completed === true)
                 return <>
-                    {lastOrderStatus[0]?.type}
+                    {lastOrderStatus[lastOrderStatus.length - 1]?.type}
                 </>
             }
         },

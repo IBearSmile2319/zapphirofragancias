@@ -50,8 +50,10 @@ router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
 
 
 // order
-const { adminGetCustomerOrders } = require('../controller/order.controller');
-router.get('/order', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
+const { adminGetCustomerOrders,adminGetOrderById, AdminAcceptOrder } = require('../controller/order.controller');
+router.put('/order/accept', validateAdminJWT, adminMiddleware, AdminAcceptOrder)
+router.get('/order/:valid', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
+router.get('/order/view/:id', validateAdminJWT, adminMiddleware, adminGetOrderById)
 
 // Image
 

@@ -2,15 +2,31 @@ import { PlusCircleOutlined, ReloadOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
 
-const NavOrders = () => {
+const NavOrders = ({
+  changeTable,
+  setChangeTable
+}) => {
   return (
     <div className="order-list__nav">
-      {/* <Button
-        // onClick={() => setOpen(true)}
+      <Button
+        type="dashed"
+        className="btn-add"
+        onClick={() => setChangeTable(0)}
+      >
+        Todos
+      </Button>
+
+      <Button
+        onClick={() => setChangeTable(!changeTable)}
+        type={changeTable ? 'default' : 'primary'}
         className="btn-add" variant="outline-primary">
-        <PlusCircleOutlined />
-        Add Order
-      </Button> */}
+        {
+          changeTable ?
+            "Ver sin validar"
+            :
+            "Ver validados"
+        }
+      </Button>
       <Button
         // onClick={onReload}
         className="btn-add" variant="outline-primary">
