@@ -3,6 +3,7 @@ const valid = require('../utils/Validators');
 const validate = require('../middlewares/validate');
 const { upload } = require('../middlewares/upload');
 const { uploadIcon } = require('../middlewares/uploadIcon');
+const multerUpload = require('../middlewares/multerUpload');
 // require validater-jwt
 const router = Router();
 const { validateAdminJWT, adminMiddleware } = require('../middlewares/validate-jwt');
@@ -42,7 +43,7 @@ router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
 // Combo
 const { addCombo, listCombo } = require('../controller/combo.controller');
-router.post('/combo', validateAdminJWT, adminMiddleware, upload.fields([
+router.post('/combo', validateAdminJWT, adminMiddleware, multerUpload.fields([
     {name:'icon',maxCount: 1},
     {name:'imagen',maxCount: 1}
 ]), addCombo)
