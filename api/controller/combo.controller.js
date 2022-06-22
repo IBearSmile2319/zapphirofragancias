@@ -1,3 +1,4 @@
+const AzureUpload = require('../middlewares/AzureUpload');
 const Combo = require('../models/mongo/product/Combo.model');
 
 exports.addCombo = async (req, res) => {
@@ -25,10 +26,14 @@ exports.addCombo = async (req, res) => {
         createdBy: req.uid
     })
     if (req.files['icon']) {
-        newCombo.icon = `/public/images/${req.files['icon'][0].filename}`
+        const iconUrl = await AzureUpload(req.files['icon'][0]) 
+        newCombo.icon = iconUrl.url
+        // newCombo.icon = `/public/images/${req.files['icon'][0].filename}`
     }
     if (req.files['imagen']) {
-        newCombo.imagen = `/public/images/${req.files['imagen'][0].filename}`
+        const imagenUrl = await AzureUpload(req.files['imagen'][0])
+        newCombo.imagen = imagenUrl.url
+        // newCombo.imagen = `/public/images/${req.files['imagen'][0].filename}`
     }
 
     await newCombo.save((err, combo) => {
