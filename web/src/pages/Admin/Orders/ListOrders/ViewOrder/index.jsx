@@ -13,14 +13,14 @@ const ViewOrder = () => {
   const dispatch = useDispatch()
   let { orderId } = useParams()
   // obtener el id de la url
-  const { orderById, loading,changeNumber } = useSelector(state => state.order)
+  const { orderById, loading, changeNumber } = useSelector(state => state.order)
 
   useEffect(() => {
     dispatch(adminListOrderById(orderId))
   }, [orderId, changeNumber])
-  const firstOrderAccept = async () => {
+  const firstOrderAccept = async (typeOrder=1) => {
     const type = await orderById?.orderStatus?.filter(item => item.Completed === false)?.[0]?.type
-    dispatch(adminAcceptOrder(orderId, type))
+    dispatch(adminAcceptOrder(orderId, type, typeOrder))
   }
   const DescriptionItem = ({ title, content }) => {
     return <div style={{
@@ -121,7 +121,7 @@ const ViewOrder = () => {
           <Col span={12}>
             <DescriptionItem
               title="Promotor"
-              content={orderById?.user?.promotion || "No tiene"}
+              content={orderById?.user?.promotion?.username || "No tiene"}
             />
           </Col>
         </Row>
@@ -134,11 +134,11 @@ const ViewOrder = () => {
             <List.Item>
               <Card
 
-                cover={<Image src={"http://localhost:8080" + orderById?.combo?.imagen} />}
+                cover={<Image src={orderById?.combo?.imagen} />}
                 style={{ width: 300 }}
               >
                 <Meta
-                  avatar={<Avatar src={"http://localhost:8080" + orderById?.combo?.icon} />}
+                  avatar={<Avatar src={orderById?.combo?.icon} />}
                   description={
                     <>
                       <DescriptionItem
@@ -234,7 +234,7 @@ const ViewOrder = () => {
               title="Comprobante de pago"
               content={
                 <Tag color="blue">
-                  <Image src={"http://localhost:8080" + orderById?.payment?.img} alt="pago"
+                  <Image src={orderById?.payment?.img} alt="pago"
                     style={{ height: "50px", width: "50px" }}
                   />
                 </Tag>
@@ -276,13 +276,37 @@ const ViewOrder = () => {
         marginTop: "20px",
         marginBottom: "20px"
       }}>
-        <Col span={12}>
-          <Button type="primary"
-            onClick={firstOrderAccept}
-          >
-            Aceptar Orden
-          </Button>
-        </Col>
+        {
+         orderById?.items && orderById?.items[0]?.combo && orderById.approved === false ?
+            <Button
+              type="primary"
+              onClick={() => {
+                firstOrderAccept(0)
+              }}
+            >
+              Aceptar orden combo
+            </Button> 
+            : orderById?.items && orderById?.items[0]?.combo && orderById.approved === true ?
+            <Button
+              type="primary"
+              onClick={() => {
+                firstOrderAccept(0)
+              }}
+            >
+              Siguinte
+            </Button>
+            :
+            <Button
+              type="primary"
+              onClick={() => {
+                firstOrderAccept(1)
+              }
+              }
+            >
+              Aceptar orden 2
+            </Button>
+
+        }
         <Col span={12}>
           <Button type="ghost">
             Enviar correo

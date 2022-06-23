@@ -1,12 +1,11 @@
 const GetBlobName = require('../helper/getBlobName');
 const azureStorage = require('azure-storage');
 const blobService = azureStorage.createBlobService();
-const containerName = 'imagenes';
 
 const getStream = require("into-stream")
 
 
-module.exports = async (file) => {
+module.exports = async (file, containerName = "imagenes") => {
     // promesa para subir el archivo
     return await new Promise((resolve, reject) => {
         // nombre del archivo a subir
@@ -15,20 +14,27 @@ module.exports = async (file) => {
         const stream = getStream(file.buffer)
         // length del archivo
         const streamLength = file.buffer.length;
-        // subir el archivo
-        blobService.createBlockBlobFromStream(containerName, blobName, stream, streamLength, (error, result, response) => {
+        // subir el archivo si no existe el contenedor que lo cree
+        blobService.createContainerIfNotExists(containerName, { publicAccessLevel: 'blob' }, (error, result, response) => {
             if (error) {
-                reject({
-                    message: "Error al subir el archivo",
-                    error
+                reject(error)
+            } else {
+                // subir el archivo
+                blobService.createBlockBlobFromStream(containerName, blobName, stream, streamLength, (error, result, response) => {
+                    if (error) {
+                        reject({
+                            message: "Error al subir el archivo",
+                            error
+                        })
+                    }
+                    // obtener la url del archivo
+                    const url = blobService.getUrl(containerName, blobName)
+                    // responder al cliente
+                    resolve({ url })
+
                 })
             }
-            // obtener la url del archivo
-            const url = blobService.getUrl(containerName, blobName)
-            // responder al cliente
-            resolve({ url })
 
         })
-    }
-    )
+    })
 }

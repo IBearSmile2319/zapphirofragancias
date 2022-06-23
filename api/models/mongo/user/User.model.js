@@ -28,7 +28,7 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-    code_invite:{ 
+    code_invite: {
         type: String,
         required: true,
         unique: true
@@ -61,7 +61,10 @@ const userSchema = new Schema({
     },
     range: { type: Schema.Types.ObjectId, ref: 'Range' },
     promotion: { type: Schema.Types.ObjectId, ref: 'User' },
-    afiliates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    affiliates: [{
+        user: { type: Schema.Types.ObjectId, ref: 'User'},
+        date: { type: Date, default: Date.now }
+    }],
 }, {
     timestamps: true
 });

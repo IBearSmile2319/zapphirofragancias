@@ -4,6 +4,7 @@ import ModalDraggable from '../../../../../components/ModalDraggable';
 import { UploadOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux';
 import { AddComboAdmin } from '../../../../../action/combo.action';
+import {api} from '././../../../../../helpers/axios'
 const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
   const dispatch = useDispatch()
   const [form] = Form.useForm();
@@ -84,7 +85,7 @@ const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
         </Form.Item>
         {/* icon */}
         <Form.Item
-          label="Imagen del combo"
+          label="Icono del combo"
           name="icon"
         >
           <Space
@@ -96,7 +97,7 @@ const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
               listType="picture"
               maxCount={1}
               accept="image/png, image/jpeg"
-              action="http://localhost:8080/api/upload"
+              action={`${api}/upload`}
             >
               <Button icon={
                 <UploadOutlined />
@@ -120,7 +121,7 @@ const ModalFormCombo = ({ open, handleOk, handleCancel }) => {
               listType="picture"
               maxCount={1}
               accept="image/png, image/jpeg"
-              action="http://localhost:8080/api/upload"
+              action={`${api}/upload`}
             >
               <Button icon={
                 <UploadOutlined />

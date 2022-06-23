@@ -1,8 +1,6 @@
 const { Router } = require('express');
 const valid = require('../utils/Validators');
 const validate = require('../middlewares/validate');
-const { upload } = require('../middlewares/upload');
-const { uploadIcon } = require('../middlewares/uploadIcon');
 const multerUpload = require('../middlewares/multerUpload');
 // require validater-jwt
 const router = Router();
@@ -15,13 +13,13 @@ router.get('/renewToken', validateAdminJWT, adminRenewToken)
 
 // role
 const { roleRegister, roleList, removeRole } = require('../controller/role.controller')
-router.post('/role', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), roleRegister)
+router.post('/role', validateAdminJWT, adminMiddleware, multerUpload.single('icon'), roleRegister)
 router.get('/role', validateAdminJWT, adminMiddleware, roleList)
 router.delete('/role/:id', validateAdminJWT, adminMiddleware, removeRole)
 
 // Range 
 const { addRange, listRange, removeRange, updateRange } = require('../controller/range.controller')
-router.post('/range', validateAdminJWT, adminMiddleware, uploadIcon.single('icon'), addRange)
+router.post('/range', validateAdminJWT, adminMiddleware, multerUpload.single('icon'), addRange)
 router.get('/range', validateAdminJWT, adminMiddleware, listRange)
 router.put('/range/:id', validateAdminJWT, adminMiddleware, updateRange)
 router.delete('/range/:id', validateAdminJWT, adminMiddleware, removeRange)

@@ -35,13 +35,13 @@ export const adminListOrderById = (id) => {
 
 
 // TODO: Admin Accept Order
-export const adminAcceptOrder = (orderId, type) => {
+export const adminAcceptOrder = (orderId, type, typeOrder) => {
     return async (dispatch) => {
-        await axiosAdminInstance.put(`/order/accept`, { orderId, type })
+        await axiosAdminInstance.put(`/order/accept`, { orderId, type, typeOrder })
             .then(res => {
                 message.success(res.data.message)
-                dispatch({ 
-                    type: AdminOrder.ADMIN_ORDER_CHANGE_NUMBER, 
+                dispatch({
+                    type: AdminOrder.ADMIN_ORDER_CHANGE_NUMBER,
                     payload: 1
                 })
             }).catch(err => {
@@ -65,23 +65,23 @@ export const adminAcceptOrder = (orderId, type) => {
 
 
 
-    //TODO: register first order Public
-    export const registerFirstOrder = (data) => {
-        return async dispatch => {
-            await axiosInstance.post("/firstorder", data)
-                .then(res => {
-                    message.success(res.data.message)
-                    // delete localStorage
-                    window.localStorage.removeItem("formPayment")
-                    window.localStorage.removeItem("comboSelect")
-                    // espera 1 segundo y redirecciona
-                    setTimeout(() => {
-                        window.location.href = "/sign-in"
-                    }, 1000)
-                }
-                ).catch(err => {
-                    message.error(err.response.data.message)
-                }
-                )
-        }
+//TODO: register first order Public
+export const registerFirstOrder = (data) => {
+    return async dispatch => {
+        await axiosInstance.post("/firstorder", data)
+            .then(res => {
+                message.success(res.data.message)
+                // delete localStorage
+                window.localStorage.removeItem("formPayment")
+                window.localStorage.removeItem("comboSelect")
+                // espera 1 segundo y redirecciona
+                setTimeout(() => {
+                    window.location.href = "/sign-in"
+                }, 1000)
+            }
+            ).catch(err => {
+                message.error(err.response.data.message)
+            }
+            )
     }
+}

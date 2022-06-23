@@ -1,4 +1,3 @@
-const { uploadPayment } = require('../middlewares/uploadPayment');
 const { Router } = require('express');
 const router = Router();
 
@@ -22,6 +21,7 @@ router.post('/upload-payment', multerUpload.single("img"), async (req, res) => {
         data: uploadImage
     })
 });
+
 router.get('/upload-payment', (req, res) => {
     blobService.listBlobsSegmented(containerName, null, (error, result, response) => {
         if (error) {
@@ -64,7 +64,7 @@ const { firstOrder } = require('../controller/order.controller');
 
 
 
-router.post("/firstOrder", uploadPayment.single("img"), firstOrder)
+router.post("/firstOrder", multerUpload.single("img"), firstOrder)
 
 
 module.exports = router;

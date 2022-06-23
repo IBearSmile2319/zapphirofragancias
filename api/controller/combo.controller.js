@@ -26,12 +26,12 @@ exports.addCombo = async (req, res) => {
         createdBy: req.uid
     })
     if (req.files['icon']) {
-        const iconUrl = await AzureUpload(req.files['icon'][0]) 
+        const iconUrl = await AzureUpload(req.files['icon'][0],"combos") 
         newCombo.icon = iconUrl.url
         // newCombo.icon = `/public/images/${req.files['icon'][0].filename}`
     }
     if (req.files['imagen']) {
-        const imagenUrl = await AzureUpload(req.files['imagen'][0])
+        const imagenUrl = await AzureUpload(req.files['imagen'][0],"combos")
         newCombo.imagen = imagenUrl.url
         // newCombo.imagen = `/public/images/${req.files['imagen'][0].filename}`
     }
