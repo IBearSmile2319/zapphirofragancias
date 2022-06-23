@@ -4,7 +4,6 @@ const PointsSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
     },
     points: {
         type: Number,
@@ -13,7 +12,11 @@ const PointsSchema = new Schema({
     type: {
         type: String,
         default: "Points"
-    }
+    },
+    assistant: {
+        type: Schema.Types.ObjectId,
+        ref: 'Admin',
+    },
 }
 , { timestamps: true });
 

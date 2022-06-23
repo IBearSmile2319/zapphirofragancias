@@ -18,7 +18,7 @@ const Header = ({ children }) => {
         // si le scroll est supérieur à la valeur min et inférieur à la valeur max alors on applique la classe fixed à la navbar
         // sinon on enlève la classe fixed
         // console.log(window.scrollY)
-        if (window.scrollY > numScroll.min && window.scrollY < numScroll.max) {
+        if (window.scrollY > 0) {
             setStyle({
                 backgroundColor: '#fff',
                 padding: '0px',

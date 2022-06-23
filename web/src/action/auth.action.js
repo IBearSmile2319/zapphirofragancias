@@ -64,6 +64,7 @@ export const SignIn = (data) => {
                 dispatch({ type: UserSignIn.USER_SIGNIN_SUCCESS, payload: res.data.user })
             })
             .catch(err => {
+                message.error(err.response.data.error)
                 dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: err.response.data.error })
             })
     }
@@ -80,6 +81,7 @@ export const UserrenewToken = () => {
                 }
                 )
                 .catch(err => {
+                    
                     dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: err.response.data.error })
                 }
                 )
