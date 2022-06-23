@@ -15,7 +15,7 @@ const TableCombos = (props) => {
             key: 'icon',
             render: (_, {icon}) => (
                 <Image 
-                    src={`http://localhost:8080${icon}`}
+                    src={`${icon}`}
                     alt='icon'
                     style={{width: '50px', height: '50px'}}
                 />
@@ -27,7 +27,7 @@ const TableCombos = (props) => {
             key: 'image',
             render: (_, {imagen}) => (
                 <Image
-                    src={`http://localhost:8080${imagen}`}
+                    src={`${imagen}`}
                     alt='imagen'
                     style={{width: '50px', height: '50px'}}
                 />

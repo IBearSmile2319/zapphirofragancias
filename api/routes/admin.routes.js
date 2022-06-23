@@ -3,6 +3,7 @@ const valid = require('../utils/Validators');
 const validate = require('../middlewares/validate');
 const { upload } = require('../middlewares/upload');
 const { uploadIcon } = require('../middlewares/uploadIcon');
+const multerUpload = require('../middlewares/multerUpload');
 // require validater-jwt
 const router = Router();
 const { validateAdminJWT, adminMiddleware } = require('../middlewares/validate-jwt');
@@ -42,7 +43,7 @@ router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
 // Combo
 const { addCombo, listCombo } = require('../controller/combo.controller');
-router.post('/combo', validateAdminJWT, adminMiddleware, upload.fields([
+router.post('/combo', validateAdminJWT, adminMiddleware, multerUpload.fields([
     {name:'icon',maxCount: 1},
     {name:'imagen',maxCount: 1}
 ]), addCombo)
@@ -50,8 +51,10 @@ router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
 
 
 // order
-const { adminGetCustomerOrders } = require('../controller/order.controller');
-router.get('/order', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
+const { adminGetCustomerOrders,adminGetOrderById, AdminAcceptOrder } = require('../controller/order.controller');
+router.put('/order/accept', validateAdminJWT, adminMiddleware, AdminAcceptOrder)
+router.get('/order/:valid', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
+router.get('/order/view/:id', validateAdminJWT, adminMiddleware, adminGetOrderById)
 
 // Image
 
