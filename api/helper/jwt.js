@@ -54,3 +54,15 @@ exports.generateJWTUser = (porps,expired=process.env.JWT_EXPIRES_IN) => {
             })
     })
 }
+
+exports.verifyJWTUser = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            if (err) {
+                reject("Error al verificar el Token")
+            } else {
+                resolve(decoded)
+            }
+        })
+    })
+}

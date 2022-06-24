@@ -81,12 +81,13 @@ export const UserrenewToken = () => {
                 }
                 )
                 .catch(err => {
-                    
+                    localStorage.removeItem('token')
                     dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: err.response.data.error })
                 }
                 )
         } else {
             dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: 'No token' })
+            localStorage.removeItem('token')
         }
     }
 }

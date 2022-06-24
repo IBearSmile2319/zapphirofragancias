@@ -1,8 +1,7 @@
-const jwt = require('jsonwebtoken');
-const { verifyJWTAdmin } = require('../helper/jwt');
+const { verifyJWTAdmin, verifyJWTUser,  } = require('../helper/jwt');
 
-exports.validateJWT = (req, res, next) => {
-    try {
+exports.validateJWT =async (req, res, next) => {
+    // try {
         let token = req.header('x-access-token') || req.header('authorization');
         token = token.replace('Bearer ', '');
         if (!token) {
@@ -11,17 +10,17 @@ exports.validateJWT = (req, res, next) => {
                 msg: 'No token provided'
             })
         }
-
-        const {uid} = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(token);
+        const {uid} =await verifyJWTUser(token)
         req.uid = uid;
         next()
-    } catch (e) {
-        res.status(401).json({
-            ok: false,
-            msg: "Token invalido",
-            error: e
-        })
-    }
+    // } catch (e) {
+    //     res.status(401).json({
+    //         ok: false,
+    //         msg: "Token invalido",
+    //         error: e
+    //     })
+    // }
 };
 
 exports.validateAdminJWT =async (req, res, next) => {

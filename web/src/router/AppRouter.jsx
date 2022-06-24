@@ -19,7 +19,6 @@ import Orders from '../pages/Admin/Orders';
 import { LinksAdmin } from './Links';
 import Combo from '../pages/Combo';
 import ListCombo from '../pages/Combo/ListCombo';
-import CartCombo from '../pages/Combo/CartCombo';
 import PaymentCombo from '../pages/Combo/PaymentCombo';
 import FormPayment from '../pages/Combo/PaymentCombo/FormPayment';
 import InfoCheckout from '../pages/Combo/PaymentCombo/InfoCheckout';
@@ -63,7 +62,6 @@ const AppRouter = () => {
                 {/* <Route path="sign-up" element={<Register />} /> */}
                 <Route path="combo" element={<Combo/>} >
                     <Route index element={<ListCombo/>} />
-                    <Route path="cart" element={<CartCombo/>} />
                     <Route path="payment" element={<PaymentCombo/>} >
                         <Route index element={<FormPayment/>} />
                         <Route path="checkout" element={<InfoCheckout/>} />

@@ -33,6 +33,15 @@ axiosAdminInstance.interceptors.request.use((req) => {
     }
 )
 
+axiosUserInstance.interceptors.request.use((req) => {
+        const token = store.getState().auth.user.token
+        if(token){
+            req.headers['x-access-token'] = `Bearer ${token ? token : null}`
+        }
+        return req
+    }
+)
+
 
 export {
     axiosInstance,
