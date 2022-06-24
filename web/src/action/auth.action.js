@@ -81,12 +81,13 @@ export const UserrenewToken = () => {
                 }
                 )
                 .catch(err => {
-                    
+                    localStorage.removeItem('token')
                     dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: err.response.data.error })
                 }
                 )
         } else {
             dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: 'No token' })
+            localStorage.removeItem('token')
         }
     }
 }
@@ -94,11 +95,9 @@ export const UserrenewToken = () => {
 
 
 
-// export const UserLogout = () => {
-    
-//     return (dispatch) => {
-//         localStorage.removeItem('token')
-//         dispatch({ type: UserSignIn.ADMIN_SIGNIN_FAILURE, payload: 'Logout successfully' })
-        
-//     }
-// }
+export const UserLogout = () => {
+    return (dispatch) => {
+        localStorage.removeItem('token')
+        dispatch({ type: UserSignIn.USER_SIGNIN_FAILURE, payload: 'Logout successfully' })
+    }
+}

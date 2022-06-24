@@ -63,7 +63,7 @@ exports.userSignIn = async (req, res) => {
         await UserModel.findOne(userAndEmail ? { email } : { username: email })
             .populate("range")
             .populate("promotion")
-            .populate("afiliates")
+            .populate("affiliates")
             .exec(async (err, user) => {
                 if (err) {
                     return res.status(400).json({
@@ -184,7 +184,7 @@ exports.userRenewToken = async (req, res, next) => {
         await UserModel.findOne({ _id: req.uid })
             .populate("range")
             .populate("promotion")
-            .populate("afiliates")
+            .populate("affiliates")
             .exec(async (err, user) => {
                 if (err) {
                     return res.status(200).json({
