@@ -9,11 +9,7 @@ const Profile = () => {
     return (
         <>
             <header
-                style={{
-                    height: '16rem',
-                    width: '100%',
-                    position: 'relative',
-                }}
+                className="banner-header-profile"
             >
                 <img
                     style={{
@@ -44,11 +40,7 @@ const Profile = () => {
                                                 height: '100%',
                                             }}
                                             icon={<UserOutlined 
-                                                style={{
-                                                    color: '#fff',
-                                                    fontSize: '4.5rem',
-                                                    marginTop: '2rem',
-                                                }}
+                                                className="user-icon"
                                             />}
                                             // src="https://i.pravatar.cc/300"
                                         />
@@ -78,15 +70,10 @@ const Profile = () => {
                         </div>
                     </aside>
                 </div>
-                <div style={{
-                    gridColumnEnd: 'span 7',
-                }}>
+                <div 
+                className="profile-content-center">
                 </div>
-                <div style={{
-                    gridColumnStart: '11',
-                    gridColumnEnd: 'span 2',
-                    gridRowStart: '1',
-                }}>
+                <div className="profile-content-right">
                 </div>
             </main>
         </>
