@@ -9,11 +9,12 @@ const InputZF = ({
   placeholder,
   errors,
   type,
+  labelClass,
   ...props
 }) => {
   return (
     <div className="inputzf">
-        <label className="inputzf-label">{label}</label>
+        <label className={`inputzf-label ${labelClass}`}>{label}</label>
         <div className="inputzf-input">
             <input
             {...props}

@@ -1,0 +1,33 @@
+.textareazf{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    position: relative;
+    color: #273b49;
+    margin: 5px 0 18px 0;
+}
+.textareazf .textareazf-label{
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 5px 3px;
+}
+.textareazf textarea{
+    min-height: 6em;
+    max-height: 6em;
+    min-width: 100%;
+    max-width: 100%;
+    display: block;
+    border: 1px solid #ecf0f3;
+    background-color: #fff;
+    width: 100%;
+    line-height: 1.6;
+    font-size: 0.875rem;
+    border-radius: .25rem;
+    color: #687782;
+    -webkit-border-radius: .25rem;
+    -moz-border-radius: .25rem;
+    -ms-border-radius: .25rem;
+    -o-border-radius: .25rem;
+    padding: .5rem 1rem;
+}

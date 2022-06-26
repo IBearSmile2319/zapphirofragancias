@@ -39,10 +39,10 @@ const Profile = () => {
                                                 width: '100%',
                                                 height: '100%',
                                             }}
-                                            icon={<UserOutlined 
+                                            icon={<UserOutlined
                                                 className="user-icon"
                                             />}
-                                            // src="https://i.pravatar.cc/300"
+                                        // src="https://i.pravatar.cc/300"
                                         />
                                     }
                                 </div>
@@ -64,14 +64,14 @@ const Profile = () => {
                                     fontWeight: '600',
                                     marginTop: '1rem',
                                 }}
+                                href="/edit-profile"
                             >
                                 Editar perfil
                             </Button>
                         </div>
                     </aside>
                 </div>
-                <div 
-                className="profile-content-center">
+                <div className="profile-content-center">
                 </div>
                 <div className="profile-content-right">
                 </div>

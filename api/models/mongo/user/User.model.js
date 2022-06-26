@@ -14,6 +14,21 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    city: { 
+        type: String,
+    },
+    country:{
+        type: String,
+    },
+    gender:{
+        type: String,
+    },
+    birthday:{
+        type: String,
+    },
+    biography:{ 
+        type: String,
+    },
     email: {
         type: String,
         required: true,
