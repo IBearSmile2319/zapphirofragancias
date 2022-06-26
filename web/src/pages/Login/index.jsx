@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Logo from "../../assets/img/logo_black.png";
+import Logo from "@assets/img/logo_black.png";
 import { useDispatch, useSelector } from "react-redux";
 import "./Login.css";
-import { SignIn } from "../../action/auth.action";
+import { SignIn } from "@action/auth.action";
 import { Navigate, useLocation } from "react-router-dom";
 import { Spin } from "antd";
 const Login = () => {

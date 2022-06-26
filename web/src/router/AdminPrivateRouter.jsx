@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import Container from '../components/Admin/Container';
+import Container from '@components/Admin/Container';
 
 const AdminPrivateRoute = ({ admin }) => {
     const location = useLocation();

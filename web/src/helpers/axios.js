@@ -2,6 +2,7 @@ import axios from 'axios';
 import store from '../store'
 //export const api = `http://141.148.147.25/api`
 export const api = "http://localhost:8080/api"
+// export const api = process.env.API_URL;
 
 const token = window.localStorage.getItem('token')
 const tokenAdmin = window.localStorage.getItem('admin-token')

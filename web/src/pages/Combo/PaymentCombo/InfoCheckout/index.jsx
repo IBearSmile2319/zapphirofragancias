@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import InputZF from '../../../../components/InputZF'
-import SelectZF from '../../../../components/SelectZF'
+import InputZF from '@components/InputZF'
+import SelectZF from '@components/SelectZF'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormPaymentValidate } from '../FormPayment.validate'
@@ -8,7 +8,7 @@ import { Button, message, Space, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerFirstOrder } from '../../../../action/order.action'
+import { registerFirstOrder } from '@action/order.action'
 const InfoCheckout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { SignInAdmin } from '../../action/auth.action';
+import { SignInAdmin } from '@action/auth.action';
 import { Link, Navigate, useLocation} from 'react-router-dom'
-import Logo from '../../assets/img/Logo.png'
+import Logo from '@assets/img/Logo.png'
 import { message, Spin } from 'antd'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import './AdminLogin.css'
