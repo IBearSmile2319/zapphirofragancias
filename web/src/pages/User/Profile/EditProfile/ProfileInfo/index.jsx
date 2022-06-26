@@ -1,12 +1,12 @@
 import { UserOutlined } from '@ant-design/icons'
-import { Button, DatePicker, message } from 'antd'
+import { Button, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import DatePickerZF from '../../../../../components/DatePickerZF'
-import InputZF from '../../../../../components/InputZF'
-import SelectZF from '../../../../../components/SelectZF'
-import TextAreaZF from '../../../../../components/TextAreaZF'
+import DatePickerZF from '@components/DatePickerZF'
+import InputZF from '@components/InputZF'
+import SelectZF from '@components/SelectZF'
+import TextAreaZF from '@components/TextAreaZF'
 import './ProfileInfo.css'
 const ProfileInfo = () => {
   const [file, setFile] = useState(null)

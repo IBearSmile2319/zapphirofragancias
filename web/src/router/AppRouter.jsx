@@ -1,20 +1,20 @@
 import React, { useContext, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Landing from '../pages/Landing'
-import Login from '../pages/Login'
+import Landing from '@pages/Landing'
+import Login from '@pages/Login'
 // user 
 import UserPrivateRouter from './UserPrivateRouter'
 // admin
 import AdminPrivateRouter from './AdminPrivateRouter'
-import AdminLogin from '../pages/AdminLogin';
+import AdminLogin from '@pages/AdminLogin';
 import { useSelector } from 'react-redux';
-import AuthContext from '../auth/AuthContext';
+import AuthContext from '@auth/AuthContext';
 import { LinksAdmin } from './Links';
-import Combo from '../pages/Combo';
-import ListCombo from '../pages/Combo/ListCombo';
-import PaymentCombo from '../pages/Combo/PaymentCombo';
-import FormPayment from '../pages/Combo/PaymentCombo/FormPayment';
-import InfoCheckout from '../pages/Combo/PaymentCombo/InfoCheckout';
+import Combo from '@pages/Combo';
+import ListCombo from '@pages/Combo/ListCombo';
+import PaymentCombo from '@pages/Combo/PaymentCombo';
+import FormPayment from '@pages/Combo/PaymentCombo/FormPayment';
+import InfoCheckout from '@pages/Combo/PaymentCombo/InfoCheckout';
 import LinksUser from './LinksUser';
 const AppRouter = () => {
     const { verifyToken } = useContext(AuthContext);

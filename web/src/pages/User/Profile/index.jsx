@@ -2,7 +2,7 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import bannerProfile from '../../../assets/img/banner-profile-user.jpg'
+import bannerProfile from '@assets/img/banner-profile-user.jpg'
 import './Profile.css'
 const Profile = () => {
     const { user } = useSelector(state => state.auth)

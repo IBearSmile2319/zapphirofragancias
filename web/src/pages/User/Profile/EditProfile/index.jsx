@@ -1,8 +1,8 @@
 import { EditOutlined, UserOutlined } from '@ant-design/icons'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import CustomLinkActive from '../../../../components/CustomLinkActive'
-import LinksUser from '../../../../router/LinksUser'
+import CustomLinkActive from '@components/CustomLinkActive'
+import LinksUser from '@router/LinksUser'
 import './EditProfile.css'
 const EditProfile = () => {
     return (

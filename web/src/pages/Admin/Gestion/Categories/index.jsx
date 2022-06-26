@@ -1,7 +1,7 @@
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import BreadCrumb from '../../../../components/BreadCrumb'
+import BreadCrumb from '@components/BreadCrumb'
 import './Categories.css'
 const Categories = () => {
   return (

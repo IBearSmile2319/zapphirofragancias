@@ -1,10 +1,10 @@
-import { Button, Form, Input, Space } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { Button } from 'antd'
+import React, { useEffect } from 'react'
 import './FormPayment.css'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormInfoPersonValidate} from '../FormPayment.validate'
-import InputZF from '../../../../components/InputZF'
+import InputZF from '@components/InputZF'
 import { useNavigate } from 'react-router-dom'
 
 const FormPayment = () => {
