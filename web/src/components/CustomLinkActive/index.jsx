@@ -6,7 +6,7 @@ const CustomLinkActive = ({ children, to, ...props }) => {
     return (
         <Link to={to}
             {...props}
-            className={match ? 'active' : ''}
+            className={`${props.className ? props.className : ''}  ${match ? 'active' : ''}`}
         >
             {children}
         </Link>

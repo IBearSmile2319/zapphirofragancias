@@ -1,6 +1,9 @@
 .selectZF {
   display: flex;
   flex-direction: column;
+  margin: 5px 0 18px 0;
+  position: relative;
+  color: #273b49;
 }
 .selectZF .selectZF__label {
   margin: 5px 0;
@@ -8,22 +11,23 @@
   font-weight: 600;
 }
 
-.selectZF select{
-  border-radius: 0.5rem;
-    border: 1px solid #ecf0f3;
+.selectZF select {
+  border-radius: 0.3rem;
+  border: 1px solid #ecf0f3;
   padding: 9px;
   font-size: 0.8rem;
   font-weight: 600;
-  margin:0;
-  -webkit-border-radius: 0.5rem;
-  -moz-border-radius: 0.5rem;
-  -ms-border-radius: 0.5rem;
-  -o-border-radius: 0.5rem;
+  margin: 0;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  color: #687782;
 }
 
 .selectZF select:focus {
   outline: none;
-  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 .selectZF select::-ms-expand {
   display: none;
