@@ -6,10 +6,11 @@ const multerUpload = require('../middlewares/multerUpload');
 
 const router = Router();
 // login
-const { SendDataUser, userRenewToken, userSignIn } = require('../controller/user.controller');
+const { SendDataUser, userRenewToken, userSignIn, userUpdate } = require('../controller/user.controller');
 router.post('/preregister', valid.user.validatePreRegister, validate, SendDataUser);
 router.post('/sign-in', valid.user.validateLogin, validate, userSignIn);
 router.get('/renewToken', validateJWT, userRenewToken);
+router.put('/update', validateJWT, multerUpload.single("avatar"), userUpdate);
 
 // product
 const { getProduct, getProductsByCategory, getProducts } = require('../controller/product.controller');

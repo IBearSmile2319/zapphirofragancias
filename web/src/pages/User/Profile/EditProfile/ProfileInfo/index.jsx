@@ -2,35 +2,53 @@ import { UserOutlined } from '@ant-design/icons'
 import { Button, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import DatePickerZF from '@components/DatePickerZF'
 import InputZF from '@components/InputZF'
 import SelectZF from '@components/SelectZF'
 import TextAreaZF from '@components/TextAreaZF'
 import './ProfileInfo.css'
+import { userUpdatePut } from '../../../../../action/user.action'
 const ProfileInfo = () => {
-  const [file, setFile] = useState(null)
+  const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm({
     // resolver: yupResolver(user),
     defaultValues: {
       ...user
     }
   })
-  useEffect(() => {
-    setFile(user.avatar)
-  }, [user])
+  const [file, setFile] = useState(getValues('avatar'))
   const ChangeDate = (date, dateString) => {
     setValue('birthday', dateString)
   };
   const onSubmit = (data) => {
-    const formData = {
-      ...data
-    }
+    const formData = new FormData()
     if (file) {
-      formData.avatar = file
+      formData.append('avatar', file)
     }
-    console.log(formData)
+    if (user.firstName !== data.firstName) {
+      formData.append('firstName', data.firstName)
+    }
+    if (user.lastName !== data.lastName) {
+      formData.append('lastName', data.lastName)
+    }
+    if (user.city !== data.city) {
+      formData.append('city', data.city)
+    }
+    if (user.country !== data.country) {
+      formData.append('country', data.country)
+    }
+    if (user.gender !== data.gender) {
+      formData.append('gender', data.gender)
+    }
+    if (user.birthday !== data.birthday) {
+      formData.append('birthday', data.birthday)
+    }
+    if (user.biography !== data.biography) {
+      formData.append('biography', data.biography)
+    }
+    dispatch(userUpdatePut(formData))
   }
 
   return (
@@ -47,16 +65,18 @@ const ProfileInfo = () => {
             <div className="edit-profile-avatar">
               <div className="user-avatar">
                 <div className="img-content">
-                  {
-                    file ?
-                      <img
-                        className="img-avatar"
-                        src={
-                          file ? URL.createObjectURL(file) :
-                            'https://www.w3schools.com/howto/img_avatar.png'
-                        } alt="avatar" />
-                      :
-                      <UserOutlined className="img-avatar icon" />
+                  {file && file ?
+                    <img
+                      className="img-avatar"
+                      src={
+                        typeof file === "string" ?
+                          file.includes("blob:") ?
+                            URL.createObjectURL(file) :
+                            file :
+                          URL.createObjectURL(file)
+                      } alt="avatar" />
+                    :
+                    <UserOutlined className="img-avatar icon" />
                   }
                 </div>
               </div>
@@ -147,7 +167,7 @@ const ProfileInfo = () => {
                 labelClass="zf-label"
                 name="birthday"
                 register={register}
-                date=""
+                date={user.birthday}
                 setDate={ChangeDate}
                 errors={errors}
                 required={false}

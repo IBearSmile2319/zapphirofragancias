@@ -1,4 +1,4 @@
-import { AdminSignIn, UserSignIn } from '../action/constants'
+import { AdminSignIn, UserSignIn, UserUpdateType } from '../action/constants'
 
 const initialState = {
     user: {
@@ -14,7 +14,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        // User Login
+        // ------------ //
+        // USER LOGIN //
+        // ------------//
         case UserSignIn.USER_SIGNIN_REQUEST:
             return {
                 ...state,
@@ -43,7 +45,40 @@ export default (state = initialState, action) => {
                     error: action.payload,
                 }
             }
-        // admin login
+        // ------------ //
+        // USER UPDATE //
+        // ------------//
+        case UserUpdateType.USER_UPDATE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                user: {
+                    ...state.user,
+                    error: null,
+                }
+            }
+        case UserUpdateType.USER_UPDATE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                user: {
+                    ...action.payload,
+                    logged: true,
+                    error: null,
+                }
+            }
+        case UserUpdateType.USER_UPDATE_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                user: {
+                    ...state.user,
+                    error: action.payload,
+                }
+            }
+        // ------------ //
+        // ADMIN LOGIN //
+        // ------------//
         case AdminSignIn.ADMIN_SIGNIN_REQUEST:
             return {
                 ...state,
