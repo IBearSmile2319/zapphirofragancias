@@ -62,7 +62,7 @@ exports.userSignIn = async (req, res) => {
         const userAndEmail = email.includes("@");
         await UserModel.findOne(userAndEmail ? { email } : { username: email })
             .populate("range")
-            .populate("promotion")
+            .populate("promotion", "username firstName lastName code_invite phone")
             .populate("affiliates")
             .exec(async (err, user) => {
                 if (err) {
@@ -183,7 +183,7 @@ exports.userRenewToken = async (req, res, next) => {
         // Return info user
         await UserModel.findOne({ _id: req.uid })
             .populate("range")
-            .populate("promotion")
+            .populate("promotion", "username firstName lastName code_invite phone")
             .populate("affiliates")
             .exec(async (err, user) => {
                 if (err) {
