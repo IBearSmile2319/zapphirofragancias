@@ -10,18 +10,18 @@
 .inputzf .inputzf-label{
     font-size: 1rem;
     font-weight: 600;
-    margin: 5px 0;
+    margin: 5px 3px;
 }
 .inputzf .inputzf-input{
     display: flex;
     width: 100%;
     border: 1px solid #ecf0f3;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     overflow: hidden;
-    -webkit-border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -ms-border-radius: 0.5rem;
-    -o-border-radius: 0.5rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
     color: #273b49;
 }
 
@@ -30,9 +30,9 @@
     height: 35px;
     border: none;
     background: transparent;
-    font-weight: 600;
-    padding: 0 10px;
-    color: #8e9ba4;
+    font-weight: 400;
+    padding: 0 15px;
+    color: #687782;
 }
 .inputzf .inputzf-input input:focus{
     outline: none;

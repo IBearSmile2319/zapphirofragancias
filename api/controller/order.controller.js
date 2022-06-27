@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-
+const AzureUpload = require('../middlewares/AzureUpload');
 // bcrypt
 const bcrypt = require("bcryptjs");
 const SendMail = require("../helper/sendMailerHelper");
@@ -16,6 +16,7 @@ const AddressModel = require("../models/mongo/user/Address.model");
 const UserModel = require("../models/mongo/user/User.model");
 const OrderModel = require("../models/mongo/cart/Order.model");
 const PointsModels = require("../models/mongo/user/Points.models");
+
 
 exports.firstOrder = async (req, res) => {
     const {
@@ -49,10 +50,10 @@ exports.firstOrder = async (req, res) => {
     try {
         const findCombo = await ComboModel.findOne({ _id: combo }).exec();
         if (!findCombo) {
-            // TODO: delete image in public folder
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
+            // // TODO: delete image in public folder
+            // if (req.file) {
+            //     fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
+            // }
             return res.status(400).json({
                 success: false,
                 message: "No existe el combo selecionado",
@@ -63,9 +64,6 @@ exports.firstOrder = async (req, res) => {
         if (findCombo.price == paymentMount) {
             console.log("correcto")
         } else {
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
             return res.status(400).json({
                 success: false,
                 message: "El monto del pago no coincide con el precio del combo",
@@ -88,22 +86,22 @@ exports.firstOrder = async (req, res) => {
             ]
         }).exec();
         if (isExistUser) {
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
+            // if (req.file) {
+            //     fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
+            // }
             return res.status(400).json({
                 success: false,
                 message: "El usuario ya esta en proceso de validación",
             });
         }
         // generate code invite and if exist code in UserModel for repeat process use firstName and lastName two letter
-        const codeInvite = `${firstName.substring(0, 3)}${lastName.substring(0, 2)}${nDocument.substring(0, 2)}${nDocument.substring(nDocument.length - 2)}`;
+        const codeInvite = `ZF${firstName.substring(0, 3)}${lastName.substring(0, 2)}${nDocument.substring(0, 2)}${nDocument.substring(nDocument.length - 2)}`;
         // const code = ;
         const isExistCode = await UserModel.findOne({ code_invite: codeInvite }).exec();
         if (isExistCode) {
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
+            // if (req.file) {
+            //     fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
+            // }
             return res.status(400).json({
                 success: false,
                 message: "El código ya existe",
@@ -135,9 +133,6 @@ exports.firstOrder = async (req, res) => {
         // TODO: save user
         const userSaved = await saveUserService(newUser);
         if (!userSaved) {
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
             return res.status(400).json({
                 success: false,
                 message: "Error al guardar el usuario",
@@ -184,7 +179,9 @@ exports.firstOrder = async (req, res) => {
         }
         // img
         if (req.file) {
-            newPayment.img = `/public/payment/${req.file.filename}`
+            const imagenPayment = await AzureUpload(req.file, "payments");
+            newPayment.img = imagenPayment.url;
+            // newPayment.img = `/public/payment/${req.file.filename}`
         }
         const savePayment = await savePaymentService(newPayment);
         if (!savePayment) {
@@ -192,10 +189,10 @@ exports.firstOrder = async (req, res) => {
             await UserModel.deleteOne({ _id: userSaved._id });
             // TODO: delete address
             // await Address.deleteOne({ _id: newSaveAddress._id });
-            // TODO: delete image in public folder
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
+            // // TODO: delete image in public folder
+            // if (req.file) {
+            //     fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
+            // }
             return res.status(400).json({
                 success: false,
                 message: "Error al guardar el pago",
@@ -247,10 +244,6 @@ exports.firstOrder = async (req, res) => {
             // await Address.deleteOne({ _id: newSaveAddress._id });
             // TODO: delete payment
             await PaymentModel.deleteOne({ _id: savePayment._id });
-            // TODO: delete image in public folder
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
             return res.status(400).json({
                 success: false,
                 message: "Error al guardar el pedido",
@@ -286,10 +279,7 @@ exports.firstOrder = async (req, res) => {
             await PaymentModel.deleteOne({ _id: savePayment._id });
             // TODO: delete order
             await OrderModel.deleteOne({ _id: saveOrder._id });
-            // TODO: delete image in public folder
-            if (req.file) {
-                fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-            }
+
             return res.status(400).json({
                 success: false,
                 message: "Error al enviar el correo",
@@ -301,9 +291,6 @@ exports.firstOrder = async (req, res) => {
             saveOrder
         });
     } catch (err) {
-        if (req.file) {
-            fs.unlinkSync(path.resolve(__dirname, "../public/uploads/payment", req.file.filename));
-        }
         return res.status(400).json({
             success: false,
             message: "Error al guardar el pedido",
@@ -314,8 +301,8 @@ exports.firstOrder = async (req, res) => {
 
 // admin AcceptOrder
 exports.AdminAcceptOrder = async (req, res) => {
-    try {
-        const { orderId, type } = req.body;
+    // try {
+        const { orderId, type, typeOrder } = req.body;
         const findOrder = await OrderModel.findById(orderId);
         if (!findOrder) {
             return res.status(400).json({
@@ -337,20 +324,20 @@ exports.AdminAcceptOrder = async (req, res) => {
             .exec(async (err, order) => {
 
                 if (err) {
-                    return res.status(400).json({
+                    res.status(400).json({
                         success: false,
                         message: "Error al actualizar el pedido",
                         error: err
                     })
                 }
                 if (order) {
-                    const findUser=await UserModel.findById(findOrder.user)
+                    const findUser = await UserModel.findById(findOrder.user)
                     await UserModel.updateOne(
                         { _id: findUser._id },
-                        {active: true},
-                    ).exec((err, user) => {
+                        { active: true },
+                    ).exec(async (err, user) => {
                         if (err) {
-                            return res.status(400).json({
+                            res.status(400).json({
                                 success: false,
                                 message: "Error al actualizar el usuario",
                                 error: err
@@ -359,33 +346,71 @@ exports.AdminAcceptOrder = async (req, res) => {
                         if (user) {
                             // update user promotion points
                             if (findUser.promotion) {
-                                UserModel.updateOne(
-                                    { _id: findUser.promotion },
-                                    { $inc: { points: 100 } }
-                                ).exec((err, promotion) => {
-                                    if (err) {
-                                        return res.status(400).json({
-                                            success: false,
-                                            message: "Error al actualizar el usuario",
-                                            error: err
-                                        })
-                                    }
-                                    if (promotion) {
-                                        PointsModels.create({
-                                            user: user.promotion,
-                                            points: 100,
-                                            type: "Combo",
-                                        })
-                                        return res.status(200).json({
-                                            success: true,
-                                            message: "Pedido aceptado",
-                                            order
-                                        })
-                                    }
-                                })
+                                // cuando es 0 es combo
+                                if (typeOrder === 0 && findOrder.approved === false) {
+                                    console.log("entro a combo")
+                                    await UserModel.updateOne(
+                                        { _id: findUser.promotion },
+                                        {
+                                            $inc: { points: 100 },
+                                            $push: {
+                                                affiliates: [
+                                                    {
+                                                        user: findUser._id,
+                                                        date: new Date(),
+                                                    }
+                                                ]
+                                            }
+                                        },
+
+                                    ).exec(async (err, promotion) => {
+                                        if (err) {
+                                            res.status(400).json({
+                                                success: false,
+                                                message: "Error al actualizar el usuario",
+                                                error: err
+                                            })
+                                        }
+                                        if (promotion) {
+                                            console.log("promocion actualizada")
+                                            const newPoints = new PointsModels({
+                                                user: findUser.promotion,
+                                                points: 100,
+                                                type: "combo",
+                                                assistant: req.uid,
+                                            })
+                                            newPoints.save();
+                                        }
+                                    })
+                                }
+                                if (typeOrder === 1 && findOrder.approved === false) {
+                                    console.log("entro a pedido")
+                                    await UserModel.updateOne(
+                                        { _id: findUser._id },
+                                        { $inc: { points: findOrder.total } }
+                                    ).exec(async (err, promotion) => {
+                                        if (err) {
+                                            res.status(400).json({
+                                                success: false,
+                                                message: "Error al actualizar el usuario",
+                                                error: err
+                                            })
+                                        }
+                                        if (promotion) {
+                                            const newPoints = new PointsModels({
+                                                user: findUser._id,
+                                                points: findOrder.total,
+                                                type: "pedido", 
+                                                assistant: req.uid,
+                                            })
+                                            newPoints.save();
+                                           
+                                        }
+                                    })
+                                }
                             }
-                            
-                            return res.status(200).json({
+
+                            res.status(200).json({
                                 success: true,
                                 message: "Pedido aceptado",
                                 order
@@ -394,13 +419,13 @@ exports.AdminAcceptOrder = async (req, res) => {
                     })
                 }
             });
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: "Error al confirmar el pedido",
-            error: err
-        })
-    }
+    // } catch (err) {
+    //     return res.status(400).json({
+    //         success: false,
+    //         message: "Error al confirmar el pedido",
+    //         error: err
+    //     })
+    // }
 }
 // admin
 exports.adminGetCustomerOrders = async (req, res) => {
@@ -423,10 +448,27 @@ exports.adminGetCustomerOrders = async (req, res) => {
                 })
             }
             if (orders) {
-                return res.status(200).json({
-                    success: true,
-                    orders
-                })
+                UserModel.populate(orders, {
+                    path: "user.promotion",
+                    model: "User",
+                    select: "username",
+                }, (err, orders) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: false,
+                            message: "Error al obtener los pedidos",
+                            error: err
+                        })
+                    }
+                    if (orders) {
+
+                        return res.status(200).json({
+                            success: true,
+                            orders
+                        })
+                    }
+                }
+                )
             }
         })
 }
@@ -448,10 +490,27 @@ exports.adminGetOrderById = async (req, res) => {
                 })
             }
             if (order) {
-                return res.status(200).json({
-                    success: true,
-                    order
-                })
+                UserModel.populate(order, {
+                    path: "user.promotion",
+                    model: "User",
+                    select: "username",
+                }, (err, order) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: false,
+                            message: "Error al obtener los pedidos",
+                            error: err
+                        })
+                    }
+                    if (order) {
+
+                        return res.status(200).json({
+                            success: true,
+                            order
+                        })
+                    }
+                }
+                )
             }
         }
         )

@@ -1,0 +1,32 @@
+.datepickerzf{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    position: relative;
+    margin: 5px 0 18px 0;
+    color: #273b49;
+}
+.datepickerzf .datepickerzf-label{
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 5px 3px;
+}
+.datepickerzf .datepickerzf-group{
+    display: flex;
+    width: 100%;
+}
+.datepickerzf .datepickerzf-group .datepickerzf-input{
+    width: 100%;
+    border: 1px solid #ecf0f3;
+    border-radius: 0.3rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
+    padding: 7px 15px;
+    margin-top: 0;
+}
+.ant-picker-input>input{
+    color: #687782 !important;
+}

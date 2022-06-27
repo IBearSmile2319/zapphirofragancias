@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { getCombos } from '../../action/combo.action'
-import Header from '../../components/Header'
+import { getCombos } from '@action/combo.action'
+import Header from '@components/Header'
 
 const Combo = () => {
   let location = useLocation()

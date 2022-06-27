@@ -1,7 +1,7 @@
-.avatar-user-menu{
+.avatar-admin-menu{
     position: relative;
 }
-.avatar-user-menu .user-menu__avatar{
+.avatar-admin-menu .admin-menu__avatar{
     position: relative;
     background: #ecf0f3;
     border-radius: 1rem;
@@ -13,10 +13,10 @@
     padding-right: 0.5rem;
     color: #687782;
 }
-.avatar-user-menu .user-menu__avatar:hover{
+.avatar-admin-menu .admin-menu__avatar:hover{
     background: #dfdfe8;
 }
-.avatar-user-menu .user-menu__avatar .avatar{
+.avatar-admin-menu .admin-menu__avatar .avatar{
     position: relative;
     width: 1.75rem;
     height: 1.75rem;
@@ -24,7 +24,7 @@
     overflow: hidden;
     margin-right: 0.25rem;
 }
-.avatar-user-menu .user-menu__avatar .avatar img{
+.avatar-admin-menu .admin-menu__avatar .avatar img{
     transition: opacity 0.3s ease 0s;
     opacity: 1;
     visibility: visible;
@@ -36,20 +36,20 @@
 }
 
 @media (max-width: 768px){
-    .avatar-user-menu .user-menu__avatar{
+    .avatar-admin-menu .admin-menu__avatar{
         padding-right: 0;
     }
-    .avatar-user-menu .user-menu__avatar .avatar{
+    .avatar-admin-menu .admin-menu__avatar .avatar{
         margin-right: 0;
     }
-    .avatar-user-menu .user-menu__avatar>svg{
+    .avatar-admin-menu .admin-menu__avatar>svg{
         display: none;
     }
 }
 
-.avatar-user-menu .dropdown-menu-user{
+.dropdown-menu-admin{
     width: 15.625rem;
-    top: 2.25rem;
+    top: 1rem;
     right: 0;
     position: absolute;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
@@ -64,26 +64,26 @@
     display: none;
     transition: opacity 0.25s;
 }
-.avatar-user-menu .dropdown-menu-user.active{
+.dropdown-menu-admin.active{
     opacity: 1;
     display: block;
 }
 
-.avatar-user-menu .dropdown-menu-user header{
+.dropdown-menu-admin header{
     flex-wrap: nowrap;
     align-items: center;
     align-content: center;
     display: flex;
     margin-bottom: 0.5rem;
 }
-.avatar-user-menu .dropdown-menu-user header .user-avatar{
+.dropdown-menu-admin header .admin-avatar{
     width:1.75rem;
     height:1.75rem;
     position: relative;
     flex: none;
     margin-right: 0.5rem;
 }
-.avatar-user-menu .dropdown-menu-user header .user-avatar .img-content{
+.dropdown-menu-admin header .admin-avatar .img-content{
     position: relative;
     border-radius: 50%;
     width: 100%;
@@ -91,7 +91,7 @@
     overflow: hidden;
     padding-bottom: 100%;
 }
-.avatar-user-menu .dropdown-menu-user header .user-avatar .img-content img{
+.dropdown-menu-admin header .admin-avatar .img-content img{
     transition: opacity 0.3s ease 0s;
     opacity: 1;
     visibility: visible;
@@ -102,7 +102,7 @@
     position: absolute;
     object-fit: cover;
 }
-.avatar-user-menu .dropdown-menu-user header .user-name{
+.dropdown-menu-admin header .admin-name{
     word-break: break-all;
     margin-top: 0;
     margin-bottom: 0;
@@ -116,7 +116,7 @@
     font-size: 1rem;
     font-weight: 600;
 }
-.avatar-user-menu .dropdown-menu-user header .user-nickname{
+.dropdown-menu-admin header .admin-nickname{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -130,10 +130,10 @@
     margin-top: 0;
 }
 
-.avatar-user-menu .dropdown-menu-user nav{
+.dropdown-menu-admin nav{
 
 }
-.avatar-user-menu .dropdown-menu-user nav ul{
+.dropdown-menu-admin nav ul{
     width: 100%;
     max-width: 100%;
     margin-left: 0;
@@ -146,13 +146,13 @@
     column-gap: 0.25rem;
     margin-top: 0;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li{
+.dropdown-menu-admin nav ul li{
     list-style: none;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.8;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li a{
+.dropdown-menu-admin nav ul li a{
     text-decoration: none;
     color: #687782;
     transition: background 0.25s;
@@ -166,19 +166,19 @@
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li a:hover{
+.dropdown-menu-admin nav ul li a:hover{
     background: #dfdfe8;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li a svg{
+.dropdown-menu-admin nav ul li a svg{
     margin-right: 0.25rem;
     font-weight: 400;
     line-height: 1.8;
     font-size: 0.8125;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li a span{
+.dropdown-menu-admin nav ul li a span{
     margin-right: 0.5rem;
 }
-.avatar-user-menu .dropdown-menu-user nav ul li a.close-session{
+.dropdown-menu-admin nav ul li a.close-session{
     color: #e93553;
     font-weight: 600;
 }

@@ -1,0 +1,56 @@
+.profiledelete-main {
+  margin-bottom: calc(1rem * 4);
+  margin-top: 0;
+}
+.profiledelete-main h1 {
+  line-height: 1.45;
+  color: #273b49;
+  font-size: 1.75rem;
+  margin-bottom: calc(1rem * 1.5);
+  margin-top: 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* form */
+.profiledelete-main form.form-profiledelete {
+  margin-top: 0;
+  margin-bottom: calc(1rem * 1.5);
+}
+
+.profiledelete-main form.form-profiledelete section{
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 100%;
+    column-gap: 2rem;
+    max-width: calc(100% - 4rem);
+    margin-top: 0;
+    margin-bottom: calc(1rem * 1.5);
+}
+@media (max-width: 768px){
+    .profiledelete-main form.form-profiledelete section {
+        width: calc(100% - 2rem);
+        margin-left: 1rem;
+        margin-right: 1rem;
+        max-width: 1200px;
+        column-gap: 1rem;
+    }
+}
+.profiledelete-main form.form-profiledelete section .card-template {
+    position: relative;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ecf0f3;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+    width: 50%;
+    box-shadow: 0 0.7rem 1rem rgba(0,0,0,0.1);
+}
+@media (max-width: 768px){
+    .profiledelete-main form.form-profiledelete section .card-template {
+        width: 100%;
+        padding: 1rem;
+    }
+}

@@ -121,7 +121,7 @@ const DrawerOrder = ({
                 <Col span={12}>
                     <DescriptionItem
                         title="Promotor"
-                        content={item?.user?.promotion || "No tiene"}
+                        content={item?.user?.promotion?.username || "No tiene"}
                     />
                 </Col>
             </Row>
@@ -134,11 +134,11 @@ const DrawerOrder = ({
                     <List.Item>
                         <Card
 
-                            cover={<Image src={"http://localhost:8080" + item?.combo?.imagen} />}
+                            cover={<Image src={item?.combo?.imagen} />}
                             style={{ width: 300 }}
                         >
                             <Meta
-                                avatar={<Avatar src={"http://localhost:8080" + item?.combo?.icon} />}
+                                avatar={<Avatar src={item?.combo?.icon} />}
                                 description={
                                     <>
                                         <DescriptionItem
@@ -234,7 +234,7 @@ const DrawerOrder = ({
                         title="Comprobante de pago"
                         content={
                             <Tag color="blue">
-                                <Image src={"http://localhost:8080" + item?.payment?.img} alt="pago"
+                                <Image src={item?.payment?.img} alt="pago"
                                     style={{ height: "50px", width: "50px" }}
                                 />
                             </Tag>

@@ -31,7 +31,7 @@ const PaymentCombo = () => {
                 <article className="cart-item">
                   <div className="cart-item-grid">
                     <Link to="/combo">
-                        <img src={`http://localhost:8080${combo.imagen}`} alt="combo" />
+                        <img src={`${combo.imagen}`} alt="combo" />
                     </Link>
                     <div className="cart-item_col-3">
                       <div className="info">

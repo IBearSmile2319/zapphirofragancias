@@ -5,11 +5,12 @@ const SelectZF = forwardRef(({
     onBlur,
     name,
     label,
-    values
+    values,
+    labelClass
 }, ref) => {
     return (
         <div className="selectZF">
-            <label className='selectZF__label' >{label}</label>
+            <label className={`selectZF__label ${labelClass}`} >{label}</label>
             <select
                 name={name}
                 ref={ref}

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import store from '../store'
-// const api = `http://141.148.147.25/api`
-const api = "/api"
+//export const api = `http://141.148.147.25/api`
+export const api = "http://localhost:8080/api"
+// export const api = process.env.API_URL;
 
 const token = window.localStorage.getItem('token')
 const tokenAdmin = window.localStorage.getItem('admin-token')
@@ -26,6 +27,15 @@ const axiosAdminInstance = axios.create({
 
 axiosAdminInstance.interceptors.request.use((req) => {
         const token = store.getState().auth.admin.token
+        if(token){
+            req.headers['x-access-token'] = `Bearer ${token ? token : null}`
+        }
+        return req
+    }
+)
+
+axiosUserInstance.interceptors.request.use((req) => {
+        const token = store.getState().auth.user.token
         if(token){
             req.headers['x-access-token'] = `Bearer ${token ? token : null}`
         }
