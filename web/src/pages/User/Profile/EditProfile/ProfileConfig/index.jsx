@@ -1,10 +1,12 @@
 import React from 'react'
 import InputZF from '@components/InputZF'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './ProfileConfig.css'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
+import { userUpdatePut } from '../../../../../action/user.action'
 const ProfileConfig = () => {
+  const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     // resolver: yupResolver(user),
@@ -12,6 +14,31 @@ const ProfileConfig = () => {
       ...user
     }
   })
+  const onSubmit = (data) => {
+    const formData = new FormData()
+    if (user.email !== data.email) {
+      formData.append('email', data.email)
+    }
+    if (user.nDocument !== data.nDocument) {
+      formData.append('nDocument', data.nDocument)
+    }
+    if (user.phone !== data.phone) {
+      formData.append('phone', data.phone)
+    }
+    if (user.username !== data.username) {
+      formData.append('username', data.username)
+    }
+    if (data.password || data.passwordConfirm) {
+      if (data.password !== data.passwordConfirm) {
+        message.error('Las contraseñas no coinciden')
+      } else {
+        formData.append('password', data.password)
+      }
+    }
+    dispatch(userUpdatePut(formData))
+    setValue('password', '')
+    setValue('passwordConfirm', '')
+  }
   return (
     <main className="profileconfig-main">
       <h1>Ajustes de la cuenta</h1>
@@ -19,6 +46,7 @@ const ProfileConfig = () => {
         className="form-profile-config"
         id="form-file"
         encType="multipart/form-data"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <section>
           <div className="card-template">
