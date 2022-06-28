@@ -59,11 +59,7 @@ class Server {
 
 
         // Habilitar cors
-        this.app.use(cors({
-            origin: [
-                'http://localhost:3000',
-            ],
-        }))
+        this.app.use(cors({}))
         // Api EndPoints
         routes(this.app)
 

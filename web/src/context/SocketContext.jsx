@@ -1,5 +1,6 @@
 import { createContext, useEffect } from 'react'
 import { useSelector } from 'react-redux';
+import { URL } from '../helpers/axios';
 import { useSocket } from '../hooks/useSocket';
 
 const SocketContext = createContext();
@@ -10,7 +11,7 @@ export const SocketProvider = ({ children }) => {
         online,
         connectSocketAdmin,
         disconnectSocketAdmin
-    } = useSocket("http://localhost:8080");
+    } = useSocket(URL);
     const { admin, user } = useSelector(state => state.auth);
     // adminSocket
     useEffect(() => {
