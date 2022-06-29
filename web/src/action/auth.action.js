@@ -29,7 +29,7 @@ export const AdminrenewToken = () => {
             axiosAdminInstance.get('/renewToken')
                 .then(res => {
                     localStorage.setItem('admin-token', res.data.token)
-                    dispatch({ type: AdminSignIn.ADMIN_SIGNIN_SUCCESS, payload: res.data.admin })
+                    dispatch({ type: AdminSignIn.ADMIN_SIGNIN_SUCCESS, payload: {...res.data.admin,token:res.data.token }})
                 }
                 )
                 .catch(err => {
@@ -61,7 +61,7 @@ export const SignIn = (data) => {
         axiosUserInstance.post('/sign-in', data)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
-                dispatch({ type: UserSignIn.USER_SIGNIN_SUCCESS, payload: res.data.user })
+                dispatch({ type: UserSignIn.USER_SIGNIN_SUCCESS, payload: {...res.data.user,token:res.data.token} })
             })
             .catch(err => {
                 message.error(err.response.data.error)
@@ -77,7 +77,7 @@ export const UserrenewToken = () => {
             axiosUserInstance.get('/renewToken')
                 .then(res => {
                     localStorage.setItem('token', res.data.token)
-                    dispatch({ type: UserSignIn.USER_SIGNIN_SUCCESS, payload: res.data.user })
+                    dispatch({ type: UserSignIn.USER_SIGNIN_SUCCESS, payload: {...res.data.user,token:res.data.token} })
                 }
                 )
                 .catch(err => {

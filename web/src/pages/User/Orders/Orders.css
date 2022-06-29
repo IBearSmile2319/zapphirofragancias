@@ -1,0 +1,14 @@
+.orders-grid-layout{
+    grid-template-columns: 100%;
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    row-gap: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: calc(2rem * 4);
+    margin-top: 0;
+    display: grid;
+    column-gap: 2rem;
+}

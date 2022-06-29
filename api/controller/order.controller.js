@@ -559,9 +559,6 @@ exports.getOrder = async (req, res) => {
 
 }
 
-exports.getOrdersByUser = async (req, res) => {
-    // TODO: get orders find by user
-}
 
 exports.getOrdersForVerify = async (req, res) => {
     // TODO: get orders find for validate
@@ -571,3 +568,51 @@ exports.getOrdersForVerify = async (req, res) => {
 exports.updateOrder = async (req, res) => {
     // TODO: update order customer
 }
+
+
+// --------------------- //
+//    - USER -        //
+// --------------------- //
+
+exports.getOrdersByUser = async (req, res) => {
+    await OrderModel.find({ user: req.uid })
+        .populate("user")
+        .populate("payment")
+        .populate("items.combo")
+        .populate("items.product")
+        .populate("address")
+        .sort({ createdAt: -1 })
+        .exec((err, orders) => {
+            if (err) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Error al obtener los pedidos",
+                    error: err
+                })
+            }
+            if (orders) {
+                UserModel.populate(orders, {
+                    path: "user.promotion",
+                    model: "User",
+                    select: "username",
+                }, (err, orders) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: false,
+                            message: "Error al obtener los pedidos",
+                            error: err
+                        })
+                    }
+                    if (orders) {
+
+                        return res.status(200).json({
+                            success: true,
+                            orders
+                        })
+                    }
+                }
+                )
+            }
+        }   
+        )
+} 

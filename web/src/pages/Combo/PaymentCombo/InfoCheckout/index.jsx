@@ -57,7 +57,23 @@ const InfoCheckout = () => {
   useEffect(() => {
     verifyLocalStorage()
   }, [])
+  const onPreview = async (file) => {
+    let src = file.url;
 
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
   return (
     <>
       <header>
@@ -140,12 +156,12 @@ const InfoCheckout = () => {
               accept="image/png, image/jpeg"
               action={`${api}/upload`}
               showUploadList={false}
-
+              onPreview={onPreview}
             >
               {image ? <img
                 src={URL.createObjectURL(image)}
                 alt="avatar"
-                style={{ width: '100%' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               /> : <UploadOutlined />}
               {/* <Button icon={
                 <UploadOutlined />
