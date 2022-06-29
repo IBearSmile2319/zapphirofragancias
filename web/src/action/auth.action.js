@@ -19,6 +19,7 @@ export const SignInAdmin = (data) => {
 
 export const AdminrenewToken = () => {
     return (dispatch) => {
+        dispatch({ type: AdminSignIn.ADMIN_SIGNIN_REQUEST })
         const token = localStorage.getItem('admin-token')
         // undefined or null
         // if (token === undefined || token === null) {
