@@ -1,4 +1,4 @@
-import { AdminOrder } from '../action/constants.js'
+import { AdminOrder, UserOrderType } from '../action/constants.js'
 
 const initialState = {
     orders: [],
@@ -59,6 +59,59 @@ export default (state = initialState, action) => {
                 
             }
         case AdminOrder.ADMIN_ORDER_BY_ID_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                changeNumber: 0,
+            }
+        // User order
+        case UserOrderType.USER_ORDER_CHANGE_NUMBER:
+            return {
+                ...state,
+                changeNumber: action.payload
+            }
+        // user order
+        case UserOrderType.USER_ORDER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                changeNumber: 0,
+            }
+
+        case UserOrderType.USER_ORDER_SUCCESS:
+            return {
+                ...state,
+                orders: action.payload,
+                loading: false,
+                error: null,
+                changeNumber: 0,
+            }
+        case UserOrderType.USER_ORDER_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                changeNumber: 0,
+            }
+        // order by id
+        case UserOrderType.USER_ORDER_BY_ID_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                changeNumber: 0,
+            }
+        case UserOrderType.USER_ORDER_BY_ID_SUCCESS:
+            return {
+                ...state,
+                orderById: action.pay,
+                loading: false,
+                error: null,
+                changeNumber: 0,
+            }
+        case UserOrderType.USER_ORDER_BY_ID_FAILURE:
             return {
                 ...state,
                 loading: false,

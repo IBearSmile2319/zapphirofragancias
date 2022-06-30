@@ -1,0 +1,169 @@
+.order-item {
+  display: block;
+  margin-top: 16px;
+  padding: 0 24px 16px;
+  background-color: #fff;
+  color: #222;
+  margin: 0;
+  outline: none;
+  border: 1px solid var(--border-color);
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+}
+/* order item header */
+.order-item .order-item-header {
+  display: flex;
+  align-items: center;
+  line-height: 50px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  justify-content: space-between;
+}
+.order-item .order-item-header .order-item-header-status {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  margin-right: 12px;
+}
+.order-item .order-item-header .order-item-header-status span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+  margin-right: 12px;
+}
+.order-item .order-item-header .order-item-header-right {
+  display: flex;
+  align-items: center;
+  outline: 0;
+}
+.order-item .order-item-header .order-item-header-right .info {
+  line-height: 1.5;
+  text-align: right;
+  font-size: 13px;
+}
+
+.order-item
+  .order-item-header
+  .order-item-header-right
+  .order-item-header-line {
+  margin: 0 12px;
+  width: 1px;
+  height: 30px;
+  background-color: var(--border-color);
+}
+.order-item .order-item-header .order-item-header-right .datetime{
+    display: none;
+}
+@media (max-width: 768px) {
+    .order-item .order-item-header{
+        line-height: 40px;
+    }
+  .order-item .order-item-header .order-item-header-right .info,
+  .order-item .order-item-header .order-item-header-right .details{
+    display: none;
+  }
+  .order-item .order-item-header .order-item-header-right .datetime {
+    display: block;
+  }
+}
+/* ...................... */
+/* order item content */
+/* ..................... */
+
+.order-item .order-item-content {
+  justify-content: space-between;
+  display: flex;
+  margin-top: 10px;
+}
+.order-item .order-item-content .order-item-content-body {
+  display: flex;
+  margin-right: 16px;
+}
+
+.order-item .order-item-content .order-item-content-body .img-list {
+  align-items: flex-start;
+  display: flex;
+}
+.order-item .order-item-content .order-item-content-body .img-list img {
+  width: 100px;
+  height: 100px;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+}
+
+.order-item .order-item-content .order-item-content-body .order-item-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+.order-item .order-item-content .order-item-content-body .order-item-info .name{
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.order-item .order-item-content .order-item-content-body .order-item-info .name span{
+    /* limite de palabras */
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+}
+.order-item .order-item-content .order-item-content-body .order-item-info .price{
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.order-item .order-item-content .order-item-content-body .order-item-info .price span{
+    font-size: 11px;
+    color: #8c8c8c;
+    margin-left: 4px;
+}
+
+
+.order-item .order-item-content .order-item-content-opt {
+  min-width: 288px;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-item .order-item-content .order-item-content-opt .opt-price {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.order-item .order-item-content .order-item-content-opt .opt-price span {
+  font-weight: 600;
+}
+.order-item .order-item-content .order-item-content-opt .opt-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.order-item .order-item-content .order-item-content-opt .opt-btn .opt-btns {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+    .order-item .order-item-content {
+        flex-direction: column;
+    }
+    .order-item .order-item-content .order-item-content-opt{
+        align-items: flex-end;
+        width: 100%;
+    }
+}

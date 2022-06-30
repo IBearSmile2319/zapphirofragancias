@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3625ddc5-ace9-401b-9a12-844f29ddd6ae/microsoft.web/sites/subscriptions/3625ddc5-ace9-401b-9a12-844f29ddd6ae/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/zfApi",
+    "appService.deploySubpath": "api"
+}

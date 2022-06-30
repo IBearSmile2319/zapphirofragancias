@@ -9,6 +9,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerFirstOrder } from '@action/order.action'
+import { api } from '../../../../helpers/axios'
 const InfoCheckout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -56,7 +57,23 @@ const InfoCheckout = () => {
   useEffect(() => {
     verifyLocalStorage()
   }, [])
+  const onPreview = async (file) => {
+    let src = file.url;
 
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
   return (
     <>
       <header>
@@ -137,14 +154,14 @@ const InfoCheckout = () => {
               listType="picture-card"
               maxCount={1}
               accept="image/png, image/jpeg"
-              action="http://localhost:8080/api/upload"
+              action={`${api}/upload`}
               showUploadList={false}
-
+              onPreview={onPreview}
             >
               {image ? <img
                 src={URL.createObjectURL(image)}
                 alt="avatar"
-                style={{ width: '100%' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               /> : <UploadOutlined />}
               {/* <Button icon={
                 <UploadOutlined />

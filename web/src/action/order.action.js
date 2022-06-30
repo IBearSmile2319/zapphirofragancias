@@ -1,6 +1,6 @@
-import { axiosAdminInstance, axiosInstance } from "../helpers/axios"
+import { axiosAdminInstance, axiosInstance, axiosUserInstance } from "../helpers/axios"
 import { message } from "antd"
-import { AdminOrder } from "./constants"
+import { AdminOrder, UserOrderType } from "./constants"
 
 // TODO: Admin List Order first order
 export const adminListOrder = (valid) => {
@@ -81,6 +81,26 @@ export const registerFirstOrder = (data) => {
             }
             ).catch(err => {
                 message.error(err.response.data.message)
+            }
+            )
+    }
+}
+
+
+
+
+
+// user order
+
+export const userOrderGet = () => {
+    return async dispatch => {
+        dispatch({ type: UserOrderType.USER_ORDER_REQUEST })
+        await axiosUserInstance.get("/orders")
+            .then(res => {
+                dispatch({ type: UserOrderType.USER_ORDER_SUCCESS, payload: res.data.orders })
+            }).catch(err => {
+                dispatch({ type: UserOrderType.USER_ORDER_FAILURE, payload: err.response.data.error })
+                message.error(err.response.data.error)
             }
             )
     }

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { adminListOrder } from '../../../../action/order.action'
 import TableOrders from './TableOrders'
 import DrawerOrder from './DrawerOrder'
+import {motion} from 'framer-motion'
 const ListOrders = () => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
@@ -24,7 +25,11 @@ const ListOrders = () => {
   }, [changeTable])
   
   return (
-    <main className='admin-order__list'>
+    <motion.main className='admin-order__list'
+    initial={{ width: 0 }}
+    animate={{ width: '100%', opacity: 1 }}
+    exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+    >
       <BreadCrumb />
       <NavOrders 
         changeTable={changeTable}
@@ -43,7 +48,7 @@ const ListOrders = () => {
         />
         : null
       }
-    </main>
+    </motion.main>
   )
 }
 
