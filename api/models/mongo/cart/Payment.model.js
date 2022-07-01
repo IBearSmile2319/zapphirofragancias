@@ -7,13 +7,19 @@ const paymentSchema = new Schema({
         default: "En proceso",
         // enum: ["Pendiente", "Aprobado", "Rechazado", "cancelado", "reembolso"] 
     },
+    ownerPersonDeposit: {
+        type: String
+    },
+    ownerNumberDeposit: {
+        type: String
+    },
     paymentMethod: {
         type: String,
         default: "Transferencia",
         // enum: ["Paypal", "Tarjeta de credito", "Transferencia bancaria"]
     },
     paymentComission: {
-        type: Number,
+        type: String,
     },
     operationNumber: {
         type: String,

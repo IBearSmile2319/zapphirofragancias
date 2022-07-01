@@ -15,7 +15,6 @@ const FormPayment = () => {
     useEffect(() => {
         if (localStorage.getItem('formPayment')) {
             const data = JSON.parse(localStorage.getItem('formPayment'))
-            console.log(data)
             Object.keys(data).forEach(key => {
                 setValue(key, data[key])
             })
@@ -74,7 +73,7 @@ const FormPayment = () => {
                     />
                     {/* nDocument */}
                     <InputZF
-                        label="Numero de documento"
+                        label="Numero de documento (DNI/Pasaporte/C. E)"
                         name="nDocument"
                         register={register}
                         placeholder="Numero de documento"

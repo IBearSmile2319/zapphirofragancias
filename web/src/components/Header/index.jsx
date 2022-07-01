@@ -37,10 +37,6 @@ const Header = ({ children }) => {
             })
            
         }
-        setNumScroll({
-            min: 0,
-            max: window.scrollY,
-        })
     }
     return (
         <>
