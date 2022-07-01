@@ -18,7 +18,8 @@ import InfoCheckout from '@pages/Combo/PaymentCombo/InfoCheckout';
 import LinksUser from './LinksUser';
 import { AnimatePresence } from 'framer-motion';
 const AppRouter = () => {
-    const location = useLocation()
+    // const location = useLocation()
+    // let from = location.state?.from?.pathname || '/'
     const { verifyToken } = useContext(AuthContext);
     const auth = useSelector(state => state.auth);
     useEffect(() => {
@@ -52,10 +53,7 @@ const AppRouter = () => {
     return (
 
         <AnimatePresence>
-            <Routes
-                location={location}
-                key={location.pathname}
-            >
+            <Routes >
                 {/* public and private routes */}
                 {/* <Route path="/" element={<Landing />} /> */}
                 <Route path="/" element={<Navigate to="combo" />} />

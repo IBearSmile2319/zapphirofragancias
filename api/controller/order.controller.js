@@ -40,6 +40,8 @@ exports.firstOrder = async (req, res) => {
         country,
         reference,
         // payment
+        ownerPersonDeposit,
+        ownerNumberDeposit,
         paymentMethod,
         paymentComission,
         operationNumber,
@@ -169,6 +171,8 @@ exports.firstOrder = async (req, res) => {
     // TODO: save payment and get id
     const newPayment = new PaymentModel({
         user: userSaved._id,
+        ownerPersonDeposit,
+        ownerNumberDeposit,
         paymentMethod,
         operationNumber,
         paymentNote,
