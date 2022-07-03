@@ -34,7 +34,7 @@ const AdminLogin = () => {
         <div className="admin-dignin__content">
           <div className="admin-signin-logo">
             <Link to='/'>
-              <img src={Logo} alt="zaffiro fragancias" />
+              <img src={Logo} alt="zaffiro fragancias" type="img/svg" />
             </Link>
             <span className="admin-signin-logo__title">ADMIN ZF SOCIOS</span>
           </div>

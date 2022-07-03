@@ -50,7 +50,7 @@ const OrderItem = ({
                                 <>
                                     <div  className="img-list">
                                         <Link to="/home" aria-disabled>
-                                            <img src={item.combo.imagen} alt="" />
+                                            <img src={item.combo.imagen} alt="" type="img/svg" />
                                         </Link>
                                     </div>
                                     {/* solo un prodcuto si no es uno pues oculta esto */}
