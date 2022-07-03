@@ -32,24 +32,24 @@ router.delete('/category/:id', validateAdminJWT, adminMiddleware, removeCategory
 router.put('/category/:id', validateAdminJWT, adminMiddleware, updateCategory)
 
 // product
-const { addProduct, getProducts, removeProduct, updateProduct, getProduct } = require('../controller/product.controller');
-router.post('/product', validateAdminJWT, adminMiddleware, addProduct)
-router.get('/product', validateAdminJWT, adminMiddleware, getProducts)
-router.get('/product/:slug', validateAdminJWT, adminMiddleware, getProduct)
-router.delete('/product/:id', validateAdminJWT, adminMiddleware, removeProduct)
-router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
+const { addAdminProduct,getAdminProducts} = require('../controller/product.controller');
+router.post('/product', validateAdminJWT, adminMiddleware, multerUpload.array("productPicture"), addAdminProduct)
+router.get('/product', validateAdminJWT, adminMiddleware, getAdminProducts)
+// router.get('/product/:slug', validateAdminJWT, adminMiddleware, getProduct)
+// router.delete('/product/:id', validateAdminJWT, adminMiddleware, removeProduct)
+// router.put('/product/:id', validateAdminJWT, adminMiddleware, updateProduct)
 
 // Combo
 const { addCombo, listCombo } = require('../controller/combo.controller');
 router.post('/combo', validateAdminJWT, adminMiddleware, multerUpload.fields([
-    {name:'icon',maxCount: 1},
-    {name:'imagen',maxCount: 1}
+    { name: 'icon', maxCount: 1 },
+    { name: 'imagen', maxCount: 1 }
 ]), addCombo)
 router.get('/combo', validateAdminJWT, adminMiddleware, listCombo)
 
 
 // order
-const { adminGetCustomerOrders,adminGetOrderById, AdminAcceptOrder } = require('../controller/order.controller');
+const { adminGetCustomerOrders, adminGetOrderById, AdminAcceptOrder } = require('../controller/order.controller');
 router.put('/order/accept', validateAdminJWT, adminMiddleware, AdminAcceptOrder)
 router.get('/order/:valid', validateAdminJWT, adminMiddleware, adminGetCustomerOrders)
 router.get('/order/view/:id', validateAdminJWT, adminMiddleware, adminGetOrderById)

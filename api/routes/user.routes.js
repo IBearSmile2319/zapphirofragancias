@@ -14,9 +14,9 @@ router.put('/update', validateJWT, multerUpload.single("avatar"), userUpdate);
 
 // product
 const { getProduct, getProductsByCategory, getProducts } = require('../controller/product.controller');
-router.get('/product/:slug', getProduct);
+// router.get('/product/:slug', getProduct);
 router.get('/products/:category', getProductsByCategory);
-router.get('/products', getProducts);
+// router.get('/products', getProducts);
 
 
 // order

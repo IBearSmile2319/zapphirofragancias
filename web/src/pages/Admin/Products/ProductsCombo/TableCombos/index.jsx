@@ -59,7 +59,7 @@ const TableCombos = (props) => {
             dataIndex: 'status',
             key: 'status',
             render: (_, {status}) => {
-                return <Tag color={status ? 'green' : 'red'} key={status}>
+                return <Tag color={status ? 'green' : 'red'}>
                     {status ? 'ACTIVO' : 'INACTIVO'}
                 </Tag>
             },

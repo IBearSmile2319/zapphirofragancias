@@ -6,11 +6,6 @@ const imageSchema = new Schema(
       type: String,
       required: true,
     },
-    name: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     status: {
       type: Boolean,
       default: true,
