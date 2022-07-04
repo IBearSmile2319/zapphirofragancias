@@ -22,13 +22,16 @@ const productSchema = new Schema(
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
-      required: true,
     },
     brand: {
       type: Schema.Types.ObjectId,
       ref: "Brand",
     },
-    images: [{ type: Schema.Types.ObjectId, ref: "Image" }],
+    productPicture: [
+      {
+        imgId: { type: Schema.Types.ObjectId, ref: "Image" },
+      },
+    ],
     stock: { type: Number, default: 0 },
     competed: {
       type: String,
@@ -39,12 +42,12 @@ const productSchema = new Schema(
     createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
     status: { type: Boolean, default: true },
-    dimension: {
-      long: { type: Number, default: 0 },
-      width: { type: Number, default: 0 },
-      height: { type: Number, default: 0 },
-      weight: { type: Number, default: 0 },
-    },
+    dimension: [
+      {
+        name: { type: String },
+        valor: { type: String },
+      },
+    ],
   },
   {
     timestamps: true,

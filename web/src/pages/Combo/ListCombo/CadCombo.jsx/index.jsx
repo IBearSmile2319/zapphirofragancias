@@ -33,7 +33,10 @@ const CadCombo = ({
                                                                 width: '1.25em',
                                                                 height: '1.25em'
                                                             }}
+                                                            alt="icon"
+                                                            type="image/svg+xml"
                                                         />
+                                                        {/* cargar svg en etiqueta svg */}
                                                         <span>
                                                             {combo.name}
                                                         </span>
@@ -59,6 +62,7 @@ const CadCombo = ({
                                                     <img
                                                         src={`${combo.imagen}`}
                                                         alt="combo"
+                                                        type="img/svg"
                                                     />
                                                 </div>
                                             </header>

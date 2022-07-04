@@ -76,10 +76,6 @@ const userSchema = new Schema({
     },
     range: { type: Schema.Types.ObjectId, ref: 'Range' },
     promotion: { type: Schema.Types.ObjectId, ref: 'User' },
-    affiliates: [{
-        user: { type: Schema.Types.ObjectId, ref: 'User'},
-        date: { type: Date, default: Date.now }
-    }],
 }, {
     timestamps: true
 });

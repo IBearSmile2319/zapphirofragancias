@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Landing from '@pages/Landing'
 import Login from '@pages/Login'
 // user 
@@ -16,7 +16,10 @@ import PaymentCombo from '@pages/Combo/PaymentCombo';
 import FormPayment from '@pages/Combo/PaymentCombo/FormPayment';
 import InfoCheckout from '@pages/Combo/PaymentCombo/InfoCheckout';
 import LinksUser from './LinksUser';
+import { AnimatePresence } from 'framer-motion';
 const AppRouter = () => {
+    // const location = useLocation()
+    // let from = location.state?.from?.pathname || '/'
     const { verifyToken } = useContext(AuthContext);
     const auth = useSelector(state => state.auth);
     useEffect(() => {
@@ -48,8 +51,9 @@ const AppRouter = () => {
     }
 
     return (
-        <BrowserRouter>
-            <Routes>
+
+        <AnimatePresence>
+            <Routes >
                 {/* public and private routes */}
                 {/* <Route path="/" element={<Landing />} /> */}
                 <Route path="/" element={<Navigate to="combo" />} />
@@ -79,7 +83,7 @@ const AppRouter = () => {
                     }
                 </Route>
             </Routes>
-        </BrowserRouter>
+        </AnimatePresence>
     )
 }
 

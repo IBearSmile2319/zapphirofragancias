@@ -6,6 +6,7 @@ import App from './App'
 import store from './store'
 import './index.css'
 import 'antd/dist/antd.variable.min.css';
+import { BrowserRouter } from 'react-router-dom'
 
 ConfigProvider.config({
   theme: {

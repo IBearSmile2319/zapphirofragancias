@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd';
 import Draggable from 'react-draggable';
 
 const ModalDraggable = ({ title, open, handleOk, handleCancel, children,footer }) => {
-    const draggleRef = useRef(null);
+    // const draggleRef = useRef(null);
     const [disabled, setDisabled] = useState(false);
     const [bounds, setBounds] = useState({
         left: 0,
@@ -33,20 +33,20 @@ const ModalDraggable = ({ title, open, handleOk, handleCancel, children,footer }
                 <div
                     style={{
                         width: '100%',
-                        cursor: 'move',
+                        // cursor: 'move',
                     }}
-                    onMouseOver={() => {
-                        if (disabled) {
-                            setDisabled(false);
-                        }
-                    }}
-                    onMouseOut={() => {
-                        if (!disabled) {
-                            setDisabled(true);
-                        }
-                    }}
-                    onFocus={() => { }}
-                    onBlur={() => { }}
+                    // onMouseOver={() => {
+                    //     if (disabled) {
+                    //         setDisabled(false);
+                    //     }
+                    // }}
+                    // onMouseOut={() => {
+                    //     if (!disabled) {
+                    //         setDisabled(true);
+                    //     }
+                    // }}
+                    // onFocus={() => { }}
+                    // onBlur={() => { }}
                 >
                     {title}
                 </div>
@@ -55,15 +55,15 @@ const ModalDraggable = ({ title, open, handleOk, handleCancel, children,footer }
             visible={open}
             onOk={handleOk}
             onCancel={handleCancel}
-            modalRender={(modal) => (
-                <Draggable
-                    disabled={disabled}
-                    bounds={bounds}
-                    onStart={(event, uiData) => onStart(event, uiData)}
-                >
-                    <div ref={draggleRef}>{modal}</div>
-                </Draggable>
-            )}
+            // modalRender={(modal) => (
+            //     <Draggable
+            //         disabled={disabled}
+            //         bounds={bounds}
+            //         onStart={(event, uiData) => onStart(event, uiData)}
+            //     >
+            //         <div ref={draggleRef}>{modal}</div>
+            //     </Draggable>
+            // )}
             footer={footer}
 
         >
