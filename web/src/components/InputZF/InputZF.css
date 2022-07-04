@@ -1,55 +1,74 @@
-.inputzf{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction:column;
-    margin: 5px 0 18px 0;
-    position: relative;
-    color: #273b49;
+.inputzf {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0 18px 0;
+  position: relative;
+  color: #273b49;
 }
-.inputzf .inputzf-label{
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 5px 3px;
+.inputzf .inputzf-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 5px 3px;
 }
-.inputzf .inputzf-input{
-    display: flex;
-    width: 100%;
-    border: 1px solid #ecf0f3;
-    border-radius: 0.3rem;
-    overflow: hidden;
-    -webkit-border-radius: 0.3rem;
-    -moz-border-radius: 0.3rem;
-    -ms-border-radius: 0.3rem;
-    -o-border-radius: 0.3rem;
-    color: #273b49;
-}
-
-.inputzf .inputzf-input input{
-    width: 100%;
-    height: 35px;
-    border: none;
-    background: transparent;
-    font-weight: 400;
-    padding: 0 15px;
-    color: #687782;
-}
-.inputzf .inputzf-input input:focus{
-    outline: none;
+.inputzf .inputzf-input {
+  display: flex;
+  width: 100%;
+  border: 1px solid #ecf0f3;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  color: #273b49;
+  position: relative;
 }
 
-.inputzf .inputzf-input input::-webkit-input-placeholder{
-    color: #ecf0f3;
-    font-weight: 600;
+.inputzf .inputzf-input input {
+  width: 100%;
+  height: 35px;
+  border: none;
+  background: transparent;
+  font-weight: 400;
+  padding: 0 15px;
+  color: #687782;
+}
+.inputzf .inputzf-input input:focus {
+  outline: none;
 }
 
-.inputzf .inputzf__msg-error{
-    color: red;
-    font-weight: 600;
-    font-size: 0.7rem;
-    margin: 2px 0;
-    padding: 0 10px;
-    position: absolute;
-    bottom: -22px;
-    left: -10px;
+.inputzf .inputzf-input input::-webkit-input-placeholder {
+  color: #ecf0f3;
+  font-weight: 600;
+}
+.inputzf .inputzf-input .inputzf-icon {
+  position: absolute;
+  right: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.inputzf .inputzf-input .inputzf-icon .icon {
+  font-size: 1.2rem;
+  color: #273b49;
+}
+.inputzf .inputzf__msg-error {
+  /* error color */
+  color: #ff0000;
+  font-weight: 600;
+  font-size: 0.7rem;
+  margin: 2px 0;
+  padding: 0 10px;
+  position: absolute;
+  bottom: -22px;
+  left: -10px;
 }
