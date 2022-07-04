@@ -1,10 +1,11 @@
 import React from 'react'
+import SearchNavProduct from './SearchNavProduct'
 
 const Home = () => {
     return (
-        <div>
-            Home
-        </div>
+        <>
+            <SearchNavProduct />
+        </>
     )
 }
 
