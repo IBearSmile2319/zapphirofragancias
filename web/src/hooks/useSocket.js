@@ -5,20 +5,22 @@ export const useSocket = (serverPath) => {
     const [socket, setSocket] = useState(null)
     const [online, setOnline] = useState(false)
 
-    const connectSocketAdmin = useCallback(() => {
-        const token = window.localStorage.getItem('admin-token')
+    const connectSocket = useCallback(() => {
+        const tokenAdmin = window.localStorage.getItem('admin-token')
+        const tokenUser = window.localStorage.getItem('token')
         const socketTemp = io(serverPath, {
             transports: ['websocket', 'polling', 'flashsocket'],
             autoConnect: true,
             forceNew: true,
             query: {
-                'x-token': token
+                'x-token-admin': tokenAdmin,
+                'x-token': tokenUser,
             }
         })
         setSocket(socketTemp)
     }, [serverPath])
 
-    const disconnectSocketAdmin = useCallback(() => {
+    const disconnectSocket = useCallback(() => {
         socket?.disconnect()
         setSocket(null)
     }, [socket])
@@ -42,8 +44,10 @@ export const useSocket = (serverPath) => {
     return {
         socket,
         online,
-        connectSocketAdmin,
-        disconnectSocketAdmin
+        connectSocket,
+        disconnectSocket
+        // connectSocketAdmin,
+        // disconnectSocketAdmin
     }
 
 

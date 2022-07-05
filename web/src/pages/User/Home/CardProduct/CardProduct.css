@@ -1,0 +1,129 @@
+.card-product {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgb(174 190 205 / 30%);
+  flex-wrap: nowrap;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+  display: flex;
+  margin-bottom: 0;
+  flex-direction: column;
+}
+.card-product .card-header {
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-product .card-header .img-content {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.card-product .card-header .img-content img {
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease-in-out;
+  object-fit: cover;
+}
+.card-product .card-header .card-body {
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+.card-product .card-header .card-body a h3 {
+  line-height: 1.45;
+  font-weight: 600;
+  color: #273b49;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+.card-product .card-header .card-body p{
+    color: #717f89;
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+.card-product footer.card-footer{
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+    background-color: #f7f7f7;
+    margin-top:auto;
+    margin-bottom: 0;
+    position: relative;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    display: flex;
+}
+
+.card-footer .presentation{
+    cursor: pointer;
+    align-items:center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-footer .presentation button.card-price{
+    flex-wrap: wrap;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    align-items: center;
+    align-content: center;
+    display: flex;
+}
+.card-footer .presentation button.card-price .svg-icon{
+    fill: var(--primary-color);
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+.card-footer .presentation button.card-price span{
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--primary-color);
+    font-size: 0.8125rem;
+    display: inline-flex;
+    line-height: 1.8;
+}
+.card-footer .presentation button.card-price span .price{
+    position: relative;
+    display: inline-block;
+    margin-right: 0.25rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--primary-color);
+}
+.card-footer .presentation button.card-price span .price.descount::before{
+    border-bottom: 1px solid var(--primary-color);
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: skewY(-10deg);
+}
+.card-footer .presentation button.card-price span .price span{
+    font-weight: 600;
+    white-space: nowrap;
+}
+.card-footer .presentation button.card-price span .descount{
+    margin-right: 00.25rem;
+}

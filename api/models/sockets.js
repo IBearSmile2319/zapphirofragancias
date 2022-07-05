@@ -1,5 +1,6 @@
 const { adminConnection, adminDisconnection } = require('../controller/Socket.admin.controller.js')
-const {compareJWTAdmin} = require('../helper/jwt.js')
+const { userConnection, userDisconnection } = require('../controller/Socket.user.controller.js')
+const { compareJWTAdmin, compareJWTUser } = require('../helper/jwt.js')
 
 class Sockets {
 
@@ -12,18 +13,33 @@ class Sockets {
     socketEvents() {
         // On connection
         this.io.on('connection', async (socket) => {
-            // TODO: Validate JWT token
-            const [valid,uid]=compareJWTAdmin(socket.handshake.query['x-token'])
-            if(!valid){
-                console.log('No se pudo validar el token')
-                return socket.disconnect()
+            // extract token from headers
+            const tokenAdmin = socket.handshake.query['x-token-admin']
+            const tokenUser = socket.handshake.query['x-token']
+            // compare token
+            const [validAdmin,uidAdmin] = await compareJWTAdmin(tokenAdmin)
+            if (validAdmin) {
+                // admin connection
+                await adminConnection(uidAdmin)
+                console.log('admin connected', uidAdmin)
             }
-            await adminConnection(uid)
-
+            const [validUser,uidUser] = await compareJWTUser(tokenUser)
+            if (validUser) {
+                // user connection
+                await userConnection(uidUser)
+                console.log('user connected', uidUser)
+            }
 
             // on disconnect admin
             socket.on('disconnect', async () => {
-                await adminDisconnection(uid)
+                if (validAdmin) {
+                    await adminDisconnection(uidAdmin)
+                    console.log('admin disconnected', uidAdmin)
+                }
+                if (validUser) {
+                    await userDisconnection(uidUser)
+                    console.log('user disconnected', uidUser)
+                }
             })
         })
     }
