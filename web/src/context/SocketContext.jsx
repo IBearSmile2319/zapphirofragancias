@@ -9,23 +9,22 @@ export const SocketProvider = ({ children }) => {
     const {
         socket,
         online,
-        connectSocketAdmin,
-        disconnectSocketAdmin
+        connectSocket,
+        disconnectSocket
     } = useSocket(URL);
     const { admin, user } = useSelector(state => state.auth);
     // adminSocket
     useEffect(() => {
-        if (admin.logged) {
-            connectSocketAdmin();
+        if (admin.logged || user.logged) {
+            connectSocket();
         }
-    }, [admin, connectSocketAdmin]);
-
+    }, [admin, user, connectSocket]);
+    // admin socket
     useEffect(() => {
-        if (!admin.logged) {
-            disconnectSocketAdmin();
+        if (!admin.logged || !user.logged) {
+            disconnectSocket();
         }
-    }, [admin, disconnectSocketAdmin]);
-
+    }, [admin, user, disconnectSocket]);
     return <SocketContext.Provider value={{ socket, online }}>
         {children}
     </SocketContext.Provider>
