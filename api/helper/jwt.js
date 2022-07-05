@@ -66,3 +66,12 @@ exports.verifyJWTUser = (token) => {
         })
     })
 }
+
+exports.compareJWTUser = (token) => {
+    try {
+        const { uid } = jwt.verify(token, process.env.JWT_SECRET);
+        return [true, uid];
+    } catch (e) {
+        return [false, null];
+    }
+}
