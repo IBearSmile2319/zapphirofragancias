@@ -1,81 +1,53 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Button, Table, Tag } from 'antd'
 const TableProduct = (props) => {
+    const { data, className, showDrawer } = props
     const columns = [
         {
-            title: 'Full Name',
-            width: 100,
+            title: 'Nombre',
             dataIndex: 'name',
             key: 'name',
-            fixed: 'left',
         },
         {
-            title: 'Age',
-            width: 100,
-            dataIndex: 'age',
-            key: 'age',
-            // fixed: 'left',
+            title: 'Precio',
+            dataIndex: 'price',
+            key: 'price',
         },
         {
-            title: 'Column 1',
-            dataIndex: 'address',
-            key: '1',
+            title: 'Stock',
+            dataIndex: 'stock',
+            key: 'stock',
         },
         {
-            title: 'Column 2',
-            dataIndex: 'address',
-            key: '2',
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: (_, { status }) => {
+                return <Tag color={status ? 'green' : 'red'}>
+                    {status ? 'ACTIVO' : 'INACTIVO'}
+                </Tag>
+            }
         },
         {
-            title: 'Column 3',
-            dataIndex: 'address',
-            key: '3',
-        },
-        {
-            title: 'Column 4',
-            dataIndex: 'address',
-            key: '4',
-        },
-        {
-            title: 'Column 5',
-            dataIndex: 'address',
-            key: '5',
-        },
-        {
-            title: 'Column 6',
-            dataIndex: 'address',
-            key: '6',
-        },
-        {
-            title: 'Column 7',
-            dataIndex: 'address',
-            key: '7',
-        },
-        {
-            title: 'Column 8',
-            dataIndex: 'address',
-            key: '8',
+            title: 'Creador',
+            dataIndex: 'createdBy',
+            key: 'createdBy',
+            render: (_, { createdBy }) => {
+                return <Tag color="geekblue" key={createdBy}>
+                    {createdBy ? createdBy.username.toUpperCase() : ''}
+                </Tag>
+            }
         },
         {
             title: 'Action',
             key: 'operation',
             fixed: 'right',
             width: 100,
-            render: () => <a>action</a>,
-        },
-    ];
-    const data = [
-        {
-            id: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York Park',
-        },
-        {
-            id: '2',
-            name: 'Jim Green',
-            age: 40,
-            address: 'London Park',
+            render: (item) => {
+                return <>
+                    <Button type="primary" onClick={() => showDrawer(item)}>View</Button>
+                </>
+            }
         },
     ];
 

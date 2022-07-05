@@ -121,7 +121,7 @@ const ProfileConfig = () => {
                 register={register}
                 placeholder=""
                 errors={errors}
-                type="text"
+                type="password"
                 labelClass="zf-label"
                 required={false}
               />
@@ -131,7 +131,7 @@ const ProfileConfig = () => {
                 register={register}
                 placeholder=""
                 errors={errors}
-                type="text"
+                type="password"
                 labelClass="zf-label"
                 required={false}
               />

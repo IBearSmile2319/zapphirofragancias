@@ -7,14 +7,14 @@ import './OrderItem.css'
 const OrderItem = ({
     order
 }) => {
-    console.log(order.items.length)
+
     return (
         <article className="order-item">
             <header className="order-item-header">
                 <div className="order-item-header-status">
                     <span>
                         {
-                            order?.orderStatus?.filter(item => item.Completed === false)?.[0]?.type
+                            order?.orderStatus?.filter(item => item.Completed === true)[order?.orderStatus?.filter(item => item.Completed === true).length - 1]?.type
                         }
                     </span>
                 </div>
@@ -50,7 +50,7 @@ const OrderItem = ({
                                 <>
                                     <div  className="img-list">
                                         <Link to="/home" aria-disabled>
-                                            <img src={item.combo.imagen} alt="" />
+                                            <img src={item.combo.imagen} alt="" type="img/svg" />
                                         </Link>
                                     </div>
                                     {/* solo un prodcuto si no es uno pues oculta esto */}

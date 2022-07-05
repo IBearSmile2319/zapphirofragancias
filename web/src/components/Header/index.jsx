@@ -37,10 +37,6 @@ const Header = ({ children }) => {
             })
            
         }
-        setNumScroll({
-            min: 0,
-            max: window.scrollY,
-        })
     }
     return (
         <>
@@ -82,7 +78,7 @@ const Header = ({ children }) => {
                                     }}
                                     href='/sign-in'>Iniciar sesión</Button>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Button
                                     type='primary'
                                     className='btn-register'
@@ -92,7 +88,7 @@ const Header = ({ children }) => {
                                         fontWeight: 'bold',
                                     }}
                                     href='/combo'>¡Comienza Ahora!</Button>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 
