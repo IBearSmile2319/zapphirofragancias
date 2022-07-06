@@ -16,7 +16,7 @@ exports.addAdminProduct = async (req, res) => {
     let productPicture = [];
     if (req.files) {
         productPicture = req.files.map(async file => {
-            const img= await AzureUpload(file, "products")
+            const img = await AzureUpload(file, "products")
             const image = new ImageModel({
                 url: img.url,
             });
@@ -98,7 +98,31 @@ exports.getProductsByCategory = async (req, res) => {
         })
 }
 
-
+// ------------
+// user
+// ------------
+exports.getProductsUser = async (req, res) => {
+    await Product.find({ status: true })
+        .populate('category')
+        .populate('brand')
+        .populate('productPicture.imgId', "url")
+        .select('name slug description price category brand productPicture stock competed ofactoryFamily dimension')
+        .exec((err, products) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Error al obtener productos",
+                    error: err
+                })
+            }
+            if (products) {
+                return res.status(200).json({
+                    message: "Productos obtenidos correctamente",
+                    data: products,
+                })
+            }
+        }
+        )
+}
 
 
 exports.getProduct = async (req, res) => {

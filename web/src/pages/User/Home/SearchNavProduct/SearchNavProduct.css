@@ -100,6 +100,10 @@
   .SearchNavProduct-nav .full .tools .tools-item.hidden {
     display: none;
   }
+  .SearchNavProduct-nav .full .tools {
+    grid-template-columns: 1fr 1fr;
+    grid-column-end: span 4;
+  }
 }
 .SearchNavProduct-nav .full .tools .tools-item {
   align-items: center;

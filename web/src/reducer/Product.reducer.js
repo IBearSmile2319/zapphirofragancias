@@ -1,4 +1,4 @@
-import { AdminProduct } from "../action/constants"
+import { AdminProduct, UserProductType } from "../action/constants"
 
 
 const initialState = {
@@ -32,6 +32,29 @@ export default (state = initialState, action) => {
                 changeNumber: 0,
             }
         case AdminProduct.ADMIN_PRODUCT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                changeNumber: 0,
+            }
+            // .........
+        // User
+        // -------------
+        case UserProductType.USER_PRODUCT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                changeNumber: 0,
+            }
+        case UserProductType.USER_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                products: action.payload,
+                changeNumber: 0,
+            }
+        case UserProductType.USER_PRODUCT_FAILURE:
             return {
                 ...state,
                 loading: false,

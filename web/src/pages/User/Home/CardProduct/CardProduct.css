@@ -79,7 +79,7 @@
     display: flex;
     flex-wrap: wrap;
 }
-.card-footer .presentation button.card-price{
+.card-footer .presentation .card-price{
     flex-wrap: wrap;
     cursor: pointer;
     border: none;
@@ -88,14 +88,14 @@
     align-content: center;
     display: flex;
 }
-.card-footer .presentation button.card-price .svg-icon{
+.card-footer .presentation .card-price .svg-icon{
     fill: var(--primary-color);
     height: 1em;
     width: 1em;
     display: inline-block;
     margin-right: 0.25rem;
 }
-.card-footer .presentation button.card-price span{
+.card-footer .presentation .card-price span{
     font-weight: 600;
     white-space: nowrap;
     color: var(--primary-color);
@@ -103,7 +103,7 @@
     display: inline-flex;
     line-height: 1.8;
 }
-.card-footer .presentation button.card-price span .price{
+.card-footer .presentation .card-price span .price{
     position: relative;
     display: inline-block;
     margin-right: 0.25rem;
@@ -111,7 +111,7 @@
     white-space: nowrap;
     color: var(--primary-color);
 }
-.card-footer .presentation button.card-price span .price.descount::before{
+.card-footer .presentation .card-price span .price.descount::before{
     border-bottom: 1px solid var(--primary-color);
     content: "";
     position: absolute;
@@ -120,10 +120,10 @@
     width: 100%;
     transform: skewY(-10deg);
 }
-.card-footer .presentation button.card-price span .price span{
+.card-footer .presentation .card-price span .price span{
     font-weight: 600;
     white-space: nowrap;
 }
-.card-footer .presentation button.card-price span .descount{
+.card-footer .presentation .card-price span .descount{
     margin-right: 00.25rem;
 }
