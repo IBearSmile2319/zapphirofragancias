@@ -13,8 +13,8 @@ router.get('/renewToken', validateJWT, userRenewToken);
 router.put('/update', validateJWT, multerUpload.single("avatar"), userUpdate);
 
 // product
-const { getProduct, getProductsByCategory, getProducts } = require('../controller/product.controller');
-// router.get('/product/:slug', getProduct);
+const { getProductsByCategory, getProductsUser } = require('../controller/product.controller');
+router.get('/product', validateJWT, getProductsUser);
 router.get('/products/:category', getProductsByCategory);
 // router.get('/products', getProducts);
 
@@ -28,10 +28,12 @@ router.get('/orders',validateJWT, getOrdersByUser);
 router.get('/orders/verify/:user', getOrdersForVerify);
 // category
 const { getCategories } = require('../controller/category.controller');
-
-
-
 router.get('/category', getCategories);
 
+// cart
+const { addItemToCart,getCartItems,removeCartItems } = require('../controller/cart.controller');
+router.post('/cart', validateJWT, addItemToCart);
+router.get('/cart', validateJWT, getCartItems);
+router.put('/cart', validateJWT, removeCartItems);
 
 module.exports = router;
