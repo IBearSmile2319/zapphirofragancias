@@ -1,12 +1,14 @@
 import React from 'react'
 
-
-const Session_Admin = () => {
+import BreadCrumb from '@components/BreadCrumb'
+import './sessions.css'
+const Session_admin = () => {
     return (
-        <div>
-            <h1>Sessiones de los uusarios</h1>
-        </div>
+        <main className="admin-session__list">
+            <BreadCrumb />
+            brand
+        </main>
     )
-
 }
-export default Session_Admin;
+
+export default Session_admin

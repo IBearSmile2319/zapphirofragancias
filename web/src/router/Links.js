@@ -3,12 +3,13 @@ import IconProducts from '../assets/img/icons/IconProducts'
 import iconProductsAdd from "../assets/img/icons/IconProductsAdd"
 import IconOrders from "../assets/img/icons/IconOrders"
 
-import { 
-    BranchesOutlined, 
-    DashboardOutlined, 
-    ShoppingOutlined, 
+import {
+    BranchesOutlined,
+    DashboardOutlined,
+    ShoppingOutlined,
     TagsOutlined,
-    PictureOutlined
+    PictureOutlined,
+    UsergroupDeleteOutlined
 
 } from "@ant-design/icons"
 import Dashboard from "../pages/Admin/Dashboard"
@@ -27,6 +28,7 @@ import ProductsCombo from '../pages/Admin/Products/ProductsCombo'
 import IconZFCombo from '../assets/img/icons/IconZFCOMBO'
 import ListOrders from '../pages/Admin/Orders/ListOrders'
 import ViewOrder from '../pages/Admin/Orders/ListOrders/ViewOrder'
+import Session_admin from '../pages/Admin/Gestion/Session_Admin'
 
 
 export const LinksAdmin = [
@@ -114,6 +116,13 @@ export const LinksAdmin = [
                 display: true,
                 icon: PictureOutlined,
                 element: Pictures
+            },
+            {
+                name: 'Sesión de administrador',
+                path: 'session_admin',
+                display: true,
+                icon: UsergroupDeleteOutlined,
+                element: Session_admin
             }
         ]
     }
