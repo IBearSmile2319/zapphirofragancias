@@ -14,7 +14,7 @@
 }
 @media (max-width: 768px) {
     .products-grid-layout{
-        grid-template-columns: repeat(3,calc(33.33333% - 1rem*2/3))
+        grid-template-columns: repeat(3,calc(33.33333% - 2rem*2/3))
     }
 }
 @media (max-width: 576px) {
