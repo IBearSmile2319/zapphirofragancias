@@ -1,6 +1,9 @@
 import { DeleteFilled, EditOutlined, HomeFilled, SettingFilled, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import IconOrders from "../assets/img/icons/IconOrders";
 import Affiliates from "../pages/User/Affiliates";
+import Cart from "../pages/User/Cart";
+import BankDeposit from "../pages/User/Cart/BankDeposit";
+import PaymentMethod from "../pages/User/Cart/PaymentMethod";
 import Home from "../pages/User/Home";
 import Orders from "../pages/User/Orders";
 import Profile from "../pages/User/Profile";
@@ -72,6 +75,31 @@ const LinksUser = [
             }
 
         ]
+    },
+    {
+        name: 'carrito',
+        path: 'cart',
+        display: false,
+        icon: UserOutlined,
+        element: Cart,
+        subElement: PaymentMethod,
+        submenu: [
+            {
+                name: 'Metodo de pago',
+                path: '',
+                display: true,
+                icon: EditOutlined,
+                element: PaymentMethod,
+            },
+            {
+                name:"Deposito Bancario",
+                path:"deposit",
+                display: true,
+                icon: EditOutlined,
+                element: BankDeposit,
+            },
+        ]
+
     }
 ]
 
