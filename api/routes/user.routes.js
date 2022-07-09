@@ -31,9 +31,10 @@ const { getCategories } = require('../controller/category.controller');
 router.get('/category', getCategories);
 
 // cart
-const { addItemToCart,getCartItems,removeCartItems } = require('../controller/cart.controller');
+const { addItemToCart,getCartItems,removeCartItems,updateCartItems } = require('../controller/cart.controller');
 router.post('/cart', validateJWT, addItemToCart);
 router.get('/cart', validateJWT, getCartItems);
+router.put('/cart', validateJWT, updateCartItems);
 router.post('/cart/removeItem', validateJWT, removeCartItems);
 
 module.exports = router;

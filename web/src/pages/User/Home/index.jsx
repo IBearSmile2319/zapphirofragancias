@@ -5,9 +5,10 @@ import './Home.css'
 import CardProduct from './CardProduct'
 import { GetProductsUser } from '../../../action/product.action'
 import { AddToCart } from '../../../action/cart.action'
+import { Spin } from 'antd'
 const Home = () => {
     const dispatch = useDispatch()
-    const { products } = useSelector(state => state.product)
+    const { products, loading } = useSelector(state => state.product)
     const { cartItems } = useSelector(state => state.cart)
     useEffect(() => {
         dispatch(GetProductsUser())
@@ -18,6 +19,7 @@ const Home = () => {
     return (
         <>
             <SearchNavProduct />
+            <Spin spinning={loading}>
             <main className="products-grid-layout">
                 {
                     products && products.map((product, index) => {
@@ -32,6 +34,7 @@ const Home = () => {
                     )
                 }
             </main>
+            </Spin>
         </>
     )
 }

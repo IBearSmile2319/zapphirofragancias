@@ -1,22 +1,32 @@
-import { Badge, Button, Space } from 'antd'
+import { Badge, Button, message, Space } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './CartItem.css'
 import { DeleteOutlined, MinusOutlined, PlusOutlined, QuestionOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { RemoveCartItem } from '../../../../action/cart.action';
+import { RemoveCartItem, updateQuantityCartItem } from '../../../../action/cart.action';
 const CartItem = ({
     item
 }) => {
     const dispatch = useDispatch()
-    const [qty, setQty] = React.useState(item.quantity)
-    const handleMinus = () => {
+    const handleMinus = (id,qty) => {
         if (qty > 1) {
-            setQty(qty - 1)
+            dispatch(updateQuantityCartItem({
+                productId: id,
+                quantity: qty - 1
+            }))
         }
     }
-    const handlePlus = () => {
-        setQty(qty + 1)
+    const handlePlus = (id,qty) => {
+        // stock
+        if (qty < item.stock) {
+            dispatch(updateQuantityCartItem({
+                productId: id,
+                quantity: qty + 1
+            }))
+        }else{
+            message.error('No hay stock suficiente')
+        }
     }
     const handleDelete = (id) => {
         dispatch(RemoveCartItem({
@@ -58,7 +68,7 @@ const CartItem = ({
                             <div className="price">
                                 <span>S/</span>
                                 &nbsp;
-                                {item.price}
+                                {parseFloat(item.subtotal.toFixed(2))}
                                 &nbsp;
                                 <span>SOLES</span>
                             </div>
@@ -71,10 +81,10 @@ const CartItem = ({
                                 type="ghost"
                                 shape="circle"
                                 icon={<MinusOutlined />}
-                                onClick={handleMinus}
+                                onClick={()=>handleMinus(item._id,item.quantity)}
                             />
                             <Badge
-                                count={qty}
+                                count={item.quantity}
                                 style={{
                                     backgroundColor: 'var(--primary-color)',
                                     margin: '0.5rem 0',
@@ -85,7 +95,7 @@ const CartItem = ({
                                 type="ghost"
                                 shape="circle"
                                 icon={<PlusOutlined />}
-                                onClick={handlePlus}
+                                onClick={()=>handlePlus(item._id,item.quantity)}
                             />
                         </div>
                     </div>
