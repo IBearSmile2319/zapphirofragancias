@@ -3,10 +3,10 @@ import React from 'react'
 import './IconZFCombo.css'
 
 const IconZFCombo = (props) => {
-    const { className } = props
+    const { className,style } = props
     return (
         <>
-            <svg id="combo-product-icon" className={className} data-name="añadir combos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <svg id="combo-product-icon" style={style} className={className} data-name="añadir combos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
                 <rect className="cls-1" x="12.15" y="12.32" width="175.69" height="175.35" rx="11.15" />
                 <rect className="cls-2" x="15.51" y="15.16" width="169.65" height="168.97" rx="11.15" />
                 <path className="cls-3" d="M131.23,187.81s-.52-26.74,17.88-26.74,15.55-27.26,30.33-27.26H188v43S188.62,188,176.9,188,131.49,187.81,131.23,187.81Z" />

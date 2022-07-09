@@ -91,3 +91,29 @@ export const RemoveCartItem = (data) => {
         }
     }
 }
+
+export const updateQuantityCartItem = (data) => {
+    return async dispatch => {
+        try{
+            dispatch({
+                type: UserCartType.USER_CART_UPDATE_REQUEST,
+            })
+            await axiosUserInstance.put("/cart", data)
+                .then(res => {
+                    dispatch({
+                        type: UserCartType.USER_CART_UPDATE_SUCCESS,
+                    })
+                    dispatch(GetCart())
+                    message.success(res.data.message)
+                }).catch(err=>{
+                    message.error(err.response.data.message)
+                    dispatch({
+                        type: UserCartType.USER_CART_UPDATE_FAILURE,
+                        payload: err.response.data.message,
+                    })
+                })
+        }catch(error){
+            console.error(error)
+        }
+    }
+}

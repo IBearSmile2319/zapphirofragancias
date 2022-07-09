@@ -110,6 +110,8 @@ exports.getCartItems = (req, res, next) => {
                                 price: item.product.price,
                                 quantity: item.quantity,
                                 productPicture: images,
+                                stock: item.product.stock,
+                                subtotal: item.quantity * item.product.price,
                             }
                         })
                         res.status(200).json({
@@ -127,8 +129,6 @@ exports.getCartItems = (req, res, next) => {
 // new update remove cart items
 exports.removeCartItems = (req, res, next) => {
     const { productId } = req.body;
-    console.log(req.body);
-    console.log(productId)
     if (productId) {
         CartModel.update(
             { user: req.uid },
@@ -144,6 +144,28 @@ exports.removeCartItems = (req, res, next) => {
             if (result) {
                 res.status(202).json({ 
                     message: "Producto eliminado del carrito",
+                 });
+            }
+        });
+    }
+}
+
+// new update quantity cart items
+exports.updateCartItems = (req, res, next) => {
+    const { productId, quantity } = req.body;
+    if (productId && quantity) {
+        CartModel.update(
+            { user: req.uid, "cartItems.product": productId },
+            {
+                $set: {
+                    "cartItems.$.quantity": quantity,
+                },
+            }
+        ).exec((error, result) => {
+            if (error) return res.status(400).json({ error });
+            if (result) {
+                res.status(202).json({ 
+                    message: "Cantidad actualizada",
                  });
             }
         });
