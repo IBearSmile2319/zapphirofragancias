@@ -34,6 +34,6 @@ router.get('/category', getCategories);
 const { addItemToCart,getCartItems,removeCartItems } = require('../controller/cart.controller');
 router.post('/cart', validateJWT, addItemToCart);
 router.get('/cart', validateJWT, getCartItems);
-router.put('/cart', validateJWT, removeCartItems);
+router.post('/cart/removeItem', validateJWT, removeCartItems);
 
 module.exports = router;

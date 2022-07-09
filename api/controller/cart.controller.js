@@ -1,4 +1,5 @@
 const CartModel = require('../models/mongo/cart/Cart.model');
+const ImageModel = require('../models/mongo/product/Image.model');
 
 // update cart items
 const runUpdate = (condition, updateData) => {
@@ -84,29 +85,40 @@ exports.getCartItems = (req, res, next) => {
     // TODO: find cart by user id
     CartModel.findOne({ user: req.uid })
         .populate('cartItems.product')
-        // .populate('cartItems.combo')
+        .populate('cartItems.product.productPicture.imgId')
         .populate('user')
-        .exec((error, cart) => {
+        .exec(async (error, cart) => {
             if (error) {
                 return res.status(500).json({
                     message: "Error al buscar el carrito",
                 });
             }
             if (cart) {
-                let cartItems = {}
-                cart.cartItems.forEach((item, index) => {
-                    cartItems[item.product._id.toString()] = {
-                        _id: item.product._id.toString(),
-                        name: item.product.name,
-                        price: item.product.price,
-                        quantity: item.quantity,
-                        // image: item.product.productPinctures[0].imgId.url,
+                ImageModel.populate(cart.cartItems, { path: 'product.productPicture.imgId' }, (err, cart) => {
+                    if (err) return res.status(500).json({
+                        message: "Error al buscar el carrito",
+                    });
+                    if (cart) {
+                        let cartItems = {}
+                        cart.forEach((item, index) => {
+                            let images = item.product.productPicture.map(image => image.imgId.url);
+                            cartItems[item.product._id.toString()] = {
+                                _id: item.product._id.toString(),
+                                slug: item.product.slug,
+                                name: item.product.name,
+                                description: item.product.description,
+                                price: item.product.price,
+                                quantity: item.quantity,
+                                productPicture: images,
+                            }
+                        })
+                        res.status(200).json({
+                            message: "Carrito encontrado",
+                            cartItems
+                        });
                     }
-                })
-                res.status(200).json({
-                    message: "Carrito encontrado",
-                    cartItems,
-                });
+                }
+                )
             }
         })
 
@@ -114,7 +126,9 @@ exports.getCartItems = (req, res, next) => {
 
 // new update remove cart items
 exports.removeCartItems = (req, res, next) => {
-    const { productId } = req.body.payload;
+    const { productId } = req.body;
+    console.log(req.body);
+    console.log(productId)
     if (productId) {
         CartModel.update(
             { user: req.uid },
@@ -128,7 +142,9 @@ exports.removeCartItems = (req, res, next) => {
         ).exec((error, result) => {
             if (error) return res.status(400).json({ error });
             if (result) {
-                res.status(202).json({ result });
+                res.status(202).json({ 
+                    message: "Producto eliminado del carrito",
+                 });
             }
         });
     }

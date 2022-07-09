@@ -141,3 +141,11 @@
     column-gap: 2rem;
     grid-template-columns: 100%;
 }
+
+@media (max-width: 768px) {
+  .zf-cart-main section .cart-pages .pageTwo section .cart-body{
+    padding: 0.5rem;
+    row-gap: 0.5rem;
+    
+  }
+}
