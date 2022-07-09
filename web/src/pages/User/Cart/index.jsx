@@ -3,7 +3,9 @@ import { Link, Outlet } from 'react-router-dom'
 import CartItem from './CartItem'
 import './Cart.css'
 import { Steps } from 'antd'
+import { useSelector } from 'react-redux'
 const Cart = () => {
+    const { cartItems } = useSelector(state => state.cart)
     return (
         <>
             <div
@@ -15,16 +17,16 @@ const Cart = () => {
             <main className="zf-cart-main">
                 <section>
                     <div className="step">
-                        <Steps 
-                        current={0}
-                        size='small'
-                        direction='horizontal'
-                        responsive={false}
-                        className="step-item"
+                        <Steps
+                            current={0}
+                            size='small'
+                            direction='horizontal'
+                            responsive={false}
+                            className="step-item"
                         >
-                            <Steps.Step/>
-                            <Steps.Step/>
-                            <Steps.Step/>
+                            <Steps.Step />
+                            <Steps.Step />
+                            <Steps.Step />
                         </Steps>
                     </div>
                     <h1 className="cart-title">Elige tu método de pago</h1>
@@ -41,9 +43,12 @@ const Cart = () => {
                         <div className="pageTwo">
                             <section className="shopping-cart-template">
                                 <div className="cart-body">
-                                    <CartItem />
-                                    <CartItem />
-                                    <CartItem />
+                                    {
+                                        Object.keys(cartItems).map(key => {
+                                            return <CartItem key={key} item={cartItems[key]} />
+                                        })
+                                    }
+
                                 </div>
                                 <footer className="cart-footer">
                                     <div className="footer-content">

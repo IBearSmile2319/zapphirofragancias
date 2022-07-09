@@ -7,13 +7,13 @@ const CardProduct = ({
     addCart,
     cartItems
 }) => {
-    const picture = product?.productPicture && product?.productPicture.length > 0 ? product?.productPicture[1] : ''
+    const picture = product?.productPicture[0] || ''
     return (
         <article className="card-product">
             <header className="card-header">
                 <div className="img-content">
                     <Link to={`/product/${product.slug}`}>
-                        <img src={picture.imgId.url} alt="product" />
+                        <img src={picture?.imgId?.url || ""} alt="product" />
                     </Link>
                 </div>
                 <div className="card-body">
