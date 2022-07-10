@@ -54,11 +54,20 @@
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
+  display: block;
+
 }
 .card-product .card-header .card-body p{
     color: #717f89;
     font-size: 0.875rem;
     font-weight: 400;
+    /* limite de caracteres */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 .card-product footer.card-footer{
     width: 100%;

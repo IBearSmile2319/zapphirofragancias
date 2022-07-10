@@ -25,7 +25,7 @@ const CardProduct = ({
                         </h3>
                     </Link>
                     <p>
-                        {product.description}
+                        {product.description} 
                     </p>
                 </div>
             </header>

@@ -9,7 +9,7 @@ const CartItem = ({
     item
 }) => {
     const dispatch = useDispatch()
-    const handleMinus = (id,qty) => {
+    const handleMinus = (id, qty) => {
         if (qty > 1) {
             dispatch(updateQuantityCartItem({
                 productId: id,
@@ -17,14 +17,14 @@ const CartItem = ({
             }))
         }
     }
-    const handlePlus = (id,qty) => {
+    const handlePlus = (id, qty) => {
         // stock
         if (qty < item.stock) {
             dispatch(updateQuantityCartItem({
                 productId: id,
                 quantity: qty + 1
             }))
-        }else{
+        } else {
             message.error('No hay stock suficiente')
         }
     }
@@ -34,16 +34,16 @@ const CartItem = ({
         }))
     }
     return (
-        <Badge 
-        count={<DeleteOutlined 
+        <Badge
+            count={<DeleteOutlined
                 onClick={() => {
                     handleDelete(item._id)
                 }
                 }
             />}
-        overflowCount={10}
-        offset={[-10, 40]}
-        style={{ backgroundColor: '#fff', color: 'red' }}
+            overflowCount={10}
+            offset={[-10, 40]}
+            style={{ backgroundColor: '#fff', color: 'red' }}
 
         >
             <article className="cart-item">
@@ -55,7 +55,9 @@ const CartItem = ({
                         <div className="description">
                             {/* <div className="cn"> */}
                             <Link to={`/pruduct/${item.slug}`}>
-                                {item.name}
+                                <span>
+                                    {item.name}
+                                </span>
                             </Link>
                             {/* </div> */}
                             <p>
@@ -81,7 +83,7 @@ const CartItem = ({
                                 type="ghost"
                                 shape="circle"
                                 icon={<MinusOutlined />}
-                                onClick={()=>handleMinus(item._id,item.quantity)}
+                                onClick={() => handleMinus(item._id, item.quantity)}
                             />
                             <Badge
                                 count={item.quantity}
@@ -95,7 +97,7 @@ const CartItem = ({
                                 type="ghost"
                                 shape="circle"
                                 icon={<PlusOutlined />}
-                                onClick={()=>handlePlus(item._id,item.quantity)}
+                                onClick={() => handlePlus(item._id, item.quantity)}
                             />
                         </div>
                     </div>
