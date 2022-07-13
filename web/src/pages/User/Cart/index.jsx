@@ -21,7 +21,7 @@ const Cart = () => {
                          Object.keys(cartItems).length  ?
                             <>
                                 <div className="step">
-                                    <Steps
+                                    {/* <Steps
                                         current={0}
                                         size='small'
                                         direction='horizontal'
@@ -31,7 +31,7 @@ const Cart = () => {
                                         <Steps.Step />
                                         <Steps.Step />
                                         <Steps.Step />
-                                    </Steps>
+                                    </Steps> */}
                                 </div>
                                 <h1 className="cart-title">Elige tu método de pago</h1>
                                 <div className="cart-pages">
