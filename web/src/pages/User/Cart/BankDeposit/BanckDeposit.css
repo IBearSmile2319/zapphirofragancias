@@ -1,0 +1,89 @@
+.cart-payment-template .resume-cart{
+    padding: 2rem;
+}
+.cart-payment-template .resume-cart .description{
+    color: #8e9ba4;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top:0;
+    font-size: 1rem;
+}
+.cart-payment-template .resume-cart .card-pago{
+    margin-bottom: 2rem;
+}
+.cart-payment-template .resume-cart .card-pago label.bank-item{
+    flex-wrap: nowrap;
+    border: 1px solid var(--border-color);
+    background-color: #f9fafb;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    display: flex;
+    padding: 1rem;
+    margin-bottom:0;
+    position: relative;
+    font-size: 0.875rem;
+}
+.resume-cart .card-pago label.bank-item .left{
+    text-align: left;
+}
+.resume-cart .card-pago label.bank-item .left p{
+    line-height: 1.45;
+    color: #273b49;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+.resume-cart .card-pago label.bank-item .left p.mb-0{
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #8e9ba4;
+}
+
+
+/* right */
+.resume-cart .card-pago label.bank-item .right{
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    margin-right: 0;
+    margin-left: auto;
+}
+.resume-cart .card-pago label.bank-item .right img{
+    height: 20px;
+    margin-right: 0.5rem;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.resume-cart .bank-img{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+.resume-cart .bank-img p.title{
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #8e9ba4;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.resume-cart .bank-img .upload{
+    margin-top: 1rem;
+}
+
+.resume-cart .bank-img p.info{
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #e93553;
+    margin-bottom: 0;
+    margin-top: 0;
+}
