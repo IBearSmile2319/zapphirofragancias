@@ -1,0 +1,50 @@
+.affiliate-main {
+  flex-grow: 0;
+  grid-template-columns: repeat(9,calc(11.11111% - 2rem*8/9));
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  column-gap: 2rem;
+  max-width: calc(100% - 4rem);
+}
+
+.affiliate-main .affiliate-list {
+  grid-column-end: span 9;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+.affiliate-main .affiliate-list .list-group {
+  margin-bottom: calc(2rem * 2);
+  margin-top: 0;
+}
+.affiliate-main .affiliate-list .list-group .zf-grid{
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 100%;
+    column-gap: 1rem;
+}
+.affiliate-main .affiliate-list .list-group .zf-grid .comunity-title{
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+
+}
+.affiliate-main .affiliate-list .list-group .zf-grid .comunity-title .title{
+    color: #273b49;
+    margin-right: .5rem;
+}
+
+.affiliate-main .affiliate-list .list-group .zf-grid .featured-user-content{
+    display: grid;
+    grid-template-columns: repeat(9,calc(11.11111% - 2rem*8/9));
+    column-gap: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
