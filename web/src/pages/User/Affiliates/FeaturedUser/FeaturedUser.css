@@ -1,0 +1,90 @@
+.featured-user-content article.featured-user{
+    margin-bottom: 1.5rem;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 1rem;
+    margin-top: 0;
+    grid-column-end: span 2;
+}
+@media (max-width: 768px) {
+    .featured-user-content article.featured-user{
+        grid-column-end: span 3;
+    }
+}
+.featured-user-content article.featured-user .img-user{
+    position: relative;
+    box-shadow: 0 0 0 2px #fbfdfe,0 0 0 4px #b7c1c8;
+    border-radius: 50%;
+    margin-bottom: .5rem;
+}
+.featured-user-content article.featured-user .img-user .user-avatar{
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    flex: none;
+}
+.featured-user-content article.featured-user .img-user .user-avatar .img-content{
+    position:relative;
+    border-radius: 50%;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+.featured-user-content article.featured-user .img-user .user-avatar .img-content img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.featured-user-content article.featured-user p.nickname{
+    max-width: 98px;
+    color: #687782;
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: 0.8125rem;
+    margin-bottom: .25rem;
+    margin-top: 0;
+}
+.featured-user-content article.featured-user p.nickname span.block{
+    display:block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #687782;
+    text-align:center;
+}
+.featured-user-content article.featured-user p.nickname .nickname-data{
+    display: flex;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+.featured-user-content article.featured-user p.nickname .nickname-data .svg-icon{
+    height: 2em;
+    width: 2em;
+    display: inline-block;
+    fill: currentColor;
+    margin-right: .25rem;
+}
+.featured-user-content article.featured-user p.nickname .nickname-data span{
+    color: #687782;
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.8;
+    margin-right: .25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: nowrap;
+}
