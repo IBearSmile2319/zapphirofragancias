@@ -1,6 +1,7 @@
 import { axiosAdminInstance, axiosInstance, axiosUserInstance } from "../helpers/axios"
 import { message } from "antd"
 import { AdminOrder, UserOrderType } from "./constants"
+import { GetCart } from "./cart.action"
 
 // TODO: Admin List Order first order
 export const adminListOrder = (valid) => {
@@ -53,16 +54,24 @@ export const adminAcceptOrder = (orderId, type, typeOrder) => {
 
 
 
+// User 
 
-
-
-
-
-
-
-
-
-
+export const UserSaveOrder = (order) => {
+    return async (dispatch) => {
+        dispatch({ type: UserOrderType.USER_ORDER_REQUEST })
+        await axiosUserInstance.post(`/saveOrder`, order)
+            .then(res => {
+                dispatch({ type: UserOrderType.USER_ORDER_SUCCESS, payload: res.data.message })
+                message.success(res.data.message)
+                setTimeout(() => {
+                    window.location.href = "/orders"
+                }, 1000)
+            }).catch(err => {
+                dispatch({ type: UserOrderType.USER_ORDER_FAILURE, payload: err.response.data.error })
+                message.error(err.response.data.error)
+            })
+    }
+}
 
 
 //TODO: register first order Public

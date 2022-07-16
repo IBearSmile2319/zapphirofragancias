@@ -6,15 +6,19 @@ import checkPayment from '../../../../helpers/PaymentMethod'
 import { useForm } from 'react-hook-form'
 import InputZF from '@components/InputZF'
 import './BanckDeposit.css'
-import { useSelector } from 'react-redux'
-import { Button } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, message } from 'antd'
+import { UserSaveOrder } from '../../../../action/order.action'
+import { FormOrderValidate } from './BankDeposit.validate'
+import { yupResolver } from '@hookform/resolvers/yup'
 const BankDeposit = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [paymentMethod, setPaymentMethod] = useState(null)
   const [image, setImage] = useState('')
   const { cartItems } = useSelector(state => state.cart)
   const { register, handleSubmit, getValues, setValue, formState: { errors } } = useForm({
-    // resolver: yupResolver(FormProductValidate)
+    resolver: yupResolver(FormOrderValidate)
   })
   const verifyLocalStorage = async () => {
     const paymentName = localStorage.getItem('paymentMethod')
@@ -42,6 +46,38 @@ const BankDeposit = () => {
   useEffect(() => {
     verifyLocalStorage()
   }, [])
+  const onSubmit = async (data) => {
+    const form = new FormData()
+    if (!image) {
+      message.error('Suba su comprobante de pago')
+      return
+    }
+    form.append('ownerPersonDeposit', paymentMethod?.person)
+    form.append('ownerNumberDeposit', paymentMethod?.number)
+    form.append('paymentMethod', paymentMethod?.name)
+    form.append('paymentComission', data.paymentComission)
+    form.append('operationNumber', data.operationNumber)
+    form.append('paymentNote', data.paymentNote)
+    form.append('paymentMount', data.paymentMount)
+    form.append('img', image)
+    const items = Object.keys(cartItems).map(key => {
+      return {
+        product: key,
+        quantity: cartItems[key].quantity,
+        price: cartItems[key].subtotal
+      }
+    }).reduce((acc, item) => {
+      return acc.concat(item)
+    }, [])
+    // total de la compra
+    const total = Object.keys(cartItems).reduce((acc, key) => {
+      return acc + parseFloat(cartItems[key]?.subtotal.toFixed(2))
+    }, 0)
+
+    form.append('items', JSON.stringify(items))
+    form.append('total', total)
+    dispatch(UserSaveOrder(form))
+  }
   return (
     <>
       <header className="cart-payment-header">
@@ -57,10 +93,7 @@ const BankDeposit = () => {
         </div>
       </header>
       <form className="resume-cart"
-        onSubmit={handleSubmit(async (data) => {
-          console.log(data)
-        } 
-        )}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <p className="description">
           Para finalizar tu compra, debes realizar la transferencia bancaria a la siguiente cuenta y subir tu conprobante de pago.
@@ -87,7 +120,7 @@ const BankDeposit = () => {
           </div>
           {
             !image &&
-              <p className="info">El camprobante es requerido</p>
+            <p className="info">El camprobante es requerido</p>
           }
           <InputZF
             label="Numero de Operación"
@@ -121,7 +154,7 @@ const BankDeposit = () => {
           />
         </div>
         <div className="bank-btn">
-        <Button
+          <Button
             type="primary"
             htmlType="submit"
             style={{
