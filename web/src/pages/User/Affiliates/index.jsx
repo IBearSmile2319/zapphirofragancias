@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Affiliates.css'
 import FeaturedUser from './FeaturedUser'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAffiliates } from '../../../action/affiliate.action'
+import { Spin } from 'antd'
 const Affiliates = () => {
+  const dispatch = useDispatch()
+  const { affiliates, loading, error } = useSelector(state => state.affiliate)
+  useEffect(() => {
+    dispatch(GetAffiliates())
+  }, [])
   return (
     <>
       <div style={{
@@ -9,41 +17,35 @@ const Affiliates = () => {
         marginBottom: '2rem',
         marginTop: 0,
       }}></div>
-      <div className="affiliate-main">
-        <div className="affiliate-list">
-          <div>
-            <section className="list-group">
-              <div className="zf-grid">
-                <div className="comunity-title">
-                  <b className="title">
-                    Mis afiliados
-                  </b>
+      <Spin
+        spinning={loading}
+      >
+        <div className="affiliate-main">
+          <div className="affiliate-list">
+            <div>
+              <section className="list-group">
+                <div className="zf-grid">
+                  <div className="comunity-title">
+                    <b className="title">
+                      Mis afiliados
+                    </b>
+                  </div>
+                  <div className="featured-user-content">
+                    {Object.keys(affiliates).length > 0 ?
+                      affiliates?.affiliates.map((affiliate, index) => {
+                        return <FeaturedUser key={index} affiliate={affiliate} />
+                      }
+                      )
+                      :
+                      <div>No tienes afiliados</div>
+                    }
+                  </div>
                 </div>
-                <div className="featured-user-content">
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                  <FeaturedUser />
-                </div>
-              </div>
-            </section>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
+      </Spin>
     </>
   )
 }

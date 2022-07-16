@@ -6,11 +6,13 @@ const multerUpload = require('../middlewares/multerUpload');
 
 const router = Router();
 // login
-const { SendDataUser, userRenewToken, userSignIn, userUpdate } = require('../controller/user.controller');
+const { SendDataUser, userRenewToken, userSignIn, userUpdate, getAffiliates } = require('../controller/user.controller');
 router.post('/preregister', valid.user.validatePreRegister, validate, SendDataUser);
 router.post('/sign-in', valid.user.validateLogin, validate, userSignIn);
 router.get('/renewToken', validateJWT, userRenewToken);
 router.put('/update', validateJWT, multerUpload.single("avatar"), userUpdate);
+// affiliates
+router.get('/affiliates', validateJWT,getAffiliates );
 
 // product
 const { getProductsByCategory, getProductsUser } = require('../controller/product.controller');
@@ -36,5 +38,6 @@ router.post('/cart', validateJWT, addItemToCart);
 router.get('/cart', validateJWT, getCartItems);
 router.put('/cart', validateJWT, updateCartItems);
 router.post('/cart/removeItem', validateJWT, removeCartItems);
+
 
 module.exports = router;

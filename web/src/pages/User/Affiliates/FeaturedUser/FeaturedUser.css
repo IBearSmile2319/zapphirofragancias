@@ -43,7 +43,7 @@
     object-fit: cover;
 }
 
-.featured-user-content article.featured-user p.nickname{
+.featured-user-content article.featured-user .nickname{
     max-width: 98px;
     color: #687782;
     font-weight: 400;
@@ -52,7 +52,7 @@
     margin-bottom: .25rem;
     margin-top: 0;
 }
-.featured-user-content article.featured-user p.nickname span.block{
+.featured-user-content article.featured-user .nickname span.block{
     display:block;
     white-space: nowrap;
     overflow: hidden;
@@ -60,7 +60,7 @@
     color: #687782;
     text-align:center;
 }
-.featured-user-content article.featured-user p.nickname .nickname-data{
+.featured-user-content article.featured-user .nickname .nickname-data{
     display: flex;
     margin: auto;
     text-align: center;
@@ -69,14 +69,14 @@
     align-content: center;
     flex-wrap: nowrap;
 }
-.featured-user-content article.featured-user p.nickname .nickname-data .svg-icon{
+.featured-user-content article.featured-user .nickname .nickname-data .svg-icon{
     height: 2em;
     width: 2em;
     display: inline-block;
     fill: currentColor;
     margin-right: .25rem;
 }
-.featured-user-content article.featured-user p.nickname .nickname-data span{
+.featured-user-content article.featured-user .nickname .nickname-data span{
     color: #687782;
     display: inline-block;
     font-size: 0.8125rem;
