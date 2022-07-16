@@ -17,7 +17,28 @@ const UserModel = require("../models/mongo/user/User.model");
 const OrderModel = require("../models/mongo/cart/Order.model");
 const PointsModels = require("../models/mongo/user/Points.models");
 const AffiliatesModels = require("../models/mongo/user/Affiliates.models");
+// cart
+const CartMode = require("../models/mongo/cart/Cart.model");
 
+const orderStatus = [
+    {
+        type: "ordenado",
+        date: new Date(),
+        Completed: true,
+    },
+    {
+        type: "confirmado",
+        Completed: false,
+    },
+    {
+        type: "enviado",
+        Completed: false,
+    },
+    {
+        type: "entregado",
+        Completed: false,
+    },
+]
 
 exports.firstOrder = async (req, res) => {
     const {
@@ -219,25 +240,7 @@ exports.firstOrder = async (req, res) => {
         ],
         total: findCombo.price,
         payment: savePayment._id,
-        orderStatus: [
-            {
-                type: "ordenado",
-                date: new Date(),
-                Completed: true,
-            },
-            {
-                type: "confirmado",
-                Completed: false,
-            },
-            {
-                type: "enviado",
-                Completed: false,
-            },
-            {
-                type: "entregado",
-                Completed: false,
-            },
-        ],
+        orderStatus: orderStatus,
         status: false,
         approved: false,
     })
@@ -302,6 +305,75 @@ exports.firstOrder = async (req, res) => {
     //         error: err
     //     })
     // }
+}
+
+// admin Save order user from template user 
+exports.saveOrderUser = async (req, res) => {
+    const {
+        // payment
+        ownerPersonDeposit,
+        ownerNumberDeposit,
+        paymentMethod,
+        paymentComission,
+        operationNumber,
+        paymentNote,
+        paymentMount,
+    } = req.body
+    CartModel.deleteOne({ user: req.uid }).exec(async (err, result) => {
+        if (err) return res.status(400).json({ err })
+        if (result) {
+            const newPayment = new PaymentModel({
+                user: req.uid,
+                ownerPersonDeposit,
+                ownerNumberDeposit,
+                paymentMethod,
+                operationNumber,
+                paymentNote,
+                paymentMount,
+            })
+            // paymentComission,
+            if (paymentComission && paymentComission !== "" && paymentComission !== "null" && paymentComission !== "undefined") {
+                newPayment.paymentComission = paymentComission;
+            }
+            // img
+            if (req.file) {
+                const imagenPayment = await AzureUpload(req.file, "payments");
+                newPayment.img = imagenPayment.url;
+                // newPayment.img = `/public/payment/${req.file.filename}`
+            }
+            newPayment.save((err, result) => {
+                if (err) return res.status(400).json({ err })
+                if (result) {
+                    const newOrder = new OrderModel({
+                        user: req.uid,
+                        items: [
+                            {
+                                product: req.body.combo,
+                                quantity: req.body.quantity,
+                                price: req.body.price,
+                            }
+                        ],
+                        total: req.body.price,
+                        payment: result._id,
+                        orderStatus: req.body.orderStatus,
+                        status: false,
+                        approved: false,
+                    })
+                    newOrder.save((err, result) => {
+                        if (err) return res.status(400).json({ err })
+                        if (result) {
+                            return res.status(200).json({
+                                success: true,
+                                message: "Pedido guardado",
+                                result
+                            })
+                        }
+                    })
+                }
+
+            })
+        }
+    })
 }
 
 // admin AcceptOrder
@@ -617,6 +689,6 @@ exports.getOrdersByUser = async (req, res) => {
                 }
                 )
             }
-        }   
+        }
         )
 } 

@@ -14,6 +14,7 @@ const UserModel = require("../models/mongo/user/User.model");
 // bcrypt
 const bcrypt = require("bcryptjs");
 const AzureUpload = require("../middlewares/AzureUpload");
+const AffiliatesModels = require("../models/mongo/user/Affiliates.models");
 
 // send email to user
 exports.SendDataUser = async (req, res) => {
@@ -304,4 +305,30 @@ exports.forgotPassword = async (req, res) => {
             error: "Error al enviar el correo"
         })
     }
+}
+
+
+// affiliates
+exports.getAffiliates = async (req, res) => {
+    await AffiliatesModels.findOne({ user: req.uid })
+        .populate("user", "_id username firstName lastName email phone avatar")
+        .populate("affiliates.userId", "_id username firstName lastName email phone avatar")
+        .exec((err, affiliates) => {
+            if (err) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Error al obtener los afiliados"
+                })
+            }
+            if (!affiliates) {
+                return res.status(400).json({
+                    success: false,
+                    error: "No tiene afiliados"
+                })
+            }
+            return res.status(200).json({
+                success: true,
+                affiliates
+            })
+        })
 }
