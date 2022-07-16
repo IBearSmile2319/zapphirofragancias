@@ -5,7 +5,7 @@ import { RightOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import './OrderItem.css'
 const OrderItem = ({
-    order
+    order,
 }) => {
 
     return (
@@ -48,9 +48,12 @@ const OrderItem = ({
                         if (item.combo) {
                             return (
                                 <>
-                                    <div  className="img-list">
+                                    <div key={
+                                        item.combo?._id
+                                    }
+                                        className="img-list">
                                         <Link to="/home" aria-disabled>
-                                            <img src={item.combo.imagen} alt="" type="img/svg" />
+                                            <img src={item.combo.imagen} alt="combo" type="img/svg" />
                                         </Link>
                                     </div>
                                     {/* solo un prodcuto si no es uno pues oculta esto */}
@@ -67,12 +70,16 @@ const OrderItem = ({
                                     </div>
                                 </>
                             )
-                        }else{
+                        } else {
                             return (
                                 <>
-                                    <div  className="img-list">
+                                    <div 
+                                    key={
+                                        item.product?._id
+                                    }
+                                    className="img-list">
                                         <Link to="/home" aria-disabled>
-                                            <img src={item.product.imagen} alt="" />
+                                            <img src={item.product.productPicture[1].imgId.url} alt="product" />
                                         </Link>
                                     </div>
                                     <div className="order-item-info">
@@ -95,7 +102,7 @@ const OrderItem = ({
                             return (
                                 <div key={item._id} className="img-list">
                                     <Link to="/home" aria-disabled>
-                                        <img src={item.product.imagen} alt="" />
+                                        <img src={item.product.productPicture[0].imgId.url} alt="" />
                                     </Link>
                                 </div>
                             )

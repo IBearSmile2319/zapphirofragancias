@@ -22,8 +22,9 @@ router.get('/products/:category', getProductsByCategory);
 
 
 // order
-const { addOrder, getOrdersByUser, getOrdersForVerify, firstOrder } = require('../controller/order.controller');
+const { addOrder, getOrdersByUser, getOrdersForVerify, firstOrder, saveOrderUser } = require('../controller/order.controller');
 router.post('/order', addOrder);
+router.post('/saveOrder', validateJWT,multerUpload.single("img"), saveOrderUser);
 // router.get('/order', getCustomerOrders);
 // router.post('/order/first', multerUpload.single("img"), firstOrder);
 router.get('/orders',validateJWT, getOrdersByUser);

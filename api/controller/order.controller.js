@@ -19,6 +19,8 @@ const PointsModels = require("../models/mongo/user/Points.models");
 const AffiliatesModels = require("../models/mongo/user/Affiliates.models");
 // cart
 const CartMode = require("../models/mongo/cart/Cart.model");
+const CartModel = require("../models/mongo/cart/Cart.model");
+const ImageModel = require("../models/mongo/product/Image.model");
 
 const orderStatus = [
     {
@@ -318,7 +320,11 @@ exports.saveOrderUser = async (req, res) => {
         operationNumber,
         paymentNote,
         paymentMount,
+        // cart
+        items,
+        total
     } = req.body
+    console.log(items)
     CartModel.deleteOne({ user: req.uid }).exec(async (err, result) => {
         if (err) return res.status(400).json({ err })
         if (result) {
@@ -346,16 +352,10 @@ exports.saveOrderUser = async (req, res) => {
                 if (result) {
                     const newOrder = new OrderModel({
                         user: req.uid,
-                        items: [
-                            {
-                                product: req.body.combo,
-                                quantity: req.body.quantity,
-                                price: req.body.price,
-                            }
-                        ],
-                        total: req.body.price,
+                        items: JSON.parse(items),
+                        total: total,
                         payment: result._id,
-                        orderStatus: req.body.orderStatus,
+                        orderStatus: orderStatus,
                         status: false,
                         approved: false,
                     })
@@ -598,11 +598,11 @@ exports.adminGetOrderById = async (req, res) => {
                 })
             }
             if (order) {
-                UserModel.populate(order, {
-                    path: "user.promotion",
-                    model: "User",
-                    select: "username",
-                }, (err, order) => {
+                ImageModel.populate(orders, {
+                    path: "items.product.productPicture.imgId",
+                    model: "Image",
+                    select: "url",
+                }, (err, orders) => {
                     if (err) {
                         return res.status(400).json({
                             success: false,
@@ -610,18 +610,31 @@ exports.adminGetOrderById = async (req, res) => {
                             error: err
                         })
                     }
-                    if (order) {
+                    if (orders) {
+                        UserModel.populate(order, {
+                            path: "user.promotion",
+                            model: "User",
+                            select: "username",
+                        }, (err, order) => {
+                            if (err) {
+                                return res.status(400).json({
+                                    success: false,
+                                    message: "Error al obtener los pedidos",
+                                    error: err
+                                })
+                            }
+                            if (order) {
 
-                        return res.status(200).json({
-                            success: true,
-                            order
+                                return res.status(200).json({
+                                    success: true,
+                                    order
+                                })
+                            }
                         })
                     }
-                }
-                )
+                })
             }
-        }
-        )
+        })
 }
 
 exports.addOrder = async (req, res) => {
@@ -667,10 +680,12 @@ exports.getOrdersByUser = async (req, res) => {
                 })
             }
             if (orders) {
-                UserModel.populate(orders, {
-                    path: "user.promotion",
-                    model: "User",
-                    select: "username",
+                // items.product.productPicture[0].imgId.url
+
+                ImageModel.populate(orders, {
+                    path: "items.product.productPicture.imgId",
+                    model: "Image",
+                    select: "url",
                 }, (err, orders) => {
                     if (err) {
                         return res.status(400).json({
@@ -680,14 +695,30 @@ exports.getOrdersByUser = async (req, res) => {
                         })
                     }
                     if (orders) {
-
-                        return res.status(200).json({
-                            success: true,
-                            orders
-                        })
+                        UserModel.populate(orders, {
+                            path: "user.promotion",
+                            model: "User",
+                            select: "username",
+                        }, (err, orders) => {
+                            if (err) {
+                                return res.status(400).json({
+                                    success: false,
+                                    message: "Error al obtener los pedidos",
+                                    error: err
+                                })
+                            }
+                            if (orders) {
+                                return res.status(200).json({
+                                    success: true,
+                                    orders
+                                })
+                            }
+                        }
+                        )
                     }
                 }
                 )
+
             }
         }
         )
